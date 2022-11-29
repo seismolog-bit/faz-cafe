@@ -27,8 +27,23 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     });
 
-    Route::group(['middleware' => ['auth', 'permission']], function()
+    Route::middleware(['auth', 'permission'])->name('admin.')->prefix('admin')->group(function()
     {
-        Route::resource('inventory', Admin\InventoryController::class);
+        Route::resource('orders', Admin\OrderController::class);
+        Route::resource('order-items', Admin\OrderItemController::class);
+        Route::resource('products', Admin\ProductController::class);
+        Route::resource('product-categories', Admin\ProductCategoryController::class);
+        Route::resource('inventories', Admin\InventoryController::class);
+        Route::resource('putaways', Admin\PutawayController::class);
+        Route::resource('putaway-items', Admin\PutawayItemController::class);
+        Route::resource('receivings', Admin\ReceivingController::class);
+        Route::resource('reveicing-items', Admin\ReceivingItemController::class);
+        Route::resource('rejects', Admin\RejectController::class);
+        Route::resource('reject-items', Admin\RejectItemController::class);
+        Route::resource('tables', Admin\TableController::class);
+        Route::resource('users', Admin\UserController::class);
+        Route::get('users/{user}/activate/', [App\Http\Controllers\Admin\UserController::class, 'activate'])->name('users.activate');
+        Route::resource('roles', Admin\RolesController::class);
+        Route::resource('permissions', Admin\PermissionsController::class);
     });
 });

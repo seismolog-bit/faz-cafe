@@ -18,6 +18,7 @@ class CreateTablesTable extends Migration
             $table->string('name', 60);
             $table->boolean('is_billiard')->default(0);
             $table->string('floor');
+            $table->boolean('is_active')->default(0);
             $table->timestamps();
         });
     }

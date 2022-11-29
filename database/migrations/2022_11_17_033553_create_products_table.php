@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->integer('category_id');
             $table->string('name', 60);
-            $table->string('image', 60)->default('');
+            $table->string('image', 60)->default('assets/img/team/avatar.png');
             $table->string('detail');
             $table->decimal('price', 16, 0)->default(0);
             $table->decimal('discount', 16, 0)->default(0);
