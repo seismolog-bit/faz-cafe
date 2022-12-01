@@ -30,8 +30,7 @@
                     <hr class="navbar-vertical-line" />
 
                     <span class="nav-item-wrapper">
-                        <a class="nav-link dropdown-indicator label-1" href="#transaction"
-                            role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="transaction">
+                        <a class="nav-link dropdown-indicator label-1" href="#transaction" role="button" data-bs-toggle="collapse" aria-expanded="{{ request()->is('admin/orders*') ? 'true' : 'false' }}" aria-controls="transaction">
                             <div class="d-flex align-items-center">
                                 <div class="dropdown-indicator-icon">
                                     <span class="fas fa-caret-right"></span>
@@ -43,10 +42,10 @@
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
-                            <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="transaction">
+                            <ul class="nav collapse parent {{ request()->is('admin/orders*') ? 'show' : '' }}" data-bs-parent="#navbarVerticalCollapse" id="transaction">
                                 <p class="collapsed-nav-item-title d-none">Transaksi</p>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/pricing/pricing-column.html" data-bs-toggle=""
+                                    <a class="nav-link {{ request()->is('admin/orders/create*') ? 'active' : '' }}" href="{{ route('admin.orders.create') }}" data-bs-toggle=""
                                         aria-expanded="false">
                                         <div class="d-flex align-items-center">
                                             <span class="nav-link-text">Buat transaksi</span>
@@ -54,7 +53,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/pricing/pricing-grid.html" data-bs-toggle=""
+                                    <a class="nav-link {{ request()->is('admin/orders/index*') ? 'active' : '' }}" href="{{ route('admin.orders.index', ['status' => 'active']) }}" data-bs-toggle=""
                                         aria-expanded="false">
                                         <div class="d-flex align-items-center">
                                             <span class="nav-link-text">Transaksi aktif</span>
@@ -62,7 +61,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/pricing/pricing-grid.html" data-bs-toggle=""
+                                    <a class="nav-link" href="{{ route('admin.orders.index') }}" data-bs-toggle=""
                                         aria-expanded="false">
                                         <div class="d-flex align-items-center">
                                             <span class="nav-link-text">Laporan transaksi</span>
@@ -75,7 +74,7 @@
 
                     <span class="nav-item-wrapper">
                         <a class="nav-link dropdown-indicator label-1" href="#product"
-                            role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="product">
+                            role="button" data-bs-toggle="collapse" aria-expanded="{{ request()->is('admin/products*') ? 'true' : 'false' }}" aria-controls="product">
                             <div class="d-flex align-items-center">
                                 <div class="dropdown-indicator-icon">
                                     <span class="fas fa-caret-right"></span>
@@ -88,10 +87,10 @@
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
-                            <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="product">
+                            <ul class="nav collapse parent {{ request()->is('admin/products*') ? 'show' : '' }}" data-bs-parent="#navbarVerticalCollapse" id="product">
                                 <p class="collapsed-nav-item-title d-none">Menu</p>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/pricing/pricing-column.html" data-bs-toggle=""
+                                    <a class="nav-link {{ request()->is('admin/products*') ? 'active' : '' }}" href="{{ route('admin.products.index') }}" data-bs-toggle=""
                                         aria-expanded="false">
                                         <div class="d-flex align-items-center">
                                             <span class="nav-link-text">Daftar menu</span>
@@ -99,7 +98,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/pricing/pricing-grid.html" data-bs-toggle=""
+                                    <a class="nav-link {{ request()->is('admin/products/create') ? 'active' : '' }}" href="{{ route('admin.products.create') }}" data-bs-toggle=""
                                         aria-expanded="false">
                                         <div class="d-flex align-items-center">
                                             <span class="nav-link-text">Tambahkan menu</span>
@@ -160,6 +159,14 @@
                             </ul>
                         </div>
                     </span>
+                </li>
+
+                
+                <li class="nav-item">
+                    <!-- label-->
+                    <p class="navbar-vertical-label">Pengaturan</p>
+                    <hr class="navbar-vertical-line" />
+
                     <span class="nav-item-wrapper">
                         <a class="nav-link {{ request()->is('admin/tables*') ? 'active' : '' }} label-1" href="{{ route('admin.tables.index') }}" role="button" data-bs-toggle=""
                             aria-expanded="false">
@@ -170,6 +177,20 @@
                                 </span>
                                 <span class="nav-link-text-wrapper">
                                     <span class="nav-link-text">Meja</span>
+                                </span>
+                            </div>
+                        </a>
+                    </span>
+                    <span class="nav-item-wrapper">
+                        <a class="nav-link {{ request()->is('admin/cards*') ? 'active' : '' }} label-1" href="{{ route('admin.cards.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    {{-- <span data-feather="tables"></span> --}}
+                                    <i class="fas fa-id-card"></i>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Kartu Billiard</span>
                                 </span>
                             </div>
                         </a>

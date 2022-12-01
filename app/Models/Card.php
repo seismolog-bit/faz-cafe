@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductCategory extends Model
+class Card extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'image',
-        'detail'
+        'code',
+        'status'
     ];
 
-    public function product()
+    public function order()
     {
-        return $this->hasMany(Product::class, 'category_id');
+        return $this->hasMany(Order::class, 'card_id');
     }
 }

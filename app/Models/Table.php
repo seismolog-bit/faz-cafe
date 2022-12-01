@@ -14,4 +14,9 @@ class Table extends Model
         'is_billiard',
         'floor'
     ];
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'table_id');
+    }
 }

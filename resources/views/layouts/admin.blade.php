@@ -27,9 +27,12 @@
     <link rel="stylesheet" href="{{ asset('vendors/unicons/release/v4.0.0/css/line.css') }}">
     <link href="{{ asset('assets/css/theme.min.css') }}" type="text/css" rel="stylesheet" id="style-default">
     <link href="{{ asset('assets/css/user.min.css') }}" type="text/css" rel="stylesheet" id="user-style-default">
+
 </head>
 
 <body>
+    @include('sweetalert::alert')
+
     <main class="main" id="top">
         @auth
         <div class="container-fluid px-0" data-layout="container">
@@ -100,7 +103,6 @@
     </main>
 
     @yield('script')
-
     <script src="{{ asset('vendors/popper/popper.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendors/anchorjs/anchor.min.js') }}"></script>

@@ -15,100 +15,92 @@
 </nav>
 <div class="row align-items-center justify-content-between g-3 mb-4">
     <div class="col-auto">
-      <h2 class="mb-0">Profile {{ $user->name }}</h2>
+        <h2 class="mb-0">Profile {{ $user->name }}</h2>
     </div>
     <div class="col-auto">
-      <div class="row g-2 g-sm-3">
-        <div class="col-auto">
-            <a class="btn {{ $user->status ? 'btn-phoenix-danger' : 'btn-phoenix-primary' }} " href="{{ route('admin.users.activate', $user) }}">
-                {{-- {{ $user->status ? '' : '' }} --}}
-                @if ($user->status)
-                <i class="fas fa-user-xmark"></i> Nonaktifkan
-                @else
-                <i class="fas fa-user-plus"></i> Aktifkan User
-                @endif
-            </a>
-        </div>
-        <div class="col-auto">
-            <button class="btn btn-phoenix-secondary"  type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="fas fa-edit"></i> Edit
-            </button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form action="{{ route('admin.users.update', $user) }}" method="post">
-                            @method('patch')
-                            @csrf
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
-                                <button class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close">
-                                    <span class="fas fa-times fs--1"></span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Nama Lengkap</label>
-                                    <input value="{{ $user->name }}" 
-                                        type="text" 
-                                        class="form-control" 
-                                        name="name" 
-                                        placeholder="Name" required>
-                
-                                    @if ($errors->has('name'))
+        <div class="row g-2 g-sm-3">
+            <div class="col-auto">
+                <a class="btn {{ $user->status ? 'btn-phoenix-danger' : 'btn-phoenix-primary' }} "
+                    href="{{ route('admin.users.activate', $user) }}">
+                    {{-- {{ $user->status ? '' : '' }} --}}
+                    @if ($user->status)
+                    <i class="fas fa-user-xmark"></i> Nonaktifkan
+                    @else
+                    <i class="fas fa-user-plus"></i> Aktifkan User
+                    @endif
+                </a>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-phoenix-secondary" type="button" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="{{ route('admin.users.update', $user) }}" method="post">
+                                @method('patch')
+                                @csrf
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                                    <button class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close">
+                                        <span class="fas fa-times fs--1"></span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Nama Lengkap</label>
+                                        <input value="{{ $user->name }}" type="text" class="form-control" name="name"
+                                            placeholder="Name" required>
+
+                                        @if ($errors->has('name'))
                                         <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                                    @endif
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input value="{{ $user->email }}"
-                                        type="email" 
-                                        class="form-control" 
-                                        name="email" 
-                                        placeholder="Email address" readonly>
-                                    @if ($errors->has('email'))
+                                        @endif
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input value="{{ $user->email }}" type="email" class="form-control" name="email"
+                                            placeholder="Email address" readonly>
+                                        @if ($errors->has('email'))
                                         <span class="text-danger text-left">{{ $errors->first('email') }}</span>
-                                    @endif
-                                </div>
-                                <div class="mb-3">
-                                    <label for="no_hp" class="form-label">No HP</label>
-                                    <input value="{{ $user->no_hp }}"
-                                        type="number" 
-                                        class="form-control" 
-                                        name="no_hp" 
-                                        placeholder="08XX XXXX XXXX">
-                                    @if ($errors->has('no_hp'))
+                                        @endif
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="no_hp" class="form-label">No HP</label>
+                                        <input value="{{ $user->no_hp }}" type="number" class="form-control"
+                                            name="no_hp" placeholder="08XX XXXX XXXX">
+                                        @if ($errors->has('no_hp'))
                                         <span class="text-danger text-left">{{ $errors->first('no_hp') }}</span>
-                                    @endif
-                                </div>
-                                <div class="mb-3">
-                                    <label for="role" class="form-label">Role</label>
-                                    <select class="form-control" 
-                                        name="role" required>
-                                        <option value="">Select role</option>
-                                        @foreach($roles as $role)
-                                            <option value="{{ $role->id }}"
-                                                {{ in_array($role->name, $userRole) 
-                                                    ? 'selected'
-                                                    : '' }}>{{ $role->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->has('role'))
+                                        @endif
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="role" class="form-label">Role</label>
+                                        <select class="form-control" name="role" required>
+                                            <option value="">Select role</option>
+                                            @foreach($roles as $role)
+                                            <option value="{{ $role->id }}" {{ in_array($role->name, $userRole)
+                                                ? 'selected'
+                                                : '' }}>{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('role'))
                                         <span class="text-danger text-left">{{ $errors->first('role') }}</span>
-                                    @endif
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Simpan perubahan</button>
-                                <button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Batal</button>
-                            </div>
-                        </form>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="submit">Simpan perubahan</button>
+                                    <button class="btn btn-outline-primary" type="button"
+                                        data-bs-dismiss="modal">Batal</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
 <div class="row g-3 mb-6">
     <div class="col-12 col-lg-8">
@@ -158,7 +150,7 @@
                         <div class="col-auto">
                             <p class="lh-1">
                                 @foreach ($user->roles as $role)
-                                    {{ ucfirst($role->name) }}
+                                {{ ucfirst($role->name) }}
                                 @endforeach
                             </p>
                         </div>

@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('invoice');
+            $table->string('buyer');
             $table->string('table_id');
             $table->string('card_id')->nullable();
             $table->integer('price');
@@ -24,8 +25,8 @@ class CreateOrdersTable extends Migration
             $table->decimal('shipping', 16, 2)->default(0);
             $table->decimal('grand_total', 16, 0)->default(0);
             $table->string('order_status')->default('active');
-            $table->timestamp('start_time');
-            $table->timestamp('end_time')->useCurrent();
+            $table->datetime('start_time')->nullable();
+            $table->datetime('end_time')->nullable();
             $table->timestamps();
         });
     }

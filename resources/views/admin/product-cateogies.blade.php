@@ -23,7 +23,7 @@
         <div class="col-auto">
             <div class="d-flex align-items-center">
                 <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tableAdd">
-                    <span class="fas fa-plus me-2"></span>Tambah meja
+                    <span class="fas fa-plus me-2"></span>Tambah kategori
                 </button>
                 <div class="modal fade" id="tableAdd" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
@@ -31,7 +31,7 @@
                             <form action="{{ route('admin.product-categories.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="tableShowLabel">Tambah meja</h5>
+                                    <h5 class="modal-title" id="tableShowLabel">Tambah kategori</h5>
                                     <button class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close">
                                         <span class="fas fa-times fs--1"></span>
                                     </button>
@@ -42,7 +42,7 @@
                                         <input class="form-control" id="imageLabel" type="file" name="image" value="{{ old('image') }}" accept="image/png, image/jpg, image/jpeg" required />
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label" for="nameLabel">Nama meja </label> 
+                                        <label class="form-label" for="nameLabel">Nama </label> 
                                         <input class="form-control" id="nameLabel" type="text" name="name" value="{{ old('name') }}" required />
                                     </div>
                                     <div class="mb-3">
@@ -66,9 +66,9 @@
             <table class="table table-sm fs--1 mb-0">
                 <thead>
                     <tr>
-                        <th class="sort align-middle" scope="col" data-sort="name" style="width:15%; min-width:150px;">NAMA</th>
-                        <th class="sort align-middle" scope="col" data-sort="category" style="width:15%; min-width:100px;"> DETAIL</th>
-                        <th class="sort align-middle text-end pe-0" scope="col" data-sort="action" style="width:19%;  min-width:200px;">AKSI</th>
+                        <th class="sort align-middle" scope="col" data-sort="name" style="width:15%; min-width:100px;">NAMA</th>
+                        <th class="sort align-middle" scope="col" data-sort="category" style="width:20%; min-width:200px;"> DETAIL</th>
+                        <th class="sort align-middle" scope="col" data-sort="action" style="width:10%;  min-width:100px;">AKSI</th>
                     </tr>
                 </thead>
                 <tbody class="list" id="table-latest-review-body">
@@ -92,14 +92,19 @@
                                         <form action="{{ route('admin.product-categories.store') }}" method="post">
                                             @csrf
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="tableShowLabel">Detail meja</h5>
+                                                <h5 class="modal-title" id="tableShowLabel">Detail kategori</h5>
                                                 <button class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close">
                                                     <span class="fas fa-times fs--1"></span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
+                                                <div class="mb-3 text-center">
+                                                    <div class="avatar avatar-5xl">
+                                                        <img class="rounded" src="{{ asset($category->image) }}" alt="">
+                                                    </div>
+                                                </div>
                                                 <div class="mb-3">
-                                                    <label class="form-label" for="nameLabel">Nama meja </label>
+                                                    <label class="form-label" for="nameLabel">Nama </label>
                                                     <input class="form-control" id="nameLabel" type="text" name="name" value="{{ $category->name }}" readonly />
                                                 </div>
                                                 <div class="mb-3">
@@ -119,18 +124,22 @@
                             <div class="modal fade" id="tableEdit{{ $category->id }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form action="{{ route('admin.product-categories.update', $category) }}" method="post">
+                                        <form action="{{ route('admin.product-categories.update', $category) }}" method="post" enctype="multipart/form-data">
                                             @method('patch')
                                             @csrf
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="tableEditLabel">Edit meja</h5>
+                                                <h5 class="modal-title" id="tableEditLabel">Edit ketegori</h5>
                                                 <button class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close">
                                                     <span class="fas fa-times fs--1"></span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="mb-3">
-                                                    <label class="form-label" for="nameLabel">Nama meja </label>
+                                                    <label class="form-label" for="imageLabel">Ganti Gambar </label> 
+                                                    <input class="form-control" id="imageLabel" type="file" name="image" value="{{ old('image') }}" accept="image/png, image/jpg, image/jpeg" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="nameLabel">Nama </label>
                                                     <input class="form-control" id="nameLabel" type="text" name="name" value="{{ $category->name }}" />
                                                 </div>
                                                 <div class="mb-3">

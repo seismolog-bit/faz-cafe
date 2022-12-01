@@ -18,6 +18,17 @@ class Product extends Model
         'detail',
         'price',
         'discount',
-        'duration'
+        'duration',
+        'archive'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(ProductCategory::class);
+    }
+
+    public function order_items()
+    {
+        return $this->hasMany(OrderItem::class, 'product_id');
+    }
 }

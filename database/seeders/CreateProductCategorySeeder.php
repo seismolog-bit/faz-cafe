@@ -15,8 +15,8 @@ class CreateProductCategorySeeder extends Seeder
     public function run()
     {
         ProductCategory::create([
-            'name' => 'Snack',
-            'detail' => 'Kategori produk snack'
+            'name' => 'Billiard',
+            'detail' => 'Paket billiard'
         ]);
         ProductCategory::create([
             'name' => 'Makanan Berat',
@@ -25,6 +25,10 @@ class CreateProductCategorySeeder extends Seeder
         ProductCategory::create([
             'name' => 'Minuman',
             'detail' => 'Kategori produk minuman'
+        ]);
+        ProductCategory::create([
+            'name' => 'Snack',
+            'detail' => 'Kategori produk snack'
         ]);
     }
 }

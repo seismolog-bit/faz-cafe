@@ -45,18 +45,45 @@ class ProductCategoryController extends Controller
 
         ProductCategory::create($category);
 
-        return redirect()->back()->with('success', 'Kategori produk berhasil di perbarui.');
+        return redirect()->back()->with('success', 'Kategori produk berhasil di buat.');
     }
-    public function update(ProductCategory $category, Request $request){
+
+    public function update($id, Request $request){
         $request->validate([
             'name' => ['required'],
             'detail' => ['required'],
         ]);
 
+        $category = ProductCategory::findOrFail($id);
+
+        // dd($category);
+
+        if($request->file('image'))
+        {
+            $dir = 'media/category/';
+            $url = $request->file('image');
+            $extension = strtolower($url->getClientOriginalExtension()); // get file extension
+            $fileName = time() . '.' . $extension; // rename file
+        
+            // image resize
+            $imgFile = Image::make($url->getRealPath());
+            $imgFile->resize(640, null, function ($constraint) {
+              $constraint->aspectRatio();
+            })->save($dir . $fileName);
+            $destinationPath = public_path($dir);
+            $url->move($destinationPath, $fileName);
+            
+            if (File::exists($category->image)) {
+                File::delete($category->image);
+            }
+            
+            $category['image'] = $dir . $fileName;
+        }
+
         $category->name = $request->name;
         $category->detail = $request->detail;
 
-        $category->update();
+        $category->save();
 
         return redirect()->back()->with('success', 'Kategori produk berhasil di perbarui.');
     }

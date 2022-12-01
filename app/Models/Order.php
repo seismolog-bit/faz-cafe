@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-
-    protected $casts = [
-        'start_time' => 'date:hh:mm',
-        'end_time' => 'date:hh:mm'
-    ];
-
+    
     protected $fillable = [
         'user_id',
+        'invoice',
+        'buyer',
+        'table_id',
+        'card_id',
         'price',
         'tax',
         'shipping',
@@ -24,4 +23,24 @@ class Order extends Model
         'start_time',
         'end_time'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function table()
+    {
+        return $this->belongsTo(Table::class);
+    }
+
+    public function card()
+    {
+        return $this->belongsTo(Card::class);
+    }
+
+    public function order_items()
+    {
+        return $this->hasMany(OrderItem::class, 'order_id');
+    }
 }
