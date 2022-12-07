@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('detail');
             $table->decimal('price', 16, 0)->default(0);
             $table->decimal('discount', 16, 0)->default(0);
-            $table->decimal('duration', 5, 0)->nullable();
+            $table->decimal('duration', 5, 0)->default(0);
             $table->boolean('archive')->default(0);
             $table->timestamps();
         });

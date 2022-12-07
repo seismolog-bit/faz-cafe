@@ -17,7 +17,10 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('invoice');
+            $table->boolean('is_billiard')->default(1);
             $table->string('buyer');
+            $table->string('payment_method')->nullable();
+            $table->string('payment_status')->default('Belum Dibayar');
             $table->string('table_id');
             $table->string('card_id')->nullable();
             $table->integer('price');

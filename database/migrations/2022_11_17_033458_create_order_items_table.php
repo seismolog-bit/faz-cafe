@@ -23,6 +23,8 @@ class CreateOrderItemsTable extends Migration
             $table->decimal('discount', 16, 2)->default(0);
             $table->decimal('grand_total', 16, 2);
             $table->decimal('duration', 16, 0)->default(0);
+            $table->boolean('is_delivery')->default(0);
+            $table->boolean('payment')->default(0);
             $table->timestamps();
         });
     }

@@ -39,6 +39,7 @@
                 </div>
               </div>
             </div>
+            <a class="stretched-link" href="{{ route('card.show', $card->code) }}"></a>
           </div>
         </div>
       </div>

@@ -24,8 +24,6 @@ class CardController extends Controller
     {
         $request->validate(['code' => ['required']]);
 
-        $card_check = Card::where('code', $request->code)->get()->isEmpty();
-
         if (!Card::where('code', $request->code)->get()->isEmpty()) {
             return redirect()->back()->with('error', 'Kartu telah teregistrasi');
         }
@@ -35,25 +33,5 @@ class CardController extends Controller
         Card::create($request->all());
 
         return redirect()->route('admin.cards.index')->with('success', 'Kartu berhasil diregistrasi.');
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -21,7 +21,7 @@ class OrderController extends Controller
         $status = false;
 
         if ($request->status) {
-            $orders->where('status', 'active');
+            $orders = Order::orderBy('id', 'DESC')->where('order_status', 'active')->get();
             $status = true;
         }
 
@@ -30,14 +30,68 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders', 'status'));
     }
 
+    public function index_active()
+    {
+        $orders = Order::orderBy('id', 'DESC')->where('order_status', 'active')->get();
+        return view('admin.orders.index-active', compact('orders'));
+    }
+
     public function show(Order $order)
     {
         return view('admin.orders.show', compact('order'));
     }
 
+    public function edit(Order $order)
+    {
+        $products = Product::orderBy('category_id', 'ASC')->get();
+        return view('admin.orders.edit', compact('order', 'products'));
+    }
+
+    public function checkout(Order $order)
+    {
+        return view('admin.orders.checkout', compact('order'));
+    }
+
+    public function finish(Order $order, Request $request)
+    {
+        $request->validate([
+            'payment_method' => ['required']
+        ]);
+
+        $order->payment_method = $request->payment_method;
+        $order->order_status = 'finish';
+        $order->save();
+        
+        $table = Table::findOrFail($order->table_id);
+        $table->is_active = 0;
+        $table->save();
+
+        $card = Card::findOrFail($order->card_id);
+        $card->status = 0;
+        $card->save();
+
+        $this->_item_finish($order->id);
+
+        return redirect()->route('admin.orders.index_active')->with('success', 'Transaksi berhasil diselesaikan.');
+    }
+
+    private function _item_finish($id)
+    {
+        $items = OrderItem::where('order_id', $id)->get();
+
+        foreach ($items as $item) {
+            $item->payment = 1;
+            $item->is_delivery = 'finish';
+
+            $item->save();
+        }
+    }
+
     public function create()
     {
-        return view('admin.orders.create');
+        $billiards = Order::where('is_billiard', 1)->get();
+        $cafes = Order::where('is_billiard', 0)->get();
+        return view('admin.orders.create', compact('billiards', 'cafes'));
     }
 
     public function store(Request $request)
@@ -91,13 +145,10 @@ class OrderController extends Controller
 
     private function _saveOrder($request, $product)
     {
-        // $time_now = Carbon::now();
-
-        // dd($time_now);
-
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'invoice' => time(),
+            'is_billiard' => $request->card_id ? 1 : 0,
             'buyer' => $request->buyer,
             'table_id' => $request->table_id,
             'card_id' => $request->card_id,
