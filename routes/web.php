@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/', [App\Http\Controllers\Public\PublicController::class, 'index'])->name('index');
 
 Route::get('/o/{card}', [App\Http\Controllers\Public\CardController::class, 'show'])->name('card.show');
 
@@ -49,6 +47,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('orders/{order}', [App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
         Route::get('orders/{order}/edit', [App\Http\Controllers\Admin\OrderController::class, 'edit'])->name('orders.edit');
         Route::get('orders/{order}/checkout', [App\Http\Controllers\Admin\OrderController::class, 'checkout'])->name('orders.checkout');
+        Route::get('orders/{order}/receipt', [App\Http\Controllers\Admin\OrderController::class, 'receipt'])->name('orders.receipt');
         Route::patch('orders/{order}/finish', [App\Http\Controllers\Admin\OrderController::class, 'finish'])->name('orders.finish');
         Route::get('orders/create/activate', [App\Http\Controllers\Admin\OrderController::class, 'create_activate'])->name('orders.create.create_activate');
         Route::get('orders/create/cart', [App\Http\Controllers\Admin\OrderController::class, 'create_cart'])->name('orders.create.create_cart');

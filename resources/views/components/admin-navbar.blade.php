@@ -383,45 +383,53 @@
                 <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-nide-dots shadow border border-300"
                     aria-labelledby="navbarDropdownNindeDots">
                     <div class="card bg-white position-relative border-0">
-                        <div class="card-body pt-3 px-3 pb-0 overflow-auto scrollbar" style="height: 20rem; width: 19rem;">
+                        <div class="card-body pt-3 px-3 pb-0 overflow-auto scrollbar"
+                            style="height: 20rem; width: 19rem;">
                             <div class="row text-center align-items-center gx-0 gy-0">
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
+                                        href="{{ route('admin.carts.index') }}">
+                                        <img src="{{ asset('assets/img/icons/add-to-basket.png') }}" alt=""
+                                            width="30" />
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Tambah Tr.</p>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.orders.index_active') }}">
-                                        <img src="{{ asset('assets/img/icons/card.png') }}" alt="" width="30" />
+                                        <img src="{{ asset('assets/img/icons/money-times.png') }}" alt="" width="30" />
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Tr. Aktif</p>
                                     </a>
                                 </div>
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!">
-                                        <img src="{{ asset('assets/img/icons/add-to-basket.png') }}" alt="" width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Tambah Tr.</p>
+                                        href="{{ route('admin.orders.index') }}">
+                                        <img src="{{ asset('assets/img/icons/expenses.png') }}" alt="" width="30" />
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Laporan Tr.</p>
                                     </a>
                                 </div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/slack.png" alt="" width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Slack</p>
-                                    </a></div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/gitlab.png" alt="" width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Gitlab</p>
-                                    </a></div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/bitbucket.png" alt=""
-                                            width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">BitBucket
+                                <div class="col-4">
+                                    <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
+                                        href="{{ route('admin.products.index') }}">
+                                        <img src="{{ asset('assets/img/icons/burger.png') }}" alt="" width="30" />
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Menus</p>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
+                                        href="{{ route('admin.cooks.index') }}">
+                                        <img src="{{ asset('assets/img/icons/coffee-break.png') }}" alt="" width="30" />
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Pesanan
                                         </p>
-                                    </a></div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/google-drive.png" alt=""
-                                            width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Drive</p>
-                                    </a></div>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
+                                        href="{{ route('admin.cooks.delivery') }}">
+                                        <img src="{{ asset('assets/img/icons/food-delivery.png') }}" alt="" width="30" />
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Antar Psn.</p>
+                                    </a>
+                                </div>
                                 <div class="col-4"><a
                                         class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="#!"><img src="../../assets/img/nav-icons/trello.png" alt="" width="30" />

@@ -53,7 +53,7 @@
                         </tr>
                         @endforeach
                         <tr class="cart-table-row btn-reveal-trigger">
-                            <td class="text-1100 fw-semi-bold ps-0 fs-0" colspan="5">Subtotal:</td>
+                            <td class="text-1100 fw-semi-bold ps-0 fs-0" colspan="6">Subtotal:</td>
                             <td class="text-1100 fw-bold text-end fs-0">{{ number_format($order->grand_total) }}</td>
                         </tr>
                     </tbody>
@@ -115,6 +115,9 @@
                         <h4 class="mb-0">Total :</h4>
                         <h4 class="mb-">{{ number_format($order->grand_total) }}</h4>
                     </div>
+                    <a class="btn btn-secondary w-100 mb-2" href="{{ route('admin.orders.receipt', $order) }}" >Cetak Struk
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
                     <button class="btn btn-primary w-100" type="submit">Selesaikan pesanan
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>

@@ -75,6 +75,11 @@ class OrderController extends Controller
         return redirect()->route('admin.orders.index_active')->with('success', 'Transaksi berhasil diselesaikan.');
     }
 
+    public function receipt(Order $order)
+    {
+        return view('admin.orders.receipt', compact('order'));
+    }
+
     private function _item_finish($id)
     {
         $items = OrderItem::where('order_id', $id)->get();
