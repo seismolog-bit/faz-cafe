@@ -150,10 +150,15 @@ class OrderController extends Controller
 
     private function _saveOrder($request, $product)
     {
+
+        $table = Table::findOrFail($request->table_id);
+
+        dd($table);
+
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'invoice' => time(),
-            'is_billiard' => $request->card_id ? 1 : 0,
+            'is_billiard' => $table->is_billiard ? 1 : 0,
             'buyer' => $request->buyer,
             'table_id' => $request->table_id,
             'card_id' => $request->card_id,

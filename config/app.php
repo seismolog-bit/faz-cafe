@@ -178,6 +178,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class,
     ],
 
     /*

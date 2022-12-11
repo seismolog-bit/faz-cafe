@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\Public\PublicController::class, 'index'])->name('index');
+Route::get('/table-time', [App\Http\Controllers\Public\PublicController::class, 'table_time'])->name('table-time');
 
 Route::get('/o/{card}', [App\Http\Controllers\Public\CardController::class, 'show'])->name('card.show');
 

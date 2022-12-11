@@ -213,8 +213,8 @@
 <body>
     <div class="tm_pos_invoice_wrap">
         <div class="tm_pos_invoice_top">
-            <div class="tm_pos_company_logo">
-                <img src="{{ asset('assets/img/icons/logo.png') }}" alt="" style="width: 120px;">
+            <div class="">
+                <img src="{{ asset('assets/img/icons/logo.png') }}" alt="" style="width: 72px; height: 72px;">
             </div>
             <div class="tm_pos_company_name">FAZ CAFE & BALLS</div>
             <div class="tm_pos_company_address">Sentraland Paradise, RC 17-18, Parung Panjang, Bogor</div>

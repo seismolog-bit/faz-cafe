@@ -11,9 +11,17 @@ use App\Models\Table;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Kreait\Firebase\Database;
 
 class CartController extends Controller
 {
+
+    public function __construct(Database $database)
+    {
+        $this->database = $database;
+        $this->ref_tablename = 'orders';
+    }
+
     public function index()
     {
         $products = Product::orderBy('category_id', 'ASC')->get();
@@ -89,10 +97,6 @@ class CartController extends Controller
             'payment_method' => ['required']
         ]);
 
-        // dd($request->code);
-
-        // dd($request->payment_status);
-
         if(!$request->code)
         {
             return redirect()->back()->with('error', 'Kartu belum di scan');
@@ -106,7 +110,7 @@ class CartController extends Controller
 
         // dd($card_check);
 
-        if($card_check->is_active)
+        if($card_check->status)
         {
             return redirect()->back()->with('error', 'Kartu sedang aktif, gunakan kartu yang lainnya.');
         }
@@ -132,24 +136,19 @@ class CartController extends Controller
         $carts = \Cart::getContent();
         $durations = 0;
 
+        $table = Table::findOrFail($request->table_id);
+
         foreach ($carts as $item) {
             $durations = $durations + $item->associatedModel->duration; 
-        }
-
-        if($request->action == "Belum Bayar")
-        {
-            $payment_status = 'Belum Bayar';
-        }else{
-            $payment_status = 'Lunas';
         }
 
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'invoice' => time(),
-            'is_billiard' => $card->id ? 1 : 0,
+            'is_billiard' => $table->is_billiard ? 1 : 0,
             'buyer' => $request->buyer,
             'payment_method' => $request->payment_method,
-            'payment_status' => $payment_status,
+            'payment_status' => $request->payment_status,
             'table_id' => $request->table_id,
             'card_id' => $card->id,
             'price' => \Cart::getTotal(),
@@ -197,5 +196,17 @@ class CartController extends Controller
 
             // reduc stock 
         }
+    }
+
+    private function _saveFirebaseOrder($order)
+    {   
+        $order = [
+            'table' => $order->table->name,
+            'start_time' => $order->start_time,
+            'end_time' => $order->end_time,
+            'is_billiard' => $order->is_billiard
+        ];
+
+        $postRef = $this->database->getReference($this->ref_tablename)->push($order);
     }
 }

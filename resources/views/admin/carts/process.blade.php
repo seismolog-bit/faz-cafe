@@ -74,10 +74,14 @@
                             <option value="Transfer">Transfer</option>
                         </select>
                     </div>
-                    <button class="btn btn-secondary w-100 mb-2" type="submit" name="action" value="Belum Bayar">Bayar Nanti
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                    <button class="btn btn-primary w-100" type="submit" name="action" value="Lunas">Bayar Sekarang
+                    <div class="mb-4">
+                        <h6 class="mb-2">Status Pembayaran</h6>
+                        <select class="form-select" aria-label="delivery type" name="payment_status">
+                            <option value="Lunas">Lunas</option>
+                            <option value="Bayar Nanti">Bayar Nanti</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit">Simpan Pesanan
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
