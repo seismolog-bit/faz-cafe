@@ -11,6 +11,7 @@ use App\Models\Table;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Kreait\Firebase\Database;
 
 class CartController extends Controller
@@ -108,13 +109,15 @@ class CartController extends Controller
 
         $card_check = Card::where('code', 'like', $card_code)->first();
 
-        // dd($card_check);
+        if(!$card_check)
+        {
+            return redirect()->back()->with('error', 'QR Code tidak terdaftar');
+        }
 
         if($card_check->status)
         {
             return redirect()->back()->with('error', 'Kartu sedang aktif, gunakan kartu yang lainnya.');
         }
-
 
         $order = $this->_saveOrder($request);
         $this->_saveOrderItems($order);
@@ -124,7 +127,14 @@ class CartController extends Controller
         if($order)
         {
             \Cart::clear();
-            return redirect()->route('admin.orders.index_active')->with('success', 'Transaksi berhasil dibuat.');
+
+            if ($order->table_id == 1 || $order->table_id == 2) {
+                Http::get('https://maker.ifttt.com/trigger/turn_on_table_'. $order->table_id .'/json/with/key/dxmlgpnXP6Z1yGMKVQ9s3e');
+            }else{
+                Http::get('https://maker.ifttt.com/trigger/turn_on_table_'. $order->table_id .'/json/with/key/2u0N-dvWv3gxAYvq1u2RP');
+            }
+
+            return redirect()->route('admin.orders.index_active')->with('success', 'Transaksi berhasil dibuat & lampu berhasil dinyalakan.');
         }else{
             return redirect()->back()->with('error', 'Transaksi gagal dibuat!');
         }

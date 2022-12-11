@@ -11,6 +11,9 @@ use App\Models\Table;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+
+// use Illuminate\Support\Facades\Http;
 
 class OrderController extends Controller
 {
@@ -69,6 +72,12 @@ class OrderController extends Controller
         $card = Card::findOrFail($order->card_id);
         $card->status = 0;
         $card->save();
+        
+        if ($order->table_id == 1 || $order->table_id == 2) {
+            Http::get('https://maker.ifttt.com/trigger/turn_off_table_'. $order->table_id .'/json/with/key/dxmlgpnXP6Z1yGMKVQ9s3e');
+        }else{
+            Http::get('https://maker.ifttt.com/trigger/turn_off_table_'. $order->table_id .'/json/with/key/2u0N-dvWv3gxAYvq1u2RP');
+        }
 
         $this->_item_finish($order->id);
 
