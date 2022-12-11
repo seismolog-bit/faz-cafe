@@ -16,8 +16,8 @@ class CreateOrderRealtimesTable extends Migration
         Schema::create('order_realtimes', function (Blueprint $table) {
             $table->id();
             $table->string('table');
-            $table->timestamp('start_time');
-            $table->timestamp('end_time');
+            $table->datetime('start_time');
+            $table->datetime('end_time');
             $table->boolean('status');
             $table->timestamps();
         });
