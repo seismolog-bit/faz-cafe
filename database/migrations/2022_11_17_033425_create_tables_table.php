@@ -19,6 +19,8 @@ class CreateTablesTable extends Migration
             $table->boolean('is_billiard')->default(0);
             $table->string('floor');
             $table->boolean('is_active')->default(0);
+            $table->string('turn_on')->nullable();
+            $table->string('turn_off')->nullable();
             $table->timestamps();
         });
     }

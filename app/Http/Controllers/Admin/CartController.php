@@ -90,9 +90,7 @@ class CartController extends Controller
     public function checkout(Request $request)
     {
 
-        // dd($request);
         $request->validate([
-            // 'payment_status' => ['required'],
             'table_id' => ['required'],
             'buyer' => ['required'],
             'payment_method' => ['required']
@@ -105,11 +103,9 @@ class CartController extends Controller
 
         $card_code = explode('/', $request->code)[4];
 
-        // dd($card_code);
-
         $card_check = Card::where('code', 'like', $card_code)->first();
 
-        if(!$card_check)
+        if(empty($card_check))
         {
             return redirect()->back()->with('error', 'QR Code tidak terdaftar');
         }
@@ -122,16 +118,12 @@ class CartController extends Controller
         $order = $this->_saveOrder($request);
         $this->_saveOrderItems($order);
 
-        // dd($order);
-
         if($order)
         {
             \Cart::clear();
 
-            if ($order->table_id == 1 || $order->table_id == 2) {
-                Http::get('https://maker.ifttt.com/trigger/turn_on_table_'. $order->table_id .'/json/with/key/dxmlgpnXP6Z1yGMKVQ9s3e');
-            }else{
-                Http::get('https://maker.ifttt.com/trigger/turn_on_table_'. $order->table_id .'/json/with/key/2u0N-dvWv3gxAYvq1u2RP');
+            if ($order->is_billiard) {
+                Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id='. $order->table->turn_on);
             }
 
             return redirect()->route('admin.orders.index_active')->with('success', 'Transaksi berhasil dibuat & lampu berhasil dinyalakan.');

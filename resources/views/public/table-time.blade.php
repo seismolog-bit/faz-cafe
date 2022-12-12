@@ -1,77 +1,61 @@
 <!DOCTYPE html>
-<html lang="en-US" dir="ltr">
+<html lang="en">
 
 <head>
+    <!-- Required Meta Tags Always Come First -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- ===============================================-->
-    <!--    Document Title-->
-    <!-- ===============================================-->
-    <title>Faz Cafe & Balls</title>
+    <!-- Title -->
+    <title>Table Time</title>
 
-    <!-- ===============================================-->
-    <!--    Favicons-->
-    <!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/favicons/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicons/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicons/favicon-16x16.png') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicons/favicon.ico') }}">
-    <link rel="manifest" href="{{ asset('assets/img/favicons/manifest.json') }}">
-    <meta name="msapplication-TileImage" content="{{ asset('assets/img/favicons/mstile-150x150.png') }}">
-    <meta name="theme-color" content="#ffffff">
-    <script src="{{ asset('vendors/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
-    <script src="{{ asset('vendors/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ asset('assets/js/config.js') }}"></script>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../favicon.ico">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
-        rel="stylesheet">
-    <link href="{{ asset('vendors/simplebar/simplebar.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('vendors/unicons/release/v4.0.0/css/line.css') }}">
-    <link href="{{ asset('assets/css/theme.min.css') }}" type="text/css" rel="stylesheet" id="style-default">
-    <link href="{{ asset('assets/css/user.min.css') }}" type="text/css" rel="stylesheet" id="user-style-default">
-    <link href="{{ asset('vendors/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-    @livewireStyles
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="front/css/vendor.min.css">
+    <link rel="stylesheet" href="front/vendor/bootstrap-icons/font/bootstrap-icons.css">
+
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="front/css/theme.min.css?v=1.0">
+    <link rel="stylesheet" href="front/css/snippets.css">
 </head>
 
 <body>
-    <main class="main" id="top">
-        <div class="row container-fluid px-0 mx-0">
-            <div class="col-md-9 p-0">
-                <iframe id="ytplayer" type="text/html" src="https://www.youtube.com/embed/QK2BB3KpeSQ?autoplay=1&disablekb=1&enablejsapi=1&loop=1&playsinline=1&color=white" frameborder="0" allowfullscreen style="height: 100vh; width: 100%;"> </iframe>
-            </div>
-            <div class="col-md-3 p-0">
-                {{-- @foreach ($orders as $order) --}}
-                <div class="card overflow-hidden">
-                    <div class="bg-holder d-block bg-card"
-                        style="background-image:url({{ asset('assets/img/spot-illustrations/32.png') }});background-position: top right;">
-                    </div>
-                    <!--/.bg-holder-->
-                    <div class="bg-holder d-none d-sm-block d-lg-none d-xxl-block bg-card"
-                        style="background-image:url({{ asset('assets/img/spot-illustrations/21.png') }});background-position: bottom right; background-size: auto;">
-                    </div>
-                    <!--/.bg-holder-->
-                    <div class="card-body px-5 position-relative">
-                        
-
-                        <livewire:orders-index>
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+        <div class="container-fluid p-0">
+            <div class="video-bg" style="height: 100vh;">
+                <div class="js-video-bg video-bg-content" data-hs-video-bg-options='{
+               "videoId": "front/video/working-in-office"
+             }'></div>
+                <div class="video-bg-replacer-img"
+                    style="background-image: url(front/video/working-in-office.jpg);">
+                </div>
+                <div class="position-absolute w-100 bottom-0 mb-3">
+                    <div class="row justify-content-center m-0">
+                        @foreach ($orders as $order)
+                        <div class="col-md-4 col-lg-3 py-3">
+                            <div class="card card-bordered">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <div class="col-sm-6">{{ $order->table->name }} - Lantai {{ $order->table->floor }}</div>
+                                        <div class="col-sm-6 text-end">
+                                            <h4 data-countdown="{{ Carbon\Carbon::parse($order->end_time) }}"></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
-                {{-- @endforeach --}}
             </div>
         </div>
-        {{-- <iframe id="ytplayer" type="text/html"
-            src="https://www.youtube.com/embed/QK2BB3KpeSQ?autoplay=1&disablekb=1&enablejsapi=1&loop=1&playsinline=1&color=white"
-            frameborder="0" allowfullscreen style="height: 100vh; width: 100%;"> --}}
-
-        </iframe>
-
     </main>
-
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.js"></script>
 
     <script type="text/javascript" src="//cdn.rawgit.com/hilios/jQuery.countdown/2.0.4/dist/jquery.countdown.min.js"></script>
@@ -88,42 +72,26 @@
         });
     </script>
 
-<script>
-    const notes = document.querySelector('.notes');
-    function addNote(note) {
-        notes.insertAdjacentHTML('beforeend', note);
-    }
-    function deleteNote(id){
-        let note = document.querySelector(`[data-note="${id}"]`);
-        note.remove()
-    }
-    
-    laratime.db('notes') 
-            .on('added', ({model}) => {
-                let {id, body}  = model;
-                let note = `<li data-note="${id}">${body}</li>`;
-                addNote(note)
-            })
-            .on('deleted', ({model}) => {
-                let {id} = model;
-                deleteNote(id);
-            })
-</script>
+    <script src="front/js/vendor.min.js"></script>
+    <script src="front/js/theme.min.js"></script>
 
-@livewireScripts
-    
-    <script src="{{ asset('vendors/popper/popper.min.js') }}"></script>
-    <script src="{{ asset('vendors/bootstrap/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('vendors/anchorjs/anchor.min.js') }}"></script>
-    <script src="{{ asset('vendors/is/is.min.js') }}"></script>
-    <script src="{{ asset('vendors/fontawesome/all.min.js') }}"></script>
-    <script src="{{ asset('vendors/lodash/lodash.min.js') }}"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-    <script src="{{ asset('vendors/list.js/list.min.js') }}"></script>
-    <script src="{{ asset('vendors/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('vendors/dayjs/dayjs.min.js') }}"></script>
-    <script src="{{ asset('assets/js/phoenix.js') }}"></script>
-    <script src="{{ asset('vendors/swiper/swiper-bundle.min.js') }}"></script>
+    <script>
+        (function () {
+            new HSGoTo('.js-go-to')
+
+            new HSMegaMenu('.js-mega-menu', {
+                desktop: {
+                    position: 'left'
+                }
+            })
+
+            HSCore.components.HSTyped.init('.js-typedjs')
+
+            document.querySelectorAll('.js-video-bg').forEach(item => {
+                new HSVideoBg(item).init()
+            })
+        })()
+    </script>
 </body>
 
 </html>

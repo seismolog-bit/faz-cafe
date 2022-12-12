@@ -73,10 +73,8 @@ class OrderController extends Controller
         $card->status = 0;
         $card->save();
         
-        if ($order->table_id == 1 || $order->table_id == 2) {
-            Http::get('https://maker.ifttt.com/trigger/turn_off_table_'. $order->table_id .'/json/with/key/dxmlgpnXP6Z1yGMKVQ9s3e');
-        }else{
-            Http::get('https://maker.ifttt.com/trigger/turn_off_table_'. $order->table_id .'/json/with/key/2u0N-dvWv3gxAYvq1u2RP');
+        if ($order->is_billiard) {
+            Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id='. $order->table->turn_off);
         }
 
         $this->_item_finish($order->id);
@@ -159,10 +157,7 @@ class OrderController extends Controller
 
     private function _saveOrder($request, $product)
     {
-
         $table = Table::findOrFail($request->table_id);
-
-        dd($table);
 
         $order = Order::create([
             'user_id' => Auth::user()->id,
@@ -207,7 +202,6 @@ class OrderController extends Controller
     private function _orderUpdatePrice($id)
     {
         $order = Order::findOrFail($id);
-
         $order->price = OrderItem::where('order_id', $id)->sum('grand_total');
         $order->grand_total = OrderItem::where('order_id', $id)->sum('grand_total');
 
