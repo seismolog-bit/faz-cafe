@@ -7,9 +7,16 @@ use App\Models\Order;
 use App\Models\OrderRealtime;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Kreait\Firebase\Database;
 
 class PublicController extends Controller
 {
+    public function __construct(Database $database)
+    {
+        $this->database = $database;
+        $this->ref_orders = 'orders';
+    }
+    
     public function index()
     {
         $products = Product::all();
@@ -19,10 +26,8 @@ class PublicController extends Controller
 
     public function table_time()
     {   
-        $orders = Order::where('order_status', 'active')->where('is_billiard', 1)->get();
+        $orders = $this->database->getReference($this->ref_orders)->getValue();
 
-        $order_realtimes = OrderRealtime::all();
-
-        return view('public.table-time', compact('orders', 'order_realtimes'));
+        return view('public.table-time', compact('orders'));
     }
 }

@@ -46,23 +46,24 @@
                     </tr>
                 </thead>
                 <tbody class="list" id="table-latest-review-body">
-                    @foreach ($order_items as $item)
+                    @if (is_array($order_items) || is_object($order_items))
+                    @forelse ($order_items as $key => $item)
                     <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                         <td class="buyer white-space-nowrap">
-                            {{ $item->product->name }}
+                            {{ $item['product'] }}
                         </td>
                         <td class="buyer white-space-nowrap">
-                            {{ $item->order->buyer }}
+                            {{ $item['buyer'] }}
                         </td>
                         <td class="table white-space-nowrap">
-                            {{ $item->order->table->name }}
+                            {{ $item['table'] }} - Lantai {{ $item['floor']}}
                         </td>
                         
                         <td class="table white-space-nowrap text-center">
-                            {{ $item->qty }}
+                            {{ $item['qty'] }}
                         </td>
                         <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4 text-end">
-                            <form action="{{ route('admin.cooks.finish', $item->id) }}" method="post">
+                            <form action="{{ route('admin.cooks.finish', $key) }}" method="post">
                                 @csrf
                                 <button class="btn btn-primary" type="submit">
                                     <span class="fas fa-check me-2"></span>Selesaikan
@@ -71,7 +72,12 @@
                         </td>
 
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="5">Belum ada pesanan yang harus di antar</td>
+                    </tr>
+                    @endforelse
+                    @endif
                 </tbody>
             </table>
         </div>

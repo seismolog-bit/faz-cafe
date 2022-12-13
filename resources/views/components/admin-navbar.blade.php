@@ -430,51 +430,27 @@
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Antar Psn.</p>
                                     </a>
                                 </div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/trello.png" alt="" width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Trello</p>
-                                    </a></div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/figma.png" alt="" width="20" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Figma</p>
-                                    </a></div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/twitter.png" alt="" width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Twitter</p>
-                                    </a></div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/pinterest.png" alt=""
-                                            width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Pinterest
-                                        </p>
-                                    </a></div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/ln.png" alt="" width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Linkedin
-                                        </p>
-                                    </a></div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/google-maps.png" alt=""
-                                            width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Maps</p>
-                                    </a></div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/google-photos.png" alt=""
-                                            width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Photos</p>
-                                    </a></div>
-                                <div class="col-4"><a
-                                        class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="#!"><img src="../../assets/img/nav-icons/spotify.png" alt="" width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Spotify</p>
-                                    </a></div>
+                                <div class="col-4">
+                                    <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
+                                        href="{{ route('admin.tables.index') }}">
+                                        <img src="{{ asset('assets/img/icons/chair.png') }}" alt="" width="30" />
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Table</p>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
+                                        href="{{ route('admin.users.index') }}">
+                                        <img src="{{ asset('assets/img/icons/man.png') }}" alt="" width="30" />
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Users</p>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
+                                        href="{{ route('admin.roles.index') }}">
+                                        <img src="{{ asset('assets/img/icons/gear-assembly.png') }}" alt="" width="30" />
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Toles</p>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

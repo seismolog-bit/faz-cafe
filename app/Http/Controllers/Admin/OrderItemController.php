@@ -7,9 +7,15 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Kreait\Firebase\Database;
 
 class OrderItemController extends Controller
 {
+    public function __construct(Database $database)
+    {
+        $this->database = $database;
+        $this->ref_order_items = 'order_items';
+    }
 
     public function store(Request $request)
     {
@@ -19,13 +25,11 @@ class OrderItemController extends Controller
             'product_id' => ['required']
         ]);
 
-        // if ($validator->fails()) {
-        //     return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
-        // }
+        $order = Order::findOrFail($request->order_id);
 
         $product = Product::findOrFail($request->product_id);
 
-        OrderItem::create([
+        $order_item = OrderItem::create([
             'order_id' => $request->order_id,
             'product_id' => $product->id,
             'price' => $product->price,
@@ -33,7 +37,22 @@ class OrderItemController extends Controller
             'total' => $product->price * $request->qty,
             'grand_total' => $product->price * $request->qty,
             'duration' => $product->duration ?? 0,
+            'is_delivery' => $product->category_id == 1 ? 'finish' : 'pending',
         ]);
+
+        if ($product->category_id != 1) {
+            $ref_order_item = [
+                'id' => $order_item->id,
+                'product' => $product->name,
+                'buyer' => $order->buyer,
+                'qty' => $request->qty,
+                'table' => $order->table->name,
+                'floor' => $order->table->name,
+                'is_delivery' => 'pending',
+            ];
+    
+            $this->database->getReference($this->ref_order_items)->push($ref_order_item);
+        }
 
         $this->_update_price($request->order_id);
 
@@ -45,10 +64,6 @@ class OrderItemController extends Controller
         $request->validate([
             'qty' => ['required'],
         ]);
-
-        // if ($validator->fails()) {
-        //     return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
-        // }
 
         $item = OrderItem::findOrFail($id);
 
@@ -79,9 +94,6 @@ class OrderItemController extends Controller
 
         $order->price = $order->order_items->sum('grand_total');
         $order->grand_total = $order->order_items->sum('grand_total');
-
-        // dd($order->price);
-
 
         $order->save();
     }

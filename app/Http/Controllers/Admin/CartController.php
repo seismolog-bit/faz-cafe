@@ -20,7 +20,8 @@ class CartController extends Controller
     public function __construct(Database $database)
     {
         $this->database = $database;
-        $this->ref_tablename = 'orders';
+        $this->ref_orders = 'orders';
+        $this->ref_order_items = 'order_items';
     }
 
     public function index()
@@ -51,8 +52,6 @@ class CartController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request);
-
         \Cart::update(
             $request->id,
             [
@@ -172,6 +171,11 @@ class CartController extends Controller
         $table->is_active = 1;
         $table->save();
 
+        if($order->is_billiard)
+        {
+            $this->_saveFirebaseOrder($order);
+        }
+
         // dd($order);
 
         return $order;
@@ -184,7 +188,7 @@ class CartController extends Controller
 
             $product = Product::findOrFail($item->id);
 
-            OrderItem::create([
+            $order_item = OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $item->id,
                 'price' => $item->price,
@@ -196,7 +200,20 @@ class CartController extends Controller
                 'is_delivery' => $product->category_id == 1 ? 'finish' : 'pending',
             ]);
 
-            // reduc stock 
+            if($order_item->is_delivery == 'pending')
+            {
+                $ref_order_item = [
+                    'id' => $order_item->id,
+                    'product' => $order_item->product->name,
+                    'buyer' => $order->buyer,
+                    'qty' => $order_item->qty,
+                    'table' => $order->table->name,
+                    'floor' => $order->table->floor,
+                    'is_delivery' => 'pending',
+                ];
+        
+                $this->database->getReference($this->ref_order_items)->push($ref_order_item);
+            }
         }
     }
 
@@ -204,11 +221,12 @@ class CartController extends Controller
     {   
         $order = [
             'table' => $order->table->name,
+            'floor' => $order->table->floor,
             'start_time' => $order->start_time,
             'end_time' => $order->end_time,
-            'is_billiard' => $order->is_billiard
+            'order_id' => $order->id
         ];
 
-        $postRef = $this->database->getReference($this->ref_tablename)->push($order);
+        $this->database->getReference($this->ref_orders)->push($order);
     }
 }
