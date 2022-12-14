@@ -53,7 +53,7 @@
                         <p class="mb-2"><small>*Scan kartu untuk mengaktifkan kartu</small></p>
                         <div class="mb-2" id="reader" width="320px"></div>
                         {{-- <input type="text" name="card_id" class="form-control" required> --}}
-                        <input class="form-control" id="code" type="text" name="code" readonly placeholder="Scan QRCode Kartu" required />
+                        <input class="form-control" id="code" type="text" name="code" readonly placeholder="Scan QRCode Kartu" />
                     </div>
                     <div class="mb-4">
                         <h6 class="mb-2">Pembeli Atas Nama</h6>

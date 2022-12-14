@@ -410,16 +410,17 @@
                                 </div>
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="{{ route('admin.products.index') }}">
-                                        <img src="{{ asset('assets/img/icons/burger.png') }}" alt="" width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Menus</p>
+                                        href="{{ route('admin.cooks.index') }}">
+                                        <img src="{{ asset('assets/img/icons/lunch-time.png') }}" alt="" width="30" />
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Psn. Makanan
+                                        </p>
                                     </a>
                                 </div>
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="{{ route('admin.cooks.index') }}">
+                                        href="{{ route('admin.cooks.index', ['category' => 'minuman']) }}">
                                         <img src="{{ asset('assets/img/icons/coffee-break.png') }}" alt="" width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Pesanan
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Psn. Minuman
                                         </p>
                                     </a>
                                 </div>
@@ -432,9 +433,16 @@
                                 </div>
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
+                                        href="{{ route('admin.products.index') }}">
+                                        <img src="{{ asset('assets/img/icons/burger.png') }}" alt="" width="30" />
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Menu</p>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.tables.index') }}">
                                         <img src="{{ asset('assets/img/icons/chair.png') }}" alt="" width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Table</p>
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Set. Table</p>
                                     </a>
                                 </div>
                                 <div class="col-4">
@@ -448,7 +456,7 @@
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.roles.index') }}">
                                         <img src="{{ asset('assets/img/icons/gear-assembly.png') }}" alt="" width="30" />
-                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Toles</p>
+                                        <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Roles</p>
                                     </a>
                                 </div>
                             </div>

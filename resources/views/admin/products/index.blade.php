@@ -64,7 +64,7 @@
                             {!! $product->detail !!}
                         </td> --}}
                         <td class="stock align-middle white-space-nowrap">
-                            {{ $product->duration }} menit
+                            {{ $product->category_id == 1 ? $product->duration . ' menit' : $product->stock . ' pcs' }}
                         </td>
                         <td class="stock align-middle white-space-nowrap">
                             {{ number_format($product->price, 0) }}

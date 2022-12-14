@@ -95,26 +95,29 @@ class CartController extends Controller
             'payment_method' => ['required']
         ]);
 
-        if(!$request->code)
-        {
-            return redirect()->back()->with('error', 'Kartu belum di scan');
-        }
+        // if(!$request->code)
+        // {
+        //     return redirect()->back()->with('error', 'Kartu belum di scan');
+        // }
 
-        $card_code = explode('/', $request->code)[4];
+        if ($request->card) {
+            $card_code = explode('/', $request->code)[4];
 
-        $card_check = Card::where('code', 'like', $card_code)->first();
+            $card_check = Card::where('code', 'like', $card_code)->first();
 
-        if(empty($card_check))
-        {
-            return redirect()->back()->with('error', 'QR Code tidak terdaftar');
-        }
+            if(empty($card_check))
+            {
+                return redirect()->back()->with('error', 'QR Code tidak terdaftar');
+            }
 
-        if($card_check->status)
-        {
-            return redirect()->back()->with('error', 'Kartu sedang aktif, gunakan kartu yang lainnya.');
+            if($card_check->status)
+            {
+                return redirect()->back()->with('error', 'Kartu sedang aktif, gunakan kartu yang lainnya.');
+            }
         }
 
         $order = $this->_saveOrder($request);
+
         $this->_saveOrderItems($order);
 
         if($order)
@@ -133,16 +136,17 @@ class CartController extends Controller
 
     private function _saveOrder($request)
     {
-        $card = Card::where('code', 'like', explode('/', $request->code)[4])->first();
-        $carts = \Cart::getContent();
         $durations = 0;
 
         $table = Table::findOrFail($request->table_id);
+        $carts = \Cart::getContent();
 
+        
         foreach ($carts as $item) {
-            $durations = $durations + $item->associatedModel->duration; 
+            $durations = $durations + ($item->associatedModel->duration * $item->quantity); 
         }
-
+        
+        
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'invoice' => time(),
@@ -151,7 +155,7 @@ class CartController extends Controller
             'payment_method' => $request->payment_method,
             'payment_status' => $request->payment_status,
             'table_id' => $request->table_id,
-            'card_id' => $card->id,
+            'card_id' => explode('/', $request->code)[4] ?? null,
             'price' => \Cart::getTotal(),
             'tax' => 0,
             'shipping' => 0,
@@ -163,20 +167,20 @@ class CartController extends Controller
 
         // dd($order);
 
-        $card = Card::findOrFail($order->card_id);
-        $card->status = 1;
-        $card->save();
+        if ($order->card_id) {
+            $card = Card::findOrFail($order->card_id);
+            $card->status = 1;
+            $card->save();
+        }
 
         $table = Table::findOrFail($order->table_id);
         $table->is_active = 1;
         $table->save();
 
-        if($order->is_billiard)
-        {
-            $this->_saveFirebaseOrder($order);
-        }
-
-        // dd($order);
+        // if($order->is_billiard)
+        // {
+        //     $this->_saveFirebaseOrder($order);
+        // }
 
         return $order;
     }
@@ -195,7 +199,7 @@ class CartController extends Controller
                 'qty' => $item->quantity,
                 'total' => $item->price * $item->quantity,
                 'grand_total' => $item->price * $item->quantity,
-                'duration' => $item->associatedModel->duration ?? 0,
+                'duration' => ($item->associatedModel->duration * $item->quantity) ?? 0,
                 'payment' => ($order->payment_status == 'Lunas') ? 1 : 0,
                 'is_delivery' => $product->category_id == 1 ? 'finish' : 'pending',
             ]);

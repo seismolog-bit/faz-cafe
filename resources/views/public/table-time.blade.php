@@ -37,93 +37,33 @@
                 </div>
                 <div class="position-absolute w-100 bottom-0 mb-3">
                     <div class="row justify-content-center m-0">
-                        @if (is_array($orders) || is_object($orders))
-                        @forelse ($orders as $key => $order)
-                        <div class="col-md-4 col-lg-3 py-3">
-                            <div class="card card-bordered">
-                                <div class="card-body p-3">
-                                    <div class="row">
-                                        <div class="col-sm-6">{{ $order['table'] }} - Lantai {{ $order['floor'] }}</div>
-                                        <div class="col-sm-6 text-end">
-                                            <h4 data-countdown="{{ Carbon\Carbon::parse($order['end_time'])->tz('Asia/Jakarta') }}"></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @empty
-                        @endforelse
-                        @endif
+
+                        <div id="order_datas"></div>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    {{-- <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js"></script> --}}
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.js"></script>
 
     <script type="text/javascript" src="//cdn.rawgit.com/hilios/jQuery.countdown/2.0.4/dist/jquery.countdown.min.js"></script>
 
-    {{-- <script>
-        $(document).ready(function(){
-            var firebaseConfig = {
-                apiKey: "{{ config('services.firebase.apiKey') }}",
-                authDomain: "{{ config('services.firebase.authDomain') }}",
-                databaseURL: "{{ config('services.firebase.databaseUrl') }}",
-                projectId: "{{ config('services.firebase.projectId') }}",
-                storageBucket: "{{ config('services.firebase.storageBucket') }}",
-                messagingSenderId: "{{ config('services.firebase.messagingSenderId') }}",
-                appId: "{{ config('services.firebase.appId') }}",
-                measurementId: "{{ config('services.firebase.measurementId') }}"
-            };
-
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-            const analytics = getAnalytics(app);
-        })
-    </script> --}}
-
-    <script type="text/javascript">
-        $(function() {
-            $('[data-countdown]').each(function() {
-                var $this = $(this), finalDate = $(this).data('countdown');
-                $this.countdown(finalDate, function(event) {
-                    $this.html(event.strftime('%H:%M:%S'));
-                });
+    <script>
+        function fetchdata(){
+            $.get("{{ url('fetch_order') }}", {}, function(data, status) {
+                $("#order_datas").html(data);
             });
+        }
+
+        $(document).ready(function(){
+            setInterval(fetchdata,2000);
         });
     </script>
 
     <script src="front/js/vendor.min.js"></script>
     <script src="front/js/theme.min.js"></script>
-
-    
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "{{ config('services.firebase.apiKey') }}",
-            authDomain: "{{ config('services.firebase.authDomain') }}",
-            databaseURL: "{{ config('services.firebase.databaseUrl') }}",
-            projectId: "{{ config('services.firebase.projectId') }}",
-            storageBucket: "{{ config('services.firebase.storageBucket') }}",
-            messagingSenderId: "{{ config('services.firebase.messagingSenderId') }}",
-            appId: "{{ config('services.firebase.appId') }}",
-            measurementId: "{{ config('services.firebase.measurementId') }}"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-      </script>
 
     <script>
         (function () {

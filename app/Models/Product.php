@@ -19,6 +19,7 @@ class Product extends Model
         'price',
         'discount',
         'duration',
+        'stock',
         'archive'
     ];
 

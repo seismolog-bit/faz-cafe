@@ -56,6 +56,8 @@ class ProductController extends Controller
             $product['image'] = $dir . $fileName;
         }
 
+        // dd($request);
+
         $product = Product::create($product);
 
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dibuat');

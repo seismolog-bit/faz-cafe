@@ -12,17 +12,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Kreait\Firebase\Database;
-
-// use Illuminate\Support\Facades\Http;
 
 class OrderController extends Controller
 {
-    public function __construct(Database $database)
-    {
-        $this->database = $database;
-        $this->ref_orders = 'orders';
-    }
 
     public function index(Request $request) 
     {
@@ -68,6 +60,7 @@ class OrderController extends Controller
             'payment_method' => ['required']
         ]);
 
+
         $order->payment_method = $request->payment_method;
         $order->order_status = 'finish';
         $order->save();
@@ -84,18 +77,9 @@ class OrderController extends Controller
             Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id='. $order->table->turn_off);
         }
 
+        dd($order->order_status);
+
         $this->_item_finish($order->id);
-
-
-        // Firebase delete order 
-        if ($order->is_billiard) {
-            $ref_childs = $this->database->getReference($this->ref_orders)->getValue();
-            foreach ($ref_childs as $key => $value) {
-                if ($order->id == $value['order_id']) {
-                    $this->database->getReference($this->ref_orders. '/' . $key)->remove();
-                }
-            }
-        }
 
         return redirect()->route('admin.orders.index_active')->with('success', 'Transaksi berhasil diselesaikan.');
     }

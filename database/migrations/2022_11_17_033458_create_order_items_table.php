@@ -25,6 +25,7 @@ class CreateOrderItemsTable extends Migration
             $table->decimal('duration', 16, 0)->default(0);
             $table->boolean('is_delivery')->default(0);
             $table->boolean('payment')->default(0);
+            $table->string('payment_methode')->nullable();
             $table->timestamps();
         });
     }

@@ -27,9 +27,6 @@
         </div>
         <div class="col-auto">
             <div class="d-flex align-items-center">
-                {{-- <a class="btn btn-primary" href="{{ route('admin.users.create') }}">
-                    <span class="fas fa-plus me-2"></span>Tambah user
-                </a> --}}
             </div>
         </div>
     </div>
@@ -46,38 +43,30 @@
                     </tr>
                 </thead>
                 <tbody class="list" id="table-latest-review-body">
-                    @if (is_array($order_items) || is_object($order_items))
-                    @forelse ($order_items as $key => $item)
+                    @foreach ($order_items as $item)
                     <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                         <td class="buyer white-space-nowrap">
-                            {{ $item['product'] }}
+                            {{ $item->product->name }}
                         </td>
                         <td class="buyer white-space-nowrap">
-                            {{ $item['buyer'] }}
+                            {{ $item->order->buyer }}
                         </td>
                         <td class="table white-space-nowrap">
-                            {{ $item['table'] }} - Lantai {{ $item['floor'] }}
+                            {{ $item->order->table->name }} - Lantai {{ $item->order->table->floor }}
                         </td>
-                        
                         <td class="table white-space-nowrap text-center">
-                            {{ $item['floor'] }}
+                            {{ $item->qty }}
                         </td>
                         <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4 text-end">
-                            <form action="{{ route('admin.cooks.update', $key) }}" method="post">
+                            <form action="{{ route('admin.cooks.update', $item) }}" method="post">
                                 @csrf
                                 <button class="btn btn-primary" type="submit">
                                     <span class="fas fa-check me-2"></span>Siap antar
                                 </button>
                             </form>
                         </td>
-
                     </tr>
-                    @empty
-                    <tr>
-                        <td colspan="5">Belum ada pesanan yang harus dibuat</td>
-                    </tr>
-                    @endforelse
-                    @endif
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -97,6 +86,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection

@@ -9,6 +9,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Database;
 
+use function Sodium\compare;
+
 class PublicController extends Controller
 {
     public function __construct(Database $database)
@@ -25,9 +27,16 @@ class PublicController extends Controller
     }
 
     public function table_time()
-    {   
-        $orders = $this->database->getReference($this->ref_orders)->getValue();
+    {
+
+        $orders= [];
 
         return view('public.table-time', compact('orders'));
+    }
+
+    public function fetch_order(){
+        $datas = Order::where('is_billiard', 1)->where('order_status', 'active')->get();
+
+        return view('public.fetch-order', compact('datas'));
     }
 }
