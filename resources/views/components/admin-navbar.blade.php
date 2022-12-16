@@ -128,7 +128,7 @@
                         </div>
                     </span>
 
-                    <span class="nav-item-wrapper">
+                    {{-- <span class="nav-item-wrapper">
                         <a class="nav-link dropdown-indicator label-1" href="#stock" role="button"
                             data-bs-toggle="collapse" aria-expanded="false" aria-controls="stock">
                             <div class="d-flex align-items-center">
@@ -170,7 +170,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </span>
+                    </span> --}}
 
                     <span class="nav-item-wrapper">
                         <a class="nav-link {{ request()->is('admin/cooks') ? 'active' : '' }} label-1"
@@ -202,6 +202,69 @@
                     </span>
                 </li>
 
+                <li class="nav-item">
+                    <!-- label-->
+                    <p class="navbar-vertical-label">Barang</p>
+                    <hr class="navbar-vertical-line" />
+
+                    <span class="nav-item-wrapper">
+                        <a class="nav-link {{ request()->is('admin/receivings*') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.receivings.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <i class="fa-solid fa-shop"></i>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Belanja Barang</span>
+                                </span>
+                            </div>
+                        </a>
+                    </span>
+                    <span class="nav-item-wrapper">
+                        <a class="nav-link {{ request()->is('admin/putaways*') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.putaways.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <i class="fa-solid fa-arrow-trend-down"></i>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Pengeluaran Barang</span>
+                                </span>
+                            </div>
+                        </a>
+                    </span>
+                    <span class="nav-item-wrapper">
+                        <a class="nav-link {{ request()->is('admin/items*') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.items.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Stok Barang</span>
+                                </span>
+                            </div>
+                        </a>
+                    </span>
+                    
+                    {{-- <span class="nav-item-wrapper">
+                        <a class="nav-link {{ request()->is('admin/putaways*') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.putaways.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Pengeluaran Barang</span>
+                                </span>
+                            </div>
+                        </a>
+                    </span> --}}
+                </li>
 
                 <li class="nav-item">
                     <!-- label-->

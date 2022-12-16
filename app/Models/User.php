@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class, 'user_id');
     }
+
+    public function receiving()
+    {
+        return $this->hasMany(Receiving::class, 'user_id');
+    }
+
+    public function putaways()
+    {
+        return $this->hasMany(Putaway::class, 'user_id');
+    }
 }

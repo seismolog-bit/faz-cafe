@@ -11,7 +11,19 @@ class ReceivingItem extends Model
 
     protected $fillable = [
         'receiving_id',
-        'product_id',
-        'qty'
+        'item_id',
+        'qty',
+        'price',
+        'total'
     ];
+
+    public function receiving()
+    {
+        return $this->belongsTo(Receiving::class);
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

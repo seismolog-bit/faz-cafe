@@ -38,7 +38,7 @@
                                                         <input type="hidden" value="{{ $product->id }}" name="id">
                                                         <input type="hidden" value="{{ $product->name }}" name="name">
                                                         <input type="hidden" value="{{ $product->price }}" name="price">
-                                                        <input type="hidden" value="{{ $product->image }}" name="image">
+                                                        {{-- <input type="hidden" value="{{ $product->image }}" name="image"> --}}
                                                         {{-- <input type="hidden" value="1" name="quantity"> --}}
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="tableShowLabel">Tambah pesanan
@@ -49,11 +49,6 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            {{-- <div class="text-center">
-                                                                <img class="img-fluid mb-5 rounded-3"
-                                                                    src="{{ asset($product->image) }}" alt=""
-                                                                    style="width: 125px;">
-                                                            </div> --}}
                                                             <div class="mb-3">
                                                                 <div class="row">
                                                                     <div class="col-md-6">
@@ -75,9 +70,12 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="form-label" for="qtyLabel">Qty </label>
-                                                                <input class="form-control" id="qtyLabel" type="number"
-                                                                    name="quantity" value="{{ old('quantity') }}"
+                                                                <input class="form-control" id="qtyLabel" type="number" name="quantity" value="{{ old('quantity') }}"
                                                                     required />
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="qtyLabel">Catatan </label>
+                                                                <textarea class="form-control" id="qtyLabel" name="note" > {{ old('note') }} </textarea>
                                                             </div>
 
                                                             <div class="mb-3">
@@ -142,7 +140,13 @@
                                     </form>
 
                                     {{-- <img class="me-2 ms-1" src="{{ asset($item->attributes->image) }}" width="40" alt=""> --}}
-                                    <h6 class="fw-semi-bold text-1000 lh-base">{{ $item->name }}</h6>
+                                    <h6 class="fw-semi-bold text-1000 lh-base">
+                                        {{ $item->name }}
+                                        @if ($item->attributes->image)
+                                            <small><br>* {{$item->attributes->image}}</small>
+                                        @endif
+                                    </h6>
+                                    
                                 </div>
                             </div>
                             <div class="col-2 col-md-2 col-lg-2">
@@ -152,6 +156,7 @@
                                 <h5 class="mb-0 fw-semi-bold text-end">{{ number_format($item->price) }}</h5>
                             </div>
                         </div>
+                        
                         @endforeach
                     </div>
                 </div>

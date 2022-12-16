@@ -12,15 +12,14 @@ class Product extends Model
     protected $table = 'products';
 
     protected $fillable = [
-        'category_id',
         'name',
-        'image',
-        'detail',
+        'category_id',
         'price',
-        'discount',
+        'item_id',
         'duration',
-        'stock',
-        'archive'
+        'detail',
+        'archive',
+        'image',
     ];
 
     public function category()
@@ -31,5 +30,10 @@ class Product extends Model
     public function order_items()
     {
         return $this->hasMany(OrderItem::class, 'product_id');
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
     }
 }

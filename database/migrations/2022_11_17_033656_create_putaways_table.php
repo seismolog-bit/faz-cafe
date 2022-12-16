@@ -16,7 +16,6 @@ class CreatePutawaysTable extends Migration
         Schema::create('putaways', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('total_qty')->default(0);
             $table->string('note');
             $table->timestamps();
         });

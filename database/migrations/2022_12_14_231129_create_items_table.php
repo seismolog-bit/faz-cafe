@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRejectItemsTable extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateRejectItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reject_items', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->integer('reject_id');
-            $table->integer('product_id');
-            $table->integer('qty');
+            $table->string('name');
+            $table->string('unit')->default('pcs');
+            $table->decimal('price', 16, 0)->default(0);
+            $table->integer('stock')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateRejectItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reject_items');
+        Schema::dropIfExists('items');
     }
 }

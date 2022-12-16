@@ -11,7 +11,17 @@ class PutawayItem extends Model
 
     protected $fillable = [
         'putaway_id',
-        'product_id',
+        'item_id',
         'qty'
     ];
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
+
+    public function putaway()
+    {
+        return $this->belongsTo(Putaway::class);
+    }
 }

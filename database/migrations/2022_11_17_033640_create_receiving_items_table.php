@@ -16,8 +16,10 @@ class CreateReceivingItemsTable extends Migration
         Schema::create('receiving_items', function (Blueprint $table) {
             $table->id();
             $table->integer('receiving_id');
-            $table->integer('product_id');
+            $table->integer('item_id');
             $table->integer('qty');
+            $table->decimal('price', 16, 0);
+            $table->decimal('total', 16, 0);
             $table->timestamps();
         });
     }

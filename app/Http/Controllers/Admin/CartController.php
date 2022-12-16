@@ -12,17 +12,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Kreait\Firebase\Database;
 
 class CartController extends Controller
 {
-
-    public function __construct(Database $database)
-    {
-        $this->database = $database;
-        $this->ref_orders = 'orders';
-        $this->ref_order_items = 'order_items';
-    }
 
     public function index()
     {
@@ -36,6 +28,8 @@ class CartController extends Controller
     {
         $product = Product::findOrFail($request->id);
 
+        // dd($request);
+
         \Cart::add([
             'id' => $request->id,
             'name' => $request->name,
@@ -43,7 +37,7 @@ class CartController extends Controller
             'quantity' => $request->quantity,
             'associatedModel' => $product,
             'attributes' => array(
-                'image' => $request->image,
+                'image' => $request->note,
             )
         ]);
 
@@ -100,23 +94,29 @@ class CartController extends Controller
         //     return redirect()->back()->with('error', 'Kartu belum di scan');
         // }
 
-        if ($request->card) {
+        // dd($request);
+
+        if ($request->code) {
             $card_code = explode('/', $request->code)[4];
 
+            
             $card_check = Card::where('code', 'like', $card_code)->first();
-
+            
             if(empty($card_check))
             {
                 return redirect()->back()->with('error', 'QR Code tidak terdaftar');
             }
-
+            
             if($card_check->status)
             {
                 return redirect()->back()->with('error', 'Kartu sedang aktif, gunakan kartu yang lainnya.');
             }
+            // dd($card_check);
         }
 
         $order = $this->_saveOrder($request);
+
+        // dd($order);
 
         $this->_saveOrderItems($order);
 
@@ -145,6 +145,14 @@ class CartController extends Controller
         foreach ($carts as $item) {
             $durations = $durations + ($item->associatedModel->duration * $item->quantity); 
         }
+
+        if ($request->code) {
+            $card = Card::where('code',  explode('/', $request->code)[4])->first();
+            $card->status = 1;
+            $card->save();
+        }
+
+        // dd($request->payment_method);
         
         
         $order = Order::create([
@@ -155,23 +163,21 @@ class CartController extends Controller
             'payment_method' => $request->payment_method,
             'payment_status' => $request->payment_status,
             'table_id' => $request->table_id,
-            'card_id' => explode('/', $request->code)[4] ?? null,
+            'card_id' => $card->id ?? null,
             'price' => \Cart::getTotal(),
             'tax' => 0,
             'shipping' => 0,
             'grand_total' => \Cart::getTotal(),
             'order_status' => 'active',
             'start_time' => Carbon::now(),
-            'end_time' => Carbon::now()->addMinutes($durations),
+            'end_time' => Carbon::now()->addMinutes($durations + 10),
         ]);
 
         // dd($order);
 
-        if ($order->card_id) {
-            $card = Card::findOrFail($order->card_id);
-            $card->status = 1;
-            $card->save();
-        }
+        
+
+        // dd($card);
 
         $table = Table::findOrFail($order->table_id);
         $table->is_active = 1;
@@ -192,7 +198,7 @@ class CartController extends Controller
 
             $product = Product::findOrFail($item->id);
 
-            $order_item = OrderItem::create([
+            OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $item->id,
                 'price' => $item->price,
@@ -201,36 +207,10 @@ class CartController extends Controller
                 'grand_total' => $item->price * $item->quantity,
                 'duration' => ($item->associatedModel->duration * $item->quantity) ?? 0,
                 'payment' => ($order->payment_status == 'Lunas') ? 1 : 0,
+                'payment_method' => $order->payment_method,
                 'is_delivery' => $product->category_id == 1 ? 'finish' : 'pending',
+                'note' => $item->attributes->image,
             ]);
-
-            if($order_item->is_delivery == 'pending')
-            {
-                $ref_order_item = [
-                    'id' => $order_item->id,
-                    'product' => $order_item->product->name,
-                    'buyer' => $order->buyer,
-                    'qty' => $order_item->qty,
-                    'table' => $order->table->name,
-                    'floor' => $order->table->floor,
-                    'is_delivery' => 'pending',
-                ];
-        
-                $this->database->getReference($this->ref_order_items)->push($ref_order_item);
-            }
         }
-    }
-
-    private function _saveFirebaseOrder($order)
-    {   
-        $order = [
-            'table' => $order->table->name,
-            'floor' => $order->table->floor,
-            'start_time' => $order->start_time,
-            'end_time' => $order->end_time,
-            'order_id' => $order->id
-        ];
-
-        $this->database->getReference($this->ref_orders)->push($order);
     }
 }

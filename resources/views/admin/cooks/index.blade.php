@@ -39,6 +39,7 @@
                         <th class="sort align-middle" scope="col" data-sort="buyer"  style="width:20%;  min-width: 150px;">PELANGGAN</th>
                         <th class="sort align-middle" scope="col" data-sort="table" style="width: 10%; min-width: 50px;">MEJA</th>
                         <th class="sort align-middle text-center" scope="col" data-sort="qty" style="width: 10%; min-width: 50px;"> QTY</th>
+                        <th class="sort align-middle text-center" scope="col" data-sort="note" style="width: 10%; min-width: 50px;"> NOTE</th>
                         <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 15%;">AKSI</th>
                     </tr>
                 </thead>
@@ -56,6 +57,9 @@
                         </td>
                         <td class="table white-space-nowrap text-center">
                             {{ $item->qty }}
+                        </td>
+                        <td class="table white-space-nowrap text-center">
+                            {{ $item->note ?? '-' }}
                         </td>
                         <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4 text-end">
                             <form action="{{ route('admin.cooks.update', $item) }}" method="post">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Item;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
@@ -22,7 +23,9 @@ class ProductController extends Controller
     public function create()
     {
         $categories = ProductCategory::all();
-        return view('admin.products.create', compact('categories'));
+        $items = Item::all();
+
+        return view('admin.products.create', compact('categories', 'items'));
     }
 
     public function store(Request $request)

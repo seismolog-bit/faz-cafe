@@ -16,7 +16,7 @@ class CreatePutawayItemsTable extends Migration
         Schema::create('putaway_items', function (Blueprint $table) {
             $table->id();
             $table->integer('putaway_id');
-            $table->integer('product_id');
+            $table->integer('item_id');
             $table->integer('qty');
             $table->timestamps();
         });

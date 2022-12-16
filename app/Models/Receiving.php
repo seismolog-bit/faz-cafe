@@ -11,7 +11,18 @@ class Receiving extends Model
 
     protected $fillable = [
         'user_id',
-        'total_qty',
-        'note'
+        'note',
+        'image',
+        'place'
     ];
+
+    public function receiving_items()
+    {
+        return $this->hasMany(ReceivingItem::class, 'receiving_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -15,15 +15,14 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id');
             $table->string('name', 60);
-            $table->string('image', 60)->default('assets/img/team/avatar.png');
-            $table->string('detail');
+            $table->integer('category_id');
             $table->decimal('price', 16, 0)->default(0);
-            $table->decimal('discount', 16, 0)->default(0);
+            $table->integer('item_id')->nullable();
             $table->decimal('duration', 5, 0)->default(0);
-            $table->integer('stock')->default(0);
+            $table->string('detail');
             $table->boolean('archive')->default(0);
+            $table->string('image', 60)->default('assets/img/team/avatar.png');
             $table->timestamps();
         });
     }

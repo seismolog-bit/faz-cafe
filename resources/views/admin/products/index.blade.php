@@ -9,7 +9,7 @@
     </ol>
 </nav>
 <h2 class="text-bold text-1100 mb-5">Daftar Product</h2>
-<div id="members" data-list='{"valueNames":["name","category","stock","price","action"],"page":10,"pagination":true}'>
+<div id="members" data-list='{"valueNames":["name","category","stock","price","item"],"page":10,"pagination":true}'>
     <div class="row align-items-center justify-content-between g-3 mb-3">
         <div class="col col-auto">
             <div class="search-box">
@@ -37,6 +37,7 @@
                         {{-- <th class="sort align-middle" scope="col" data-sort="detail"> DETAIL</th> --}}
                         <th class="sort align-middle" scope="col" data-sort="stock"> DURASI/STOCK</th>
                         <th class="sort align-middle" scope="col" data-sort="price"> HARGA</th>
+                        <th class="sort align-middle" scope="col" data-sort="item"> RELASI ITEM</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -68,6 +69,9 @@
                         </td>
                         <td class="stock align-middle white-space-nowrap">
                             {{ number_format($product->price, 0) }}
+                        </td>
+                        <td class="stock align-middle white-space-nowrap">
+                            {{ $product->item_id ? $product->item->name . ' (' . $product->item->stock . ' ' . $product->item->unit . ')' : '-' }}
                         </td>
                         <td class="align-middle white-space-nowrap text-end pe-0 ps-4">
                             

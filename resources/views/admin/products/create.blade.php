@@ -58,7 +58,8 @@
                                             <h5 class="mb-0 text-1000">Kategori</h5>
                                             <a class="fw-bold fs--1" href="{{ route('admin.product-categories.index') }}">Tambah kategori</a>
                                         </div>
-                                        <select class="form-select mb-3" aria-label="category_id" name="category_id">
+                                        <select class="form-select mb-3" aria-label="category_id" name="category_id" data-choices="data-choices"
+                                        single="single" data-options='{"removeItemButton":true,"placeholder":true}' required>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
@@ -73,10 +74,17 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6 col-xl-12">
-                                    <div class="mb-xl-4">
-                                        <h5 class="text-1000">Stok awal</h5>
-                                        <span class="mb-2 "><small>*Kosongkan jika produk/paket billiard</small></span>
-                                        <input class="form-control" type="number" name="stock" placeholder="Masukan stok" />
+                                    <div class="mb-4">
+                                        <div class="d-flex flex-wrap justify-content-between mb-2">
+                                            <h5 class="mb-0 text-1000">Relasi barang</h5>
+                                        </div>
+                                        <select class="form-select mb-3" aria-label="item_id" name="item_id" data-choices="data-choices"
+                                        single="single" data-options='{"removeItemButton":true,"placeholder":true}'>
+                                            <option value="">Pilih relasi barang...</option>
+                                            @foreach ($items as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->stock . $item->unit }} )</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -95,6 +103,9 @@ integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ
 </script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+<link href="{{ asset('vendors/choices/choices.min.css') }}" rel="stylesheet" />
+<script src="{{ asset('vendors/choices/choices.min.js') }}"></script>
 
 <script>
 $(document).ready(function() {

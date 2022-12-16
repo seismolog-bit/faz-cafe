@@ -19,7 +19,9 @@ class OrderItem extends Model
         'grand_total',
         'duration',
         'is_delivery',
-        'payment'
+        'payment',
+        'payment_method',
+        'note'
     ];
 
     public function order()

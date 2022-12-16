@@ -67,11 +67,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('product-categories', Admin\ProductCategoryController::class);
         Route::resource('inventories', Admin\InventoryController::class);
         Route::resource('putaways', Admin\PutawayController::class);
+        Route::get('putaways/{cooks}/invoice', [App\Http\Controllers\Admin\PutawayController::class, 'invoice'])->name('putaways.invoice');
         Route::resource('putaway-items', Admin\PutawayItemController::class);
+
         Route::resource('receivings', Admin\ReceivingController::class);
+        Route::get('receivings/{cooks}/invoice', [App\Http\Controllers\Admin\ReceivingController::class, 'invoice'])->name('receivings.invoice');
         Route::resource('reveicing-items', Admin\ReceivingItemController::class);
-        Route::resource('rejects', Admin\RejectController::class);
-        Route::resource('reject-items', Admin\RejectItemController::class);
+        Route::resource('items', Admin\ItemController::class);
 
         // Settings 
         Route::resource('tables', Admin\TableController::class);

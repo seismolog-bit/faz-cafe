@@ -6,16 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Kreait\Firebase\Database;
 
 class OrderItemController extends Controller
 {
-    public function __construct(Database $database)
-    {
-        $this->database = $database;
-        $this->ref_order_items = 'order_items';
-    }
 
     public function store(Request $request)
     {
@@ -29,7 +24,7 @@ class OrderItemController extends Controller
 
         $product = Product::findOrFail($request->product_id);
 
-        $order_item = OrderItem::create([
+        OrderItem::create([
             'order_id' => $request->order_id,
             'product_id' => $product->id,
             'price' => $product->price,
@@ -38,20 +33,13 @@ class OrderItemController extends Controller
             'grand_total' => $product->price * $request->qty,
             'duration' => $product->duration ?? 0,
             'is_delivery' => $product->category_id == 1 ? 'finish' : 'pending',
+            'note' => $request->note ?? '-'
         ]);
 
-        if ($product->category_id != 1) {
-            $ref_order_item = [
-                'id' => $order_item->id,
-                'product' => $product->name,
-                'buyer' => $order->buyer,
-                'qty' => $request->qty,
-                'table' => $order->table->name,
-                'floor' => $order->table->name,
-                'is_delivery' => 'pending',
-            ];
-    
-            $this->database->getReference($this->ref_order_items)->push($ref_order_item);
+        if($product->category_id == 1){
+            $order->end_time = Carbon::parse($order->end_time)->addMinutes($product->duration * $request->qty);
+
+            $order->save();
         }
 
         $this->_update_price($request->order_id);
@@ -80,6 +68,10 @@ class OrderItemController extends Controller
     public function destroy($id)
     {
         $item = OrderItem::findOrFail($id);
+        $product = Product::findOrFail($item->product_id);
+        $order = Order::findOrFail($item->order_id);
+
+        // $order->end_time = $order->end_time - 
 
         $item->delete();
 

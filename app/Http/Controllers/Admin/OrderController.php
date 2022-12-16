@@ -68,16 +68,16 @@ class OrderController extends Controller
         $table = Table::findOrFail($order->table_id);
         $table->is_active = 0;
         $table->save();
-
-        $card = Card::findOrFail($order->card_id);
-        $card->status = 0;
-        $card->save();
         
         if ($order->is_billiard) {
+            $card = Card::findOrFail($order->card_id);
+            $card->status = 0;
+            $card->save();
+            
             Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id='. $order->table->turn_off);
         }
 
-        dd($order->order_status);
+        // dd($order->order_status);
 
         $this->_item_finish($order->id);
 

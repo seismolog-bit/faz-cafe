@@ -16,7 +16,8 @@ class CreateReceivingsTable extends Migration
         Schema::create('receivings', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('total_qty')->default(0);
+            $table->string('image')->default('assets/img/team/avatar.png');
+            $table->string('place');
             $table->string('note');
             $table->timestamps();
         });

@@ -76,6 +76,11 @@
                                                                     name="qty" value="{{ old('qty') }}"
                                                                     required />
                                                             </div>
+                                                            
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="qtyLabel">Catatan </label>
+                                                                <textarea class="form-control" id="qtyLabel" name="note" > {{ old('note') }} </textarea>
+                                                            </div>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button class="btn btn-primary"
@@ -188,9 +193,9 @@
                                         </div>
                                     </div>
                                     @endif
-
-                                    {{-- <img class="me-2 ms-1" src="{{ asset($item->product->image) }}" width="40" alt=""> --}}
-                                    <h6 class="fw-semi-bold text-1000 lh-base">{{ $item->product->name }}</h6>
+                                    <h6 class="fw-semi-bold text-1000 lh-base">{{ $item->product->name }}
+                                    <br> <small> {{ $item->note }}  </small>
+                                    </h6>
                                 </div>
                             </div>
                             <div class="col-2 col-md-2 col-lg-2">

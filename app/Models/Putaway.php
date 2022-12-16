@@ -11,7 +11,16 @@ class Putaway extends Model
 
     protected $fillable = [
         'user_id',
-        'total_qty',
         'note'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function putaway_items()
+    {
+        return $this->hasMany(PutawayItem::class, 'putaway_id');
+    }
 }
