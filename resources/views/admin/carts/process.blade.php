@@ -11,7 +11,7 @@
 </nav>
 <h2 class="mb-5">Proses Pesanan</h2>
 <div class="row justify-content-between">
-    <div class="col-lg-7 col-xl-7">
+    <div class="col-md-7 col-xl-7">
         <div class="card">
             <div class="card-body pb-0">
                 {{-- <h3 class="mb-0">Rincian pesanan</h3> --}}
@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-5 col-xl-5">
+    <div class="col-md-5 col-xl-5">
         <div class="card">
             <form action="{{ route('admin.carts.checkout') }}" method="post">
                 @csrf

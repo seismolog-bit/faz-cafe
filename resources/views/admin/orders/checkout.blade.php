@@ -13,7 +13,7 @@
 <h2 class="text-bold text-1100 mb-5">Checkout</h2>
 
 <div class="row g-5">
-    <div class="col-12 col-lg-8">
+    <div class="col-12 col-md-8">
         <div id="cartTable"
             data-list="{&quot;valueNames&quot;:[&quot;products&quot;,&quot;color&quot;,&quot;size&quot;,&quot;price&quot;,&quot;quantity&quot;,&quot;total&quot;],&quot;page&quot;:10}">
             <div class="table-responsive scrollbar mx-n1 px-1">
@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 col-lg-4">
+    <div class="col-12 col-md-4">
         <form action="{{ route('admin.orders.finish', $order) }}" method="post">
             @method('patch')
             @csrf

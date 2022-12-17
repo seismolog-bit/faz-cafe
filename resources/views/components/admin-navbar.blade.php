@@ -1,4 +1,4 @@
-<nav class="navbar navbar-vertical navbar-expand-lg" style="display:none;">
+<nav class="navbar navbar-vertical navbar-expand-md" style="display:none;">
     <script>
         var navbarStyle = localStorage.getItem("phoenixNavbarStyle");
         if (navbarStyle && navbarStyle !== 'transparent') {

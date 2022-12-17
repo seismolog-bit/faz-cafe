@@ -26,7 +26,7 @@
 <div class="row g-3">
     {{-- <h3 class="fw-semi-bold mb-3">Transaksi Aktif</h3> --}}
     @foreach ($orders as $order)
-    <div class="col-6 col-md-4">
+    <div class="col-md-6">
         <div
             class="card h-100 overflow-hidden {{ $order->table->is_billiard ? 'bg-primary-soft border-primary primary-boxshadow light' : '' }} ">
             <div class="bg-holder"

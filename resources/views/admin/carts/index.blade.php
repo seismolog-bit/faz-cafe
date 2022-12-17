@@ -11,7 +11,7 @@
 </nav>
 <h2 class="mb-5">Buat Transaksi</h2>
 <div class="row justify-content-between">
-    <div class="col-lg-7 col-xl-7">
+    <div class="col-md-7 col-xl-7">
         <div class="card">
             <div class="card-body">
                 <div class="row gx-3 gy-4 mb-8">
@@ -113,7 +113,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-5 col-xl-5">
+    <div class="col-md-5 col-xl-5">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between">
