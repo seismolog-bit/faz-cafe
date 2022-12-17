@@ -29,7 +29,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     });
 
-    Route::middleware(['auth', 'permission'])->name('admin.')->prefix('admin')->group(function()
+    // Route::middleware(['auth', 'permission'])->name('admin.')->prefix('admin')->group(function()
+    Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function()
     {   
         // Cart 
         Route::get('carts', [App\Http\Controllers\Admin\CartController::class, 'index'])->name('carts.index');
