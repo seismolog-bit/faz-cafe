@@ -18,10 +18,10 @@ class CartController extends Controller
 
     public function index()
     {
-        $products = Product::orderBy('category_id', 'ASC')->get();
+        // $products = Product::orderBy('category_id', 'ASC')->get();
         $carts = \Cart::getContent();
 
-        return view('admin.carts.index', compact('products', 'carts'));
+        return view('admin.carts.index', compact('carts'));
     }
 
     public function store(Request $request)

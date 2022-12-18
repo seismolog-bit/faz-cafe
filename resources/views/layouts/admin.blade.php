@@ -28,6 +28,7 @@
     <link href="{{ asset('assets/css/theme.min.css') }}" type="text/css" rel="stylesheet" id="style-default">
     <link href="{{ asset('assets/css/user.min.css') }}" type="text/css" rel="stylesheet" id="user-style-default">
 
+    @yield('styles')
 </head>
 
 <body>
@@ -102,6 +103,7 @@
         </script>
     </main>
 
+    {{-- @stack('scripts') --}}
     @yield('script')
     <script src="{{ asset('vendors/popper/popper.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap/bootstrap.min.js') }}"></script>
