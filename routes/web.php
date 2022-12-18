@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,18 @@ Route::get('/fetch_order',[App\Http\Controllers\Public\PublicController::class,'
 Route::get('/o/{card}', [App\Http\Controllers\Public\CardController::class, 'show'])->name('card.show');
 
 Auth::routes();
+
+Route::get('/clear', function() {
+
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+
+    return "Cleared!";
+
+});
 
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {

@@ -68,18 +68,20 @@ class OrderController extends Controller
         $table = Table::findOrFail($order->table_id);
         $table->is_active = 0;
         $table->save();
+
+        $this->_item_finish($order->id);
         
         if ($order->is_billiard) {
+            Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id='. $order->table->turn_off);
+            
             $card = Card::findOrFail($order->card_id);
             $card->status = 0;
             $card->save();
             
-            Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id='. $order->table->turn_off);
         }
 
         // dd($order->order_status);
 
-        $this->_item_finish($order->id);
 
         return redirect()->route('admin.orders.index_active')->with('success', 'Transaksi berhasil diselesaikan.');
     }
@@ -92,6 +94,8 @@ class OrderController extends Controller
     private function _item_finish($id)
     {
         $items = OrderItem::where('order_id', $id)->get();
+
+        // dd($items);
 
         foreach ($items as $item) {
             $item->payment = 1;

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-vertical navbar-expand-md" style="display:none;">
+<nav class="navbar navbar-vertical navbar-expand-lg" style="display:none;">
     <script>
         var navbarStyle = localStorage.getItem("phoenixNavbarStyle");
         if (navbarStyle && navbarStyle !== 'transparent') {
@@ -24,11 +24,13 @@
                         </a>
                     </span>
                 </li>
+
                 <li class="nav-item">
                     <!-- label-->
                     <p class="navbar-vertical-label">Transaksi</p>
                     <hr class="navbar-vertical-line" />
 
+                    @hasrole(['admin', 'cashier', 'waiters'])
                     <span class="nav-item-wrapper">
                         <a class="nav-link dropdown-indicator label-1" href="#transaction" role="button"
                             data-bs-toggle="collapse"
@@ -76,7 +78,9 @@
                             </ul>
                         </div>
                     </span>
+                    @endrole
 
+                    @hasrole(['admin', 'cashier'])
                     <span class="nav-item-wrapper">
                         <a class="nav-link dropdown-indicator label-1" href="#product" role="button"
                             data-bs-toggle="collapse"
@@ -93,6 +97,8 @@
                                 <span class="nav-link-text">Menu</span>
                             </div>
                         </a>
+                        
+                        
                         <div class="parent-wrapper label-1">
                             <ul class="nav collapse parent {{ request()->is('admin/products*') ? 'show' : '' }}"
                                 data-bs-parent="#navbarVerticalCollapse" id="product">
@@ -127,51 +133,9 @@
                             </ul>
                         </div>
                     </span>
+                    @endrole
 
-                    {{-- <span class="nav-item-wrapper">
-                        <a class="nav-link dropdown-indicator label-1" href="#stock" role="button"
-                            data-bs-toggle="collapse" aria-expanded="false" aria-controls="stock">
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown-indicator-icon">
-                                    <span class="fas fa-caret-right"></span>
-                                </div>
-                                <span class="nav-link-icon">
-                                    <span data-feather="package"></span>
-                                </span>
-                                <span class="nav-link-text">Stok</span>
-                            </div>
-                        </a>
-                        <div class="parent-wrapper label-1">
-                            <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="stock">
-                                <p class="collapsed-nav-item-title d-none">Stok</p>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/pricing/pricing-column.html" data-bs-toggle=""
-                                        aria-expanded="false">
-                                        <div class="d-flex align-items-center">
-                                            <span class="nav-link-text">Laporan stok</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/pricing/pricing-grid.html" data-bs-toggle=""
-                                        aria-expanded="false">
-                                        <div class="d-flex align-items-center">
-                                            <span class="nav-link-text">Opname stok</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/pricing/pricing-grid.html" data-bs-toggle=""
-                                        aria-expanded="false">
-                                        <div class="d-flex align-items-center">
-                                            <span class="nav-link-text">Masuk stok</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </span> --}}
-
+                    @hasrole(['admin', 'kitchen'])
                     <span class="nav-item-wrapper">
                         <a class="nav-link {{ request()->is('admin/cooks') ? 'active' : '' }} label-1"
                             href="{{ route('admin.cooks.index') }}" role="button" data-bs-toggle=""
@@ -186,6 +150,9 @@
                             </div>
                         </a>
                     </span>
+                    @endrole
+
+                    @hasrole(['admin', 'waiters'])
                     <span class="nav-item-wrapper">
                         <a class="nav-link {{ request()->is('admin/cooks/delivery') ? 'active' : '' }} label-1"
                             href="{{ route('admin.cooks.delivery') }}" role="button" data-bs-toggle=""
@@ -200,8 +167,10 @@
                             </div>
                         </a>
                     </span>
+                    @endrole
                 </li>
 
+                @hasrole('admin')
                 <li class="nav-item">
                     <!-- label-->
                     <p class="navbar-vertical-label">Barang</p>
@@ -265,7 +234,9 @@
                         </a>
                     </span> --}}
                 </li>
+                @endrole
 
+                @hasrole('admin')
                 <li class="nav-item">
                     <!-- label-->
                     <p class="navbar-vertical-label">Pengaturan</p>
@@ -302,7 +273,9 @@
                         </a>
                     </span>
                 </li>
+                @endrole
 
+                @hasrole('admin')
                 <li class="nav-item">
                     <!-- label-->
                     <p class="navbar-vertical-label">Users</p>
@@ -353,6 +326,7 @@
                         </a>
                     </span>
                 </li>
+                @endrole
             </ul>
         </div>
     </div>
@@ -449,6 +423,7 @@
                         <div class="card-body pt-3 px-3 pb-0 overflow-auto scrollbar"
                             style="height: 20rem; width: 19rem;">
                             <div class="row text-center align-items-center gx-0 gy-0">
+                                @hasrole(['admin', 'cashier'])
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.carts.index') }}">
@@ -457,6 +432,8 @@
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Tambah Tr.</p>
                                     </a>
                                 </div>
+                                @endhasrole
+                                @role(['admin', 'waiters', 'cashier'])
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.orders.index_active') }}">
@@ -464,6 +441,8 @@
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Tr. Aktif</p>
                                     </a>
                                 </div>
+                                @endrole
+                                @role(['admin','cashier'])
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.orders.index') }}">
@@ -471,6 +450,8 @@
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Laporan Tr.</p>
                                     </a>
                                 </div>
+                                @endrole
+                                @role(['admin', 'kitchen'])
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.cooks.index') }}">
@@ -479,6 +460,8 @@
                                         </p>
                                     </a>
                                 </div>
+                                @endrole
+                                @role(['admin', 'kitchen'])
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.cooks.index', ['category' => 'minuman']) }}">
@@ -487,6 +470,8 @@
                                         </p>
                                     </a>
                                 </div>
+                                @endrole 
+                                @role(['admin', 'waiters'])
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.cooks.delivery') }}">
@@ -494,6 +479,8 @@
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Antar Psn.</p>
                                     </a>
                                 </div>
+                                @endrole 
+                                @role(['admin', 'cashier'])
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.products.index') }}">
@@ -501,6 +488,8 @@
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Menu</p>
                                     </a>
                                 </div>
+                                @endrole 
+                                @role('admin')
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.tables.index') }}">
@@ -508,6 +497,8 @@
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Set. Table</p>
                                     </a>
                                 </div>
+                                @endrole 
+                                @role('admin')
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.users.index') }}">
@@ -515,6 +506,8 @@
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Users</p>
                                     </a>
                                 </div>
+                                @endrole
+                                @role('admin')
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.roles.index') }}">
@@ -522,6 +515,7 @@
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Roles</p>
                                     </a>
                                 </div>
+                                @endrole
                             </div>
                         </div>
                     </div>

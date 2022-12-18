@@ -15,7 +15,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::where('archive', 0)->get();
 
         return view('admin.products.index', compact('products'));
     }
@@ -33,7 +33,6 @@ class ProductController extends Controller
         $request->validate([
             'name' => ['required'],
             'price' => ['required'],
-            // 'duration' => ['required'],
             'image' => ['required'],
             'category_id' => ['required'],
             'detail' => ['required']
@@ -59,8 +58,6 @@ class ProductController extends Controller
             $product['image'] = $dir . $fileName;
         }
 
-        // dd($request);
-
         $product = Product::create($product);
 
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dibuat');
@@ -75,14 +72,67 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        $categories = ProductCategory::all();
+        $items = Item::all();
+
         return view('admin.products.edit', [
             'product' => $product,
+            'items' => $items,
+            'categories' => $categories
         ]);
     }
 
     public function update(Request $request, Product $product)
     {
-        $product->update($request->only('title', 'description', 'body'));
+        $request->validate([
+            'name' => ['required'],
+            'price' => ['required'],
+            'category_id' => ['required'],
+            'detail' => ['required']
+        ]);
+
+        if ($product) {
+            $image = $product->image;
+        }else{
+            $image = null;
+        }
+
+        if ($request->file('image')) {
+            // upload image 
+            $dir = 'media/product/';
+            $url = $request->file('image');
+            $extension = strtolower($url->getClientOriginalExtension()); // get file extension
+            $fileName = time() . '.' . $extension; // rename file
+
+            // image resize
+            $imgFile = Image::make($url->getRealPath());
+            $imgFile->resize(640, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($dir . $fileName);
+            $destinationPath = public_path($dir);
+            $url->move($destinationPath, $fileName);
+
+            if ($product) {
+                if (File::exists($product->image)) {
+                    File::delete($product->image);
+                }
+            }
+
+            $image = $dir . $fileName;
+        }
+
+        Product::updateOrCreate(
+            [ 'id' => $product->id ],
+            [
+                'name' => $request->name,
+                'category_id' => $request->category_id,
+                'price' => $request->price,
+                'item_id' => $request->item_id,
+                'duration' => $request->duration ?? 0,
+                'detail' => $request->detail,
+                'image' =>  $image,
+            ]
+        );
 
         return redirect()->route('admin.products.index')
             ->withSuccess(__('Product updated successfully.'));
