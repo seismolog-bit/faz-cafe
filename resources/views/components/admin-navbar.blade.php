@@ -97,8 +97,8 @@
                                 <span class="nav-link-text">Menu</span>
                             </div>
                         </a>
-                        
-                        
+
+
                         <div class="parent-wrapper label-1">
                             <ul class="nav collapse parent {{ request()->is('admin/products*') ? 'show' : '' }}"
                                 data-bs-parent="#navbarVerticalCollapse" id="product">
@@ -218,7 +218,7 @@
                             </div>
                         </a>
                     </span>
-                    
+
                     {{-- <span class="nav-item-wrapper">
                         <a class="nav-link {{ request()->is('admin/putaways*') ? 'active' : '' }} label-1"
                             href="{{ route('admin.putaways.index') }}" role="button" data-bs-toggle=""
@@ -470,16 +470,17 @@
                                         </p>
                                     </a>
                                 </div>
-                                @endrole 
+                                @endrole
                                 @role(['admin', 'waiters'])
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.cooks.delivery') }}">
-                                        <img src="{{ asset('assets/img/icons/food-delivery.png') }}" alt="" width="30" />
+                                        <img src="{{ asset('assets/img/icons/food-delivery.png') }}" alt=""
+                                            width="30" />
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Antar Psn.</p>
                                     </a>
                                 </div>
-                                @endrole 
+                                @endrole
                                 @role(['admin', 'cashier'])
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
@@ -488,7 +489,7 @@
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Menu</p>
                                     </a>
                                 </div>
-                                @endrole 
+                                @endrole
                                 @role('admin')
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
@@ -497,7 +498,7 @@
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Set. Table</p>
                                     </a>
                                 </div>
-                                @endrole 
+                                @endrole
                                 @role('admin')
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
@@ -511,7 +512,8 @@
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
                                         href="{{ route('admin.roles.index') }}">
-                                        <img src="{{ asset('assets/img/icons/gear-assembly.png') }}" alt="" width="30" />
+                                        <img src="{{ asset('assets/img/icons/gear-assembly.png') }}" alt=""
+                                            width="30" />
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Roles</p>
                                     </a>
                                 </div>
@@ -535,46 +537,39 @@
                                 <div class="avatar avatar-xl ">
                                     <img class="rounded-circle " src="{{ asset(Auth::user()->avatar) }}" alt="" />
                                 </div>
-                                <h6 class="mt-2 text-black">Jerry Seinfield</h6>
-                            </div>
-                            <div class="mb-3 mx-3"><input class="form-control form-control-sm" id="statusUpdateInput"
-                                    type="text" placeholder="Update your status" />
+                                <h6 class="mt-2 text-black">{{ Auth::user()->name }}</h6>
                             </div>
                         </div>
                         <div class="overflow-auto scrollbar" style="height: 10rem;">
                             <ul class="nav d-flex flex-column mb-2 pb-1">
-                                <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
-                                            data-feather="user"></span>Profile</a>
+                                {{-- <li class="nav-item">
+                                    <a class="nav-link px-3" href="#!"> <span class="me-2 text-900" data-feather="user">
+                                        </span>Profile</a>
+                                </li> --}}
+                                <li class="nav-item">
+                                    <a class="nav-link px-3" href="{{ route('home') }}">
+                                        <span class="me-2 text-900" data-feather="pie-chart"></span>Dashboard</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link px-3" href="#!"><span class="me-2 text-900"
-                                            data-feather="pie-chart"></span>Dashboard</a></li>
-                                <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
-                                            data-feather="lock"></span>Posts &amp;
-                                        Activity</a></li>
-                                <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
-                                            data-feather="settings"></span>Settings
-                                        &amp; Privacy </a></li>
-                                <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
-                                            data-feather="help-circle"></span>Help
-                                        Center</a></li>
-                                <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
-                                            data-feather="globe"></span>Language</a>
-                                </li>
+                                {{-- <li class="nav-item">
+                                    <a class="nav-link px-3" href="#!">
+                                        <span class="me-2 text-900" data-feather="settings"></span>Pengaturan
+                                    </a>
+                                </li> --}}
                             </ul>
                         </div>
-                        <div class="card-footer p-0 border-top">
-                            <ul class="nav d-flex flex-column my-3">
-                                <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
-                                            data-feather="user-plus"></span>Add
-                                        another account</a></li>
-                            </ul>
-                            <hr />
-                            <div class="px-3"> <a class="btn btn-phoenix-secondary d-flex flex-center w-100" href="#!">
-                                    <span class="me-2" data-feather="log-out"> </span>Sign
-                                    out</a></div>
-                            <div class="my-2 text-center fw-bold fs--2 text-600"><a class="text-600 me-1"
-                                    href="#!">Privacy policy</a>&bull;<a class="text-600 mx-1"
-                                    href="#!">Terms</a>&bull;<a class="text-600 ms-1" href="#!">Cookies</a>
+                        <div class="card-footer border-top">
+                            <div class="px-3">
+                                <a class="btn btn-phoenix-secondary d-flex flex-center w-100" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <span class="me-2" data-feather="log-out"> </span>Sign out
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                            <div class="my-2 text-center fw-bold fs--2 text-600">
+                                <a class="text-600 me-1" href="#!">Privacy policy</a>&bull;
+                                <a class="text-600 mx-1" href="#!">Terms</a>&bull;
+                                <a class="text-600 ms-1" href="#!">Cookies</a>
                             </div>
                         </div>
                     </div>
@@ -937,7 +932,7 @@
                                 <div class="avatar avatar-xl ">
                                     <img class="rounded-circle " src="../../assets/img/team/57.png" alt="" />
                                 </div>
-                                <h6 class="mt-2 text-black">Jerry Seinfield</h6>
+                                <h6 class="mt-2 text-black">{{ Auth::user()->name }}</h6>
                             </div>
                             <div class="mb-3 mx-3"><input class="form-control form-control-sm" id="statusUpdateInput"
                                     type="text" placeholder="Update your status" />
@@ -1545,7 +1540,7 @@
                             <div class="avatar avatar-xl ">
                                 <img class="rounded-circle " src="../../assets/img/team/57.png" alt="" />
                             </div>
-                            <h6 class="mt-2 text-black">Jerry Seinfield</h6>
+                            <h6 class="mt-2 text-black">{{ Auth::user()->name }}</h6>
                         </div>
                         <div class="mb-3 mx-3"><input class="form-control form-control-sm" id="statusUpdateInput"
                                 type="text" placeholder="Update your status" /></div>
