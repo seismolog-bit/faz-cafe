@@ -118,6 +118,9 @@
                     <h4 class="mb-0">Total:</h4>
                     <h4 class="mb-0">{{ number_format($order->grand_total) }}</h4>
                 </div>
+                <a class="btn btn-primary w-100 mb-2" href="{{ route('admin.orders.receipt', $order) }}" >Cetak Struk
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
                 <a href="{{ route('admin.orders.index_active') }}" class="btn btn-secondary w-100">
                     Kembali
                 </a>

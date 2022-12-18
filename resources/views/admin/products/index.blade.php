@@ -47,15 +47,18 @@
                         <td class="name align-middle white-space-nowrap">
                             <a class="d-flex align-items-center text-900 text-hover-1000"
                                 href="{{ route('admin.products.show', $product) }}">
-                                <div class="avatar avatar-4xl">
-                                    <img class="rounded" src="{{ asset($product->image) }}" alt="" />
+                                <div class="avatar avatar-xl">
+                                    <div class="avatar-name rounded">
+                                        <span>{{ substr($product->name, 0, 1) }}</span>
+                                    </div>
                                 </div>
                                 <h6 class="mb-0 ms-3 fw-semi-bold">
                                     {{ $product->name }}
                                     <br>
-                                    <small class="text-secondary">Status produk: {{ $product->archive ? 'Diarsipkan' : 'Aktif' }}</small>
+                                    <small class="text-secondary">Status produk: {{ $product->archive ? 'Diarsipkan' :
+                                        'Aktif' }}</small>
                                 </h6>
-                                
+
                             </a>
                         </td>
                         <td class="category align-middle white-space-nowrap">
@@ -71,35 +74,41 @@
                             {{ number_format($product->price, 0) }}
                         </td>
                         <td class="stock align-middle white-space-nowrap">
-                            {{ $product->item_id ? $product->item->name . ' (' . $product->item->stock . ' ' . $product->item->unit . ')' : '-' }}
+                            {{ $product->item_id ? $product->item->name . ' (' . $product->item->stock . ' ' .
+                            $product->item->unit . ')' : '-' }}
                         </td>
                         <td class="align-middle white-space-nowrap text-end pe-0 ps-4">
-                            
+
                             <div class="position-relative">
                                 <div class="hover-actions">
-                                    <a class="btn btn-sm btn-phoenix-secondary me-1 fs--2" href="{{ route('admin.products.show', $product) }}">
+                                    <a class="btn btn-sm btn-phoenix-secondary me-1 fs--2"
+                                        href="{{ route('admin.products.show', $product) }}">
                                         <span class="fas fa-eye"></span>
                                     </a>
-                                    <a class="btn btn-sm btn-phoenix-secondary fs--2" href="{{ route('admin.products.edit', $product) }}">
+                                    <a class="btn btn-sm btn-phoenix-secondary fs--2"
+                                        href="{{ route('admin.products.edit', $product) }}">
                                         <span class="fas fa-edit"></span>
                                     </a>
                                 </div>
                             </div>
                             <div class="font-sans-serif btn-reveal-trigger position-static">
-                                <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2"
+                                <button
+                                    class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2"
                                     type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true"
                                     aria-expanded="false" data-bs-reference="parent">
                                     <span class="fas fa-ellipsis-h fs--2"></span>
                                 </button>
                                 @if ($product->archive)
                                 <div class="dropdown-menu dropdown-menu-end py-2">
-                                    {!! Form::open(['method' => 'DELETE','route' => ['admin.products.destroy', $product],'style'=>'display:inline']) !!}
+                                    {!! Form::open(['method' => 'DELETE','route' => ['admin.products.destroy',
+                                    $product],'style'=>'display:inline']) !!}
                                     {!! Form::submit('Terbitkan', ['class' => 'dropdown-item text-danger']) !!}
                                     {!! Form::close() !!}
                                 </div>
                                 @else
                                 <div class="dropdown-menu dropdown-menu-end py-2">
-                                    {!! Form::open(['method' => 'DELETE','route' => ['admin.products.destroy', $product],'style'=>'display:inline']) !!}
+                                    {!! Form::open(['method' => 'DELETE','route' => ['admin.products.destroy',
+                                    $product],'style'=>'display:inline']) !!}
                                     {!! Form::submit('Arsipkan', ['class' => 'dropdown-item text-primary']) !!}
                                     {!! Form::close() !!}
                                 </div>

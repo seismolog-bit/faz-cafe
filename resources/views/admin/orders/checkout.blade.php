@@ -36,8 +36,10 @@
                         @foreach ($order->order_items as $item)
                         <tr class="cart-table-row btn-reveal-trigger">
                             <td class="align-middle white-space-nowrap py-0">
-                                <div class="border rounded-2"><img src="{{ asset($item->product->image) }}" alt=""
-                                        width="53">
+                                <div class="avatar avatar-xl">
+                                    <div class="avatar-name rounded">
+                                        <span>{{ substr($item->product->name, 0, 1) }}</span>
+                                    </div>
                                 </div>
                             </td>
                             <td class="products align-middle">

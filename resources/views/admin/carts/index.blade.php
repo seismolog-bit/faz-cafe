@@ -22,7 +22,11 @@
                                 <div class="d-flex flex-column justify-content-between h-100">
                                     <div>
                                         <div class="border border-1 border-2002 rounded-3 position-relative mb-3">
-                                            <img class="img-fluid rounded-3" src="{{ asset($product->image) }}" alt="">
+                                            <div class="avatar avatar-4xl">
+                                                <div class="avatar-name {{ $product->category_id == 1 ? 'text-primary' : 'text-secondary' }}">
+                                                    <span>{{ substr($product->name, 0, 1) }}</span>
+                                                </div>
+                                            </div>
                                         </div>
                                         <a class="stretched-link text-decoration-none" type="button"
                                             data-bs-toggle="modal" data-bs-target="#tableAdd{{ $product->id }}">
