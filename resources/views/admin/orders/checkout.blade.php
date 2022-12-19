@@ -10,10 +10,21 @@
     </ol>
 </nav>
 
-<h2 class="text-bold text-1100 mb-5">Checkout</h2>
-
+<h2 class="text-bold text-1100 mb-2">Checkout</h2>
+<div class="d-flex flex-wrap flex-between-center mb-4">
+    <p class="text-800 lh-sm mb-0">Kasir : <span class="fw-bold"> Administrator</span></p>
+    <div class="d-flex">
+        <a class="btn pe-3 ps-0 text-900 text-primary" href="{{ route('admin.tables.lamp', $order->table->turn_on) }}">
+            <i class="fa-regular fa-lightbulb me-2"></i> Nyalakan lampu
+        </a>
+        <a class="btn pe-3 ps-0 text-900 text-danger" href="{{ route('admin.tables.lamp', $order->table->turn_off) }}">
+            <i class="fa-solid fa-lightbulb me-2"></i> Matikan lampu
+        </a>
+        
+    </div>
+</div>
 <div class="row g-5">
-    <div class="col-12 col-md-8">
+    <div class="col-12 col-md-8 mb-2">
         <div id="cartTable"
             data-list="{&quot;valueNames&quot;:[&quot;products&quot;,&quot;color&quot;,&quot;size&quot;,&quot;price&quot;,&quot;quantity&quot;,&quot;total&quot;],&quot;page&quot;:10}">
             <div class="table-responsive scrollbar mx-n1 px-1">

@@ -6,7 +6,7 @@
 
         <div class="row gx-3 gy-4 mb-8">
             @foreach ($products as $product)
-            <div class="col-6 col-sm-6 col-md-3 col-xxl-2">
+            <div class="col-sm-4">
                 <div class="product-card-container h-100">
                     <div class="position-relative text-decoration-none product-card h-100">
                         <div class="d-flex flex-column justify-content-between h-100">
@@ -95,8 +95,7 @@
                                     --}}
                                     <h4 class="text-1100 mb-0">{{ number_format($product->price) }}</h4>
                                 </div>
-                                <p class="text-700 fw-semi-bold fs--1 lh-1 mb-0">{{ $product->category->name }}
-                                </p>
+                                {{-- <p class="text-700 fw-semi-bold fs--1 lh-1 mb-0">{{ $product->category->name }}</p> --}}
                             </div>
                         </div>
                     </div>

@@ -91,6 +91,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         // Settings 
         Route::resource('tables', Admin\TableController::class);
+        Route::get('tables/{tables}/lamp', [App\Http\Controllers\Admin\TableController::class, 'lamp'])->name('tables.lamp');
+
         Route::resource('cards', Admin\CardController::class);
 
         // Users 

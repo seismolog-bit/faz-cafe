@@ -11,7 +11,7 @@
 </nav>
 <h2 class="mb-5">Proses Pesanan</h2>
 <div class="row justify-content-between">
-    <div class="col-md-7 col-xl-7">
+    <div class="col-sm-7 col-xl-7">
         <div class="card">
             <div class="card-body pb-0">
                 {{-- <h3 class="mb-0">Rincian pesanan</h3> --}}
@@ -37,12 +37,12 @@
                 </table>
                 <div class="d-flex justify-content-between border-y border-dashed py-3 mb-4">
                     <p class="text-1100 fw-semi-bold lh-sm mb-0">Total Pesanan :</p>
-                    <p class="text-1100 fw-bold lh-sm mb-0">{{ Cart::getTotal() }}</p>
+                    <p class="text-1100 fw-bold lh-sm mb-0">{{ number_format(Cart::getTotal()) }}</p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-5 col-xl-5">
+    <div class="col-sm-5 col-xl-5">
         <div class="card">
             <form action="{{ route('admin.carts.checkout') }}" method="post">
                 @csrf
@@ -113,7 +113,8 @@
         function onScanSuccess(decodedText, decodedResult) {
             if (decodedText !== lastResult) {
                 ++countResults;
-                document.getElementById("code").value = decodedText;               
+                splits = decodedText.split("/")
+                document.getElementById("code").value = splits[4];               
                 html5QrcodeScanner.clear();
             }
         }

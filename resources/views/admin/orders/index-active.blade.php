@@ -26,7 +26,7 @@
 <div class="row g-3">
     {{-- <h3 class="fw-semi-bold mb-3">Transaksi Aktif</h3> --}}
     @foreach ($orders as $order)
-    <div class="col-md-6">
+    <div class="col-sm-6 col-md-4">
         <div
             class="card h-100 overflow-hidden {{ $order->table->is_billiard ? 'bg-primary-soft border-primary primary-boxshadow light' : '' }} ">
             <div class="bg-holder"
@@ -35,49 +35,53 @@
             <!--/.bg-holder-->
             <div class="card-body d-flex flex-column justify-content-between position-relative z-index-2">
                 <div class="d-flex justify-content-between">
-                    <div class="mb-5 mb-md-0 mb-lg-5">
+                    <div class="mb-4">
                         <div class="d-sm-flex align-items-center mb-3">
-                            <h3 class="mb-0">{{ $order->table->name }} | Lantai {{ $order->table->floor }}</h3>
+                            <h4 class="mb-0">{{ $order->is_billiard ? $order->table->name . ' Lantai ' . $order->table->floor : $order->table->name}}</h3>
                         </div>
                         <p class="fs--1 text-700">Pembeli: {{ $order->buyer }}</p>
 
                     </div>
+                    @if ($order->is_billiard)
                     @if (strtotime(Carbon\Carbon::now()) > strtotime($order->end_time))
                     <i class="fa-regular fa-circle-xmark text-danger" style="width: 54px; height: 54px;"></i>
                     @else
                     <i class="fa-solid fa-rocket text-primary" style="width: 54px; height: 54px;"></i>
                     @endif
+                    @else
+                    <i class="fa-solid fa-mug-hot text-warning"  style="width: 54px; height: 54px;"></i>
+                    @endif
+                    
                 </div>
-                <div class="row mb-4">
-                    <div class="col-md-4">
+                <div class="row mb-2">
+                    <div class="col-lg-4 col-sm-6 mb-2">
                         <div class="me-3">
                             <p class="mb-2 text-800">Start</p>
                             <h5 class="text-800">{{ Carbon\Carbon::parse($order->start_time)->format('g:i:s'
                                 ) }}</h5>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    @if ($order->is_billiard)
+                    <div class="col-lg-4 col-sm-6 mb-2">
                         <div class="me-3">
                             <p class="mb-2 text-800">End</p>
-                            <h5 class="text-800">{{ Carbon\Carbon::parse($order->end_time)->format('g:i:s'
-                                ) }}</h5>
+                            <h5 class="text-800">{{ Carbon\Carbon::parse($order->end_time)->format('g:i:s') }}</h5>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4 col-sm-6 mb-2">
                         <div class="me-3">
                             <p class="mb-2 text-800">Time</p>
-                            <span data-countdown="{{ Carbon\Carbon::parse($order->end_time) }}"></span>
+                            <h5 class="text-800" data-countdown="{{ Carbon\Carbon::parse($order->end_time) }}"></h5>
                         </div>
                     </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-4">
+                    @endif
+                    <div class="col-lg-4 col-sm-6 mb-2">
                         <div class="me-3">
                             <p class="mb-2 text-800">Qty</p>
                             <h5 class="text-800">{{ $order->order_items->sum('qty') }}</h5>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4 col-sm-6 mb-2">
                         <div class="me-3">
                             <p class="mb-2 text-800">Total</p>
                             <h5 class="text-800">{{ number_format($order->grand_total, 0) }}</h5>
@@ -111,7 +115,7 @@
     $(function() {
         $('[data-countdown]').each(function() {
             var $this = $(this),
-                finalDate = $(this).data('countdown');
+            finalDate = $(this).data('countdown');
             $this.countdown(finalDate, function(event) {
                 $this.html(event.strftime('%H:%M:%S'));
             });

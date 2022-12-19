@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class TableController extends Controller
 {
@@ -33,5 +34,12 @@ class TableController extends Controller
 
         return redirect()->route('admin.tables.index')
             ->withSuccess(__('Meja berhasil dihapus.'));
+    }
+
+    public function lamp($code)
+    {
+        Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id='. $code);
+        
+        return back()->with('success', '');
     }
 }

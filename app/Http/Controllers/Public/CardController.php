@@ -10,15 +10,15 @@ class CardController extends Controller
 {
     public function show($id)
     {
-        $card = Card::where('code', $id)->where('status', 1)->first();
-        // $card = Card::where('code', $id)->first();
 
-        // dd(explode('/', $card->code)[0]);
+        $card = Card::where([['code', $id], ['status', 1]])->first();
 
-        
+        if (!$card) {
+            return redirect()->route('index')->with('success', 'Kartu nonaktif.');
+        }
 
-        // dd($card);
+        $order = $card->order_active;
 
-        return view('public.cards.show', compact('card'));
+        return view('public.cards.show', compact('order'));
     }
 }

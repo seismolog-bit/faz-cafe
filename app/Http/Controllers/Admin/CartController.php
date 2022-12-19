@@ -97,10 +97,10 @@ class CartController extends Controller
         // dd($request);
 
         if ($request->code) {
-            $card_code = explode('/', $request->code)[4];
+            // $card_code = explode('/', $request->code)[4];
 
             
-            $card_check = Card::where('code', 'like', $card_code)->first();
+            $card_check = Card::where('code', 'like', $request->code)->first();
             
             if(empty($card_check))
             {
@@ -147,7 +147,7 @@ class CartController extends Controller
         }
 
         if ($request->code) {
-            $card = Card::where('code',  explode('/', $request->code)[4])->first();
+            $card = Card::where('code', 'like', $request->code)->first();
             $card->status = 1;
             $card->save();
         }

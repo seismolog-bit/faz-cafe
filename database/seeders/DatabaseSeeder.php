@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             CreateTableSeeder::class,
             CreateProductCategorySeeder::class,
             CreateAdminUserSeeder::class,
+            CreateCardSeeder::class,
         ]);
     }
 }

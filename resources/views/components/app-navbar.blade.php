@@ -50,25 +50,9 @@
                                         <div class="overflow-auto scrollbar" style="height: 10rem;">
                                             <ul class="nav d-flex flex-column mb-2 pb-1">
                                                 <li class="nav-item">
-                                                    <a class="nav-link px-3" href="#!">
-                                                        <span class="me-2 text-900" data-feather="user"></span>Profile
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
                                                     <a class="nav-link px-3" href="{{ route('home') }}">
                                                         <span class="me-2 text-900"
                                                             data-feather="pie-chart"></span>Dashboard</a>
-                                                </li>
-                                                <li class="nav-item"><a class="nav-link px-3" href="#!">
-                                                        <span class="me-2 text-900" data-feather="lock"></span>Posts
-                                                        &amp;
-                                                        Activity</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link px-3" href="#!">
-                                                        <span class="me-2 text-900"
-                                                            data-feather="help-circle"></span>Help
-                                                        Center</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -159,9 +143,9 @@
             <li class="nav-item" data-nav-item="data-nav-item">
                 <a class="nav-link ps-0" aria-current="page" href="{{ route('index') }}">Home</a>
             </li>
-            <li class="nav-item" data-nav-item="data-nav-item">
+            {{-- <li class="nav-item" data-nav-item="data-nav-item">
                 <a class="nav-link ps-0" aria-current="page" href="{{ route('table-time') }}">Table Time</a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </nav>
