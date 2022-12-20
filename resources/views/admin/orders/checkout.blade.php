@@ -14,12 +14,14 @@
 <div class="d-flex flex-wrap flex-between-center mb-4">
     <p class="text-800 lh-sm mb-0">Kasir : <span class="fw-bold"> Administrator</span></p>
     <div class="d-flex">
+        @if ($order->is_billiard)
         <a class="btn pe-3 ps-0 text-900 text-primary" href="{{ route('admin.tables.lamp', $order->table->turn_on) }}">
             <i class="fa-regular fa-lightbulb me-2"></i> Nyalakan lampu
         </a>
         <a class="btn pe-3 ps-0 text-900 text-danger" href="{{ route('admin.tables.lamp', $order->table->turn_off) }}">
             <i class="fa-solid fa-lightbulb me-2"></i> Matikan lampu
         </a>
+        @endif
         
     </div>
 </div>

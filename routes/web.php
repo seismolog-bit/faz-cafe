@@ -34,6 +34,11 @@ Route::get('/clear', function() {
 
 });
 
+Route::get('delivery-test', function () {
+    event(new App\Events\DeliveryEvent(1));
+    return "Event has been sent!";
+});
+
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
 

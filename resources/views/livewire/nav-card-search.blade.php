@@ -12,16 +12,23 @@
     <div class="dropdown-menu border font-base start-0 py-0 overflow-hidden w-100">
         {{-- <div class="scrollbar list" style="max-height: 30rem;"> --}}
             @foreach ($cards as $item)
-            <a class="dropdown-item py-2 d-flex align-items-center" href="{{ route('admin.orders.edit', $item) }}">
+            <a class="dropdown-item py-2 d-flex align-items-center" href="{{ route('admin.orders.edit', $item->order_active) }}">
                 <div class="file-thumbnail me-2">
-                    {{-- <img class="h-100 w-100 fit-cover rounded-3" src="../../assets/img/products/3.png" alt=""> --}}
-                    <i class="fa-solid fa-credit-card text-primary w-100 h-100 fit-cover"></i>
+                    @if ($item->order_active->is_billiard)
+                    <i class="fa-solid fa-rocket text-primary w-100 h-100 fit-cover"></i>
+                    
+                    @else
+                    <i class="fa-solid fa-mug-hot text-warning w-100 h-100 fit-cover"></i>
+                        
+                    @endif
                 </div>
                 <div class="flex-1">
-                  <h6 class="mb-0 text-1000 title">{{ $item->code }}</h6>
-                  <p class="fs--2 mb-0 d-flex text-700"><span class="fw-medium text-600">8GB Memory - 1.6GHz - 128GB Storage</span></p>
+                    <h6 class="mb-0 text-1000 title">{{ $item->code }}</h6>
+                    <p class="fs--2 mb-0 d-flex text-700">
+                        <span class="fw-medium text-600">{{ $item->order_active->table->name }} {{ $item->order_active->is_billiard ? ' Lantai '. $item->order_active->table->floor : '' }} </span>
+                    </p>
                 </div>
-              </a>
+            </a>
             @endforeach
             {{--
         </div> --}}
