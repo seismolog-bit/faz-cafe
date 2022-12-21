@@ -5,13 +5,18 @@
         </div>
         <div class="row gx-3 gy-4 mb-8">
             @foreach ($products as $product)
-            <div class="col-sm-4 col-md-4 col-xxl-2">
+            <div class="col-sm-4 col-md-3 col-xxl-2">
                 <div class="product-card-container h-100">
                     <div class="position-relative text-decoration-none product-card h-100">
                         <div class="d-flex flex-column justify-content-between h-100">
                             <div>
                                 <div class="border border-1 border-2002 rounded-3 position-relative mb-3">
-                                    <img class="img-fluid rounded-3" src="{{ asset($product->image) }}" alt="">
+                                    <div class="avatar avatar-4xl">
+                                        <div class="border rounded-2 overflow-hidden">
+                                            <img src="{{ asset($product->image) }}"
+                                                style="width: -webkit-fill-available; height: 96px;">
+                                        </div>
+                                    </div>
                                 </div>
                                 <a class="stretched-link text-decoration-none" type="button"
                                     data-bs-toggle="modal" data-bs-target="#tableAdd{{ $product->id }}">
@@ -97,5 +102,6 @@
             </div>
             @endforeach
         </div>
+        {{ $products->links() }}
     </div>
 </div>

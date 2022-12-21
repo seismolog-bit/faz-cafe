@@ -41,7 +41,7 @@ class CartController extends Controller
             )
         ]);
 
-        return redirect()->back()->with('success', 'Produk berhasil ditambahkan.');
+        return redirect()->back()->withToastSuccess('success', 'Produk berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)
@@ -55,21 +55,21 @@ class CartController extends Controller
                 ],
             ]
         );
-        return redirect()->back()->with('success', 'Jumlah produk berhasil di update');
+        return redirect()->back()->withToastSuccess('success', 'Jumlah produk berhasil di update');
     }
 
     public function destroy(Request $request)
     {
         \Cart::remove($request->id);
 
-        return redirect()->back()->with('success', 'Produk berhasil dihapus.');
+        return redirect()->back()->withToastSuccess('success', 'Produk berhasil dihapus.');
     }
 
     public function clear()
     {
         \Cart::clear();
 
-        return redirect()->back()->with('success', 'Produk berhasil dibersihkan.');
+        return redirect()->back()->withToastSuccess('success', 'Produk berhasil dibersihkan.');
     }
 
     public function process()
@@ -128,9 +128,9 @@ class CartController extends Controller
                 Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id='. $order->table->turn_on);
             }
 
-            return redirect()->route('admin.orders.index_active')->with('success', 'Transaksi berhasil dibuat & lampu berhasil dinyalakan.');
+            return redirect()->route('admin.orders.index_active')->withToastSuccess('success', 'Transaksi berhasil dibuat & lampu berhasil dinyalakan.');
         }else{
-            return redirect()->back()->with('error', 'Transaksi gagal dibuat!');
+            return redirect()->back()->withToastError('error', 'Transaksi gagal dibuat!');
         }
     }
 

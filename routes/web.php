@@ -79,8 +79,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         Route::get('cooks', [App\Http\Controllers\Admin\CookStatus::class, 'index'])->name('cooks.index');
         Route::post('cooks/{cooks}/update', [App\Http\Controllers\Admin\CookStatus::class, 'update'])->name('cooks.update');
+        Route::post('cooks/{cooks}/cooking', [App\Http\Controllers\Admin\CookStatus::class, 'cooking'])->name('cooks.cooking');
         Route::get('cooks/delivery', [App\Http\Controllers\Admin\CookStatus::class, 'delivery'])->name('cooks.delivery');
         Route::post('cooks/{cooks}/finish', [App\Http\Controllers\Admin\CookStatus::class, 'finish'])->name('cooks.finish');
+        Route::get('/cooks/fetch_item_order',[App\Http\Controllers\Admin\CookStatus::class,'fetch_item_order'])->name('cooks.fetch_item_order');
+        Route::get('/cooks/fetch_item_delivery',[App\Http\Controllers\Admin\CookStatus::class,'fetch_item_delivery'])->name('cooks.fetch_item_delivery');
 
         Route::resource('products', Admin\ProductController::class);
         Route::resource('product-categories', Admin\ProductCategoryController::class);

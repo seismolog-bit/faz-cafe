@@ -425,7 +425,7 @@
                                 @role(['admin', 'kitchen'])
                                 <div class="col-4">
                                     <a class="d-block hover-bg-200 p-2 rounded-3 text-center text-decoration-none mb-3"
-                                        href="{{ route('admin.cooks.index') }}">
+                                        href="{{ route('admin.cooks.index', ['category' => 'makanan']) }}">
                                         <img src="{{ asset('assets/img/icons/lunch-time.png') }}" alt="" width="30" />
                                         <p class="mb-0 text-black text-truncate fs--2 mt-1 pt-1">Psn. Makanan
                                         </p>

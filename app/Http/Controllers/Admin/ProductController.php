@@ -13,11 +13,22 @@ use File;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::where('archive', 0)->get();
+        // dd($request);
 
-        return view('admin.products.index', compact('products'));
+        $products = Product::orderBy('category_id', 'asc')->orderBy('name', 'asc')->get();
+
+        // dd($request->category);
+
+        if ($request->category) {
+            $products = $products->where('category_id', $request->category);
+        }
+
+        return view('admin.products.index', [
+            'products' => $products,
+            'product_count' => Product::all()
+        ]);
     }
 
     public function create()
@@ -49,8 +60,9 @@ class ProductController extends Controller
 
             // image resize
             $imgFile = Image::make($url->getRealPath());
-            $imgFile->resize(640, null, function ($constraint) {
+            $imgFile->resize(400, 400, function ($constraint) {
                 $constraint->aspectRatio();
+                $constraint->upsize();
             })->save($dir . $fileName);
             $destinationPath = public_path($dir);
             $url->move($destinationPath, $fileName);
@@ -60,7 +72,7 @@ class ProductController extends Controller
 
         $product = Product::create($product);
 
-        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dibuat');
+        return redirect()->route('admin.products.index')->withToastSuccess('success', 'Produk berhasil dibuat');
     }
 
     public function show(Product $product)
@@ -142,11 +154,11 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($product->id);
 
-        $product->archive = !$product->archive;
+        // $product->archive = !$product->archive;
 
-        $product->save();
+        $product->delete();
 
         return redirect()->route('admin.products.index')
-            ->withSuccess(__('Status produk berhasil diubah.'));
+            ->withToastSuccess('Produk berhasil dihapus');
     }
 }

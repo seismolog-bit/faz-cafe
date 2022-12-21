@@ -75,36 +75,7 @@
                 </thead>
                 <tbody class="list" id="table-latest-review-body">
                     {{-- @if (is_array($order_items) || is_object($order_items)) --}}
-                    @forelse ($order_items as $item)
-                    <tr class="hover-actions-trigger btn-reveal-trigger position-static">
-                        <td class="buyer white-space-nowrap">
-                            {{ $item->product->name }}
-                        </td>
-                        <td class="buyer white-space-nowrap">
-                            {{ $item->order->buyer }}
-                        </td>
-                        <td class="table white-space-nowrap">
-                            {{ $item->order->table->name }} - Lantai {{ $item->order->table->floor}}
-                        </td>
-                        
-                        <td class="table white-space-nowrap text-center">
-                            {{ $item->qty }}
-                        </td>
-                        <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4 text-end">
-                            <form action="{{ route('admin.cooks.finish', $item) }}" method="post">
-                                @csrf
-                                <button class="btn btn-primary" type="submit">
-                                    <span class="fas fa-check me-2"></span>Selesaikan
-                                </button>
-                            </form>
-                        </td>
-
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="5">Belum ada pesanan yang harus di antar</td>
-                    </tr>
-                    @endforelse
+                    
                     {{-- @endif --}}
                 </tbody>
             </table>
@@ -130,61 +101,17 @@
 @endsection
 
 @section('script')
-{{-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> --}}
-<script src="//js.pusher.com/3.1/pusher.min.js"></script>
-{{-- <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> --}}
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.js"></script>
 
-<script type="text/javascript">
-    var notificationsWrapper   = $('.dropdown-notifications');
-    var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');
-    var notificationsCountElem = notificationsToggle.find('i[data-count]');
-    var notificationsCount     = parseInt(notificationsCountElem.data('count'));
-    var notifications          = notificationsWrapper.find('ul.dropdown-menu');
-
-    if (notificationsCount <= 0) {
-      notificationsWrapper.hide();
+<script>
+    function fetchdata(){
+        $.get("{{ route('admin.cooks.fetch_item_delivery') }}", {}, function(data, status) {
+            $("#table-latest-review-body").html(data);
+        });
     }
 
-    // Enable pusher logging - don't include this in production
-    // Pusher.logToConsole = true;
-
-    var pusher = new Pusher('c127ea2a88f7413489f1', {
-        cluster: 'ap1'
-        // encrypted: true
+    $(document).ready(function(){
+        setInterval(fetchdata,2000);
     });
-
-    // Subscribe to the channel we specified in our Laravel Event
-    var channel = pusher.subscribe('delivery-order_item');
-
-    // Bind a function to a Event (the full Laravel class)
-    channel.bind('App\\Events\\DeliveryEvent', function(data) {
-      var existingNotifications = notifications.html();
-      var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
-      var newNotificationHtml = `
-        <li class="notification active">
-            <div class="media">
-              <div class="media-left">
-                <div class="media-object">
-                  <img src="https://api.adorable.io/avatars/71/`+avatar+`.png" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
-                </div>
-              </div>
-              <div class="media-body">
-                <strong class="notification-title">`+data.message+`</strong>
-                <!--p class="notification-desc">Extra description can go here</p-->
-                <div class="notification-meta">
-                  <small class="timestamp">about a minute ago</small>
-                </div>
-              </div>
-            </div>
-        </li>
-      `;
-      notifications.html(newNotificationHtml + existingNotifications);
-
-      notificationsCount += 1;
-      notificationsCountElem.attr('data-count', notificationsCount);
-      notificationsWrapper.find('.notif-count').text(notificationsCount);
-      notificationsWrapper.show();
-    });
-  </script>
+</script>
 @endsection

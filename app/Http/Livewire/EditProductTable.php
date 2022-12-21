@@ -23,7 +23,7 @@ class EditProductTable extends Component
     public function render()
     {
         return view('livewire.edit-product-table', [
-            'products' => Product::where([['archive', 0], ['name', 'like', '%' . $this->search . '%']])->orderBy('category_id', 'ASC')->paginate(12)
+            'products' => Product::where([['archive', 0], ['name', 'like', '%' . $this->search . '%']])->orderBy('category_id', 'ASC')->orderBy('name', 'ASC')->paginate(12)
         ]);
     }
 }

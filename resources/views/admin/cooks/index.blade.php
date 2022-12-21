@@ -37,23 +37,19 @@
                     <tr>
                         <th class="sort align-middle" scope="col" data-sort="item"  style="width:20%;  min-width: 200px;">MENU</th>
                         <th class="sort align-middle" scope="col" data-sort="buyer"  style="width:20%;  min-width: 150px;">PELANGGAN</th>
-                        <th class="sort align-middle" scope="col" data-sort="table" style="width: 10%; min-width: 50px;">MEJA</th>
                         <th class="sort align-middle text-center" scope="col" data-sort="qty" style="width: 10%; min-width: 50px;"> QTY</th>
                         <th class="sort align-middle text-center" scope="col" data-sort="note" style="width: 10%; min-width: 50px;"> NOTE</th>
-                        <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 15%;">AKSI</th>
+                        <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 200px;">AKSI</th>
                     </tr>
                 </thead>
                 <tbody class="list" id="table-latest-review-body">
-                    @foreach ($order_items as $item)
+                    {{-- @foreach ($order_items as $item)
                     <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                         <td class="buyer white-space-nowrap">
                             {{ $item->product->name }}
                         </td>
                         <td class="buyer white-space-nowrap">
-                            {{ $item->order->buyer }}
-                        </td>
-                        <td class="table white-space-nowrap">
-                            {{ $item->order->table->name }} - Lantai {{ $item->order->table->floor }}
+                            {{ $item->order->buyer }} - {{ $item->order->table->name }} {{ $item->order->is_billiard ? ' Lantai ' . $item->order->table->floor : ''}}
                         </td>
                         <td class="table white-space-nowrap text-center">
                             {{ $item->qty }}
@@ -61,16 +57,26 @@
                         <td class="table white-space-nowrap text-center">
                             {{ $item->note ?? '-' }}
                         </td>
-                        <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4 text-end">
-                            <form action="{{ route('admin.cooks.update', $item) }}" method="post">
+                        <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4 text-center">
+                            @if ($item->is_delivery == 'pending')
+                            <form action="{{ route('admin.cooks.cooking', $item) }}" method="post">
                                 @csrf
-                                <button class="btn btn-primary" type="submit">
-                                    <span class="fas fa-check me-2"></span>Siap antar
+                                <button class="btn btn-sm btn-warning" type="submit">
+                                    Dibuat
                                 </button>
                             </form>
+                            @else
+                            <form action="{{ route('admin.cooks.update', $item) }}" method="post">
+                                @csrf
+                                <button class="btn btn-sm btn-primary" type="submit">
+                                    Antar
+                                </button>
+                            </form>
+                            @endif
+                            
                         </td>
                     </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -91,4 +97,20 @@
     </div>
 </div>
 
+@endsection
+
+@section('script')
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.js"></script>
+
+<script>
+    function fetchdata(){
+        $.get("{{ route('admin.cooks.fetch_item_order', ['category' => $category_data]) }}", {}, function(data, status) {
+            $("#table-latest-review-body").html(data);
+        });
+    }
+
+    $(document).ready(function(){
+        setInterval(fetchdata,2000);
+    });
+</script>
 @endsection
