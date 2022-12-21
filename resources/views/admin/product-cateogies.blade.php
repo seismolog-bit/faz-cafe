@@ -156,7 +156,7 @@
                                 </div>
                             </div>
 
-                            {!! Form::open(['method' => 'DELETE','route' => ['admin.product-categories.destroy', $category],'style'=>'display:inline']) !!}
+                            {!! Form::open(['method' => 'DELETE','route' => ['admin.product-categories.destroy', $category->id],'style'=>'display:inline']) !!}
                             {!! Form::submit('Hapus', ['class' => 'btn btn-danger btn-sm']) !!}
                             {!! Form::close() !!}
                         </td>

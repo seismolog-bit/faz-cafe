@@ -60,12 +60,11 @@ class ProductController extends Controller
 
             // image resize
             $imgFile = Image::make($url->getRealPath());
-            $imgFile->resize(400, 400, function ($constraint) {
+            $imgFile->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
-                $constraint->upsize();
             })->save($dir . $fileName);
-            $destinationPath = public_path($dir);
-            $url->move($destinationPath, $fileName);
+            // $destinationPath = public_path($dir);
+            // $url->move($destinationPath, $fileName);
 
             $product['image'] = $dir . $fileName;
         }
@@ -118,11 +117,11 @@ class ProductController extends Controller
 
             // image resize
             $imgFile = Image::make($url->getRealPath());
-            $imgFile->resize(640, null, function ($constraint) {
+            $imgFile->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save($dir . $fileName);
-            $destinationPath = public_path($dir);
-            $url->move($destinationPath, $fileName);
+            // $destinationPath = public_path($dir);
+            // $url->move($destinationPath, $fileName);
 
             if ($product) {
                 if (File::exists($product->image)) {

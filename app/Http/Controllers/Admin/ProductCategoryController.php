@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use File;
 use Image;
+use PhpOffice\PhpSpreadsheet\Calculation\Category;
 
 class ProductCategoryController extends Controller
 {
@@ -34,11 +35,11 @@ class ProductCategoryController extends Controller
         
             // image resize
             $imgFile = Image::make($url->getRealPath());
-            $imgFile->resize(640, null, function ($constraint) {
+            $imgFile->resize(180, null, function ($constraint) {
               $constraint->aspectRatio();
             })->save($dir . $fileName);
-            $destinationPath = public_path($dir);
-            $url->move($destinationPath, $fileName);
+            // $destinationPath = public_path($dir);
+            // $url->move($destinationPath, $fileName);
         
             $category['image'] = $dir . $fileName;
         }
@@ -67,11 +68,11 @@ class ProductCategoryController extends Controller
         
             // image resize
             $imgFile = Image::make($url->getRealPath());
-            $imgFile->resize(640, null, function ($constraint) {
+            $imgFile->resize(180, null, function ($constraint) {
               $constraint->aspectRatio();
             })->save($dir . $fileName);
-            $destinationPath = public_path($dir);
-            $url->move($destinationPath, $fileName);
+            // $destinationPath = public_path($dir);
+            // $url->move($destinationPath, $fileName);
             
             if (File::exists($category->image)) {
                 File::delete($category->image);
@@ -87,10 +88,12 @@ class ProductCategoryController extends Controller
 
         return redirect()->back()->with('success', 'Kategori produk berhasil di perbarui.');
     }
-    public function destroy(ProductCategory $category){
+    public function destroy($category){
+        $category = ProductCategory::findOrFail($category);
+        // dd($category);
         $category->delete();
 
-        return redirect()->route('admin.product-cateogies')
+        return redirect()->route('admin.product-categories.index')
             ->withSuccess(__('Kategori produk berhasil dihapus.'));
     }
 }
