@@ -68,7 +68,7 @@
                     <tr>
                         <th class="sort align-middle" scope="col" data-sort="item"  style="width:20%;  min-width: 200px;">MENU</th>
                         <th class="sort align-middle" scope="col" data-sort="buyer"  style="width:20%;  min-width: 150px;">PELANGGAN</th>
-                        <th class="sort align-middle" scope="col" data-sort="table" style="width: 10%; min-width: 50px;">MEJA</th>
+                        {{-- <th class="sort align-middle" scope="col" data-sort="table" style="width: 10%; min-width: 50px;">MEJA</th> --}}
                         <th class="sort align-middle text-center" scope="col" data-sort="qty" style="width: 10%; min-width: 50px;"> QTY</th>
                         <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 15%;">AKSI</th>
                     </tr>

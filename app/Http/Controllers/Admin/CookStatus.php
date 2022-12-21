@@ -40,7 +40,10 @@ class CookStatus extends Controller
 
     public function fetch_item_delivery(Request $request)
     {
-        $order_items = OrderItem::where('is_delivery', 'delivery')->get();
+        $order_items = OrderItem::with('product')->whereHas('product', function ($query) {
+            // $query->where('category_id', 2);
+            $query->where([['is_delivery', '!=', 'pending'], ['is_delivery', '!=', 'finish']]);
+        })->get();
 
         return view('admin.cooks.data-delivery', compact('order_items'));
     }
