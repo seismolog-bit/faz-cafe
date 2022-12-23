@@ -4,7 +4,7 @@
 <div class="row gy-3 mb-6 justify-content-between">
     <div class="col-md-9 col-auto">
         <h2 class="mb-2 text-1100">Laporan Transaksi</h2>
-        <h5 class="text-700 fw-semi-bold">Laporan transaksi penjualan</h5>
+        <h5 class="text-700 fw-semi-bold">Laporan Penjualan Barang</h5>
     </div>
     <div class="col-auto">
         <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
@@ -25,8 +25,8 @@
                 {{-- <span class="fs-4 lh-1 uil shopping-bag text-primary-500"></span> --}}
                 <i class="fs-4 lh-1 fa-solid fa-cart-shopping text-primary-500"></i>
                 <div class="ms-2">
-                    <h2 class="mb-0">{{ $orders->count() }}
-                        <span class="fs-1 fw-semi-bold text-900 ms-2">Transaksi</span>
+                    <h2 class="mb-0">{{ $order_items->count() }}
+                        <span class="fs-1 fw-semi-bold text-900 ms-2">Penjualan</span>
                     </h2>
                 </div>
             </a>
@@ -36,8 +36,8 @@
                 class="d-flex align-items-center text-decoration-none">
                 <span class="fs-4 lh-1 uil uil-rocket text-success-500"></span>
                 <div class="ms-2">
-                    <h2 class="mb-0">{{ $orders->where('order_status', 'active')->count() }}
-                        <span class="fs-1 fw-semi-bold text-900 ms-2">Transaksi Aktif</span>
+                    <h2 class="mb-0">{{ $order_items->where('category_id', 1)->count() }}
+                        <span class="fs-1 fw-semi-bold text-900 ms-2">Billiard</span>
                     </h2>
                 </div>
             </a>
@@ -48,8 +48,8 @@
                 {{-- <span class="fs-4 lh-1 uil uil-cash text-warning-500"></span> --}}
                 <i class="fs-4 lh-1 fa-solid fa-money-bill text-warning-500"></i>
                 <div class="ms-2">
-                    <h2 class="mb-0"> {{ number_format($payment_cash) }}
-                        <span class="fs-1 fw-semi-bold text-900 ms-2">Cash</span>
+                    <h2 class="mb-0"> ...
+                        <span class="fs-1 fw-semi-bold text-900 ms-2">Makanan</span>
                     </h2>
                 </div>
             </a>
@@ -59,8 +59,8 @@
                 class="d-flex align-items-center text-decoration-none">
                 <span class="fs-4 lh-1 uil uil-wallet text-danger-500"></span>
                 <div class="ms-2">
-                    <h2 class="mb-0">{{ number_format($payment_transfer) }}
-                        <span class="fs-1 fw-semi-bold text-900 ms-2">Transfer</span>
+                    <h2 class="mb-0">...
+                        <span class="fs-1 fw-semi-bold text-900 ms-2">Minuman</span>
                     </h2>
                 </div>
             </a>
@@ -104,7 +104,6 @@
                         <th class="sort align-middle text-center" scope="col" data-sort="status"
                             style="width: 10%; min-width: 150px;"> STATUS</th>
                         <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 15%;">TANGGAL</th>
-                        <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 15%;">AKSI</th>
                     </tr>
                 </thead>
                 <tbody class="list" id="table-latest-review-body">
@@ -127,22 +126,6 @@
                         </td>
                         <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4 text-end">
                             {{ $order->created_at->format("d-m-Y H:i") }}
-                        </td>
-                        <td class="align-middle text-end white-space-nowrap pe-0 action">
-                            <div class="font-sans-serif btn-reveal-trigger position-static">
-                                <button
-                                    class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2"
-                                    type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true"
-                                    aria-expanded="false" data-bs-reference="parent">
-                                    <i class="fas fa-ellipsis"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end py-2" style="">
-                                    {{-- <a class="dropdown-item" href="{{ route('admin.orders.destroy', $order) }}">Batalkan Transaksi</a> --}}
-                                    {!! Form::open(['method' => 'DELETE','route' => ['admin.orders.destroy', $order->id],'style'=>'display:inline']) !!}
-                                    {!! Form::submit('Batalkan transaksi', ['class' => 'dropdown-item']) !!}
-                                    {!! Form::close() !!}
-                                </div>
-                            </div>
                         </td>
 
                     </tr>

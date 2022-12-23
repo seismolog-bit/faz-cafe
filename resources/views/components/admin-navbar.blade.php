@@ -244,15 +244,15 @@
                         </a>
                     </span>
                     {{-- <span class="nav-item-wrapper">
-                        <a class="nav-link {{ request()->is('admin/report-orders/index_order_items') ? 'active' : '' }} label-1"
-                            href="{{ route('admin.report-orders.index_order_items') }}" role="button" data-bs-toggle=""
+                        <a class="nav-link {{ request()->is('admin/report-order-items/*') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.report-order-items.index') }}" role="button" data-bs-toggle=""
                             aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon">
                                     <i class="fa-solid fa-arrow-trend-down"></i>
                                 </span>
                                 <span class="nav-link-text-wrapper">
-                                    <span class="nav-link-text">Laporan Pembelian Barang</span>
+                                    <span class="nav-link-text">Laporan Penjualan Barang</span>
                                 </span>
                             </div>
                         </a>

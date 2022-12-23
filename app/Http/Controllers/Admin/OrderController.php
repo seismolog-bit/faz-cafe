@@ -243,4 +243,17 @@ class OrderController extends Controller
         return redirect()->back()->with('toast_success', 'Table berhasil dipindahkan.');
     }
 
+    public function destroy($id)
+    {
+        $order = Order::findOrFail($id);
+
+        $item_orders = OrderItem::where('order_id', $order->id)->get();
+        foreach ($item_orders as $item) {
+            $item->delete();
+        }
+
+        $order->delete();
+
+        return redirect()->back()->with('toast_success', 'Transaksi berhasil dihapus');
+    }
 }

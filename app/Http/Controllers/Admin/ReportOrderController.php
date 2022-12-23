@@ -54,9 +54,4 @@ class ReportOrderController extends Controller
 
         return view('admin.report-orders.show', compact('order'));
     }
-
-    public function index_order_items(Request $request)
-    {
-        return view('admin.report-orders.index_order_items');
-    }
 }

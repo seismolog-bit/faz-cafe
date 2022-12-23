@@ -75,7 +75,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         // Route::post('orders/create/confirmation', [App\Http\Controllers\Admin\OrderController::class, 'create_confirmation'])->name('orders.create_confirmation');
         Route::post('orders/create/validation', [App\Http\Controllers\Admin\OrderController::class, 'create_validation'])->name('orders.create.create_validation');
         Route::post('orders/{order}/update-table', [App\Http\Controllers\Admin\OrderController::class, 'update_table'])->name('orders.update-table');
-        // Route::post('orders/{order}/update-card', [App\Http\Controllers\Admin\OrderController::class, 'update_card'])->name('orders.update-card');
+        Route::delete('orders/{order}', [App\Http\Controllers\Admin\OrderController::class, 'destroy'])->name('orders.destroy');
 
         Route::resource('order-items', Admin\OrderItemController::class);
 
@@ -112,8 +112,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('permissions', Admin\PermissionsController::class);
 
         // Laporan transaksi
-        Route::get('report-orders/index', [App\Http\Controllers\Admin\ReportOrderController::class, 'index'])->name('report-orders.index');
+        Route::get('report-orders', [App\Http\Controllers\Admin\ReportOrderController::class, 'index'])->name('report-orders.index');
         Route::get('report-orders/{order}', [App\Http\Controllers\Admin\ReportOrderController::class, 'show'])->name('report-orders.show');
-        Route::get('report-orders/index_order_items', [App\Http\Controllers\Admin\ReportOrderController::class, 'index_order_items'])->name('report-orders.index_order_items');
+        
+        Route::get('report-order-items', [App\Http\Controllers\Admin\ReportOrderItemController::class, 'index'])->name('report-order-items.index');
     });
 });
