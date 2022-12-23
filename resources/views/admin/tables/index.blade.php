@@ -89,9 +89,19 @@
                             {{ $table->floor }}
                         </td>
                         <td class="status align-middle white-space-nowrap text-900">
-                            {{ $table->is_active ? 'Aktif' : 'Kosong' }}
+                            {{-- {{ $table->is_active ? 'Aktif' : 'Kosong' }} --}}
+
+                            @if ($table->is_active)
+                            <span class="badge badge-phoenix badge-phoenix-warning rounded-pill fs--1 ms-2"> <span class="badge-label">Aktif</span></span>
+                            @else
+                            <span class="badge badge-phoenix badge-phoenix-primary rounded-pill fs--1 ms-2"> <span class="badge-label">Kosong</span></span>
+                            @endif
                         </td>
                         <td class="action align-middle white-space-nowrap text-700">
+                            <a class="btn btn-warning btn-sm" href="{{ route('admin.tables.change', $table->id) }}">
+                                <i class="fa-solid fa-arrow-rotate-right"></i>
+                            </a>
+
                             <button class="btn btn-info btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#tableShow{{ $table->id }}">Detail</button>
                             <div class="modal fade" id="tableShow{{ $table->id }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog">

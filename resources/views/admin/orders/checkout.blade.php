@@ -80,6 +80,7 @@
                             --}}
                             <th class="sort align-middle text-end asc" scope="col" style="width:250px;">TOTAL</th>
                             <th class="sort align-middle text-end asc" scope="col" style="width:250px;">STATUS</th>
+                            <th class="sort align-middle text-end asc" scope="col" style="width:250px;">AKSI</th>
                         </tr>
                     </thead>
                     <tbody class="list" id="table-latest-review-body">
@@ -101,11 +102,51 @@
                                 number_format($item->price) }}</td>
                             <td class="price align-middle text-900 fs--1 fw-semi-bold text-center">{{ $item->qty }}</td>
                             <td class="price align-middle text-900 fs--1 fw-semi-bold text-end">{{number_format($item->total) }}</td>
-                            <td class="price align-middle text-900 fs--1 fw-semi-bold text-end {{ !$item->payment ? 'text-danger' : '' }} ">{{ $item->payment ? 'Lunas' : 'Belum dibayar' }}</td>
+                            <td class="price align-middle text-900 fs--1 fw-semi-bold text-end {{ !$item->payment ? 'text-danger' : '' }} ">{{ $item->payment ? $item->payment_method : 'Belum dibayar' }}
+                            </td>
+
+                            <td class="align-middle text-end white-space-nowrap pe-0 action">
+                                <div class="font-sans-serif btn-reveal-trigger position-static">
+                                    <button
+                                        class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2"
+                                        type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true"
+                                        aria-expanded="false" data-bs-reference="parent">
+                                        <i class="fas fa-ellipsis"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end py-2" style="">
+                                        @if ($item->payment)
+                                        <a class="dropdown-item" href="{{ route('admin.order-items.change_method_payment', $item->id) }}">Ubah metode pembayaran</a>
+                                        @else
+                                        <form action="{{ route('admin.order-items.payment_method', $item->id) }}" method="post">
+                                            @method('put')
+                                            @csrf
+                                            <input type="hidden" name="payment_method" value="Cash">
+                                            <button class="dropdown-item" type="submit">Cash</button>
+                                        </form>
+                                        <form action="{{ route('admin.order-items.payment_method', $item->id) }}" method="post">
+                                            @method('put')
+                                            @csrf
+                                            <input type="hidden" name="payment_method" value="Transfer">
+                                            <button class="dropdown-item" type="submit">Transfer</button>
+                                        </form>
+                                        @endif
+                                        {{-- <form action="{{ route('admin.order-items.destroy_item', $item->id) }}" method="DELETE">
+                                            @method('delete')
+                                            @csrf
+                                            <input type="hidden" name="payment_method" value="Transfer">
+                                            <button class="dropdown-item" type="submit">Hapus</button>
+                                        </form> --}}
+
+                                        {!! Form::open(['method' => 'DELETE','route' => ['admin.order-items.destroy_item', $item->id],'style'=>'display:inline']) !!}
+                                        {!! Form::submit('Hapus item', ['class' => 'dropdown-item']) !!}
+                                        {!! Form::close() !!}
+                                    </div>
+                                </div> 
+                            </td>
                         </tr>
                         @endforeach
                         <tr class="cart-table-row btn-reveal-trigger">
-                            <td class="text-1100 fw-semi-bold ps-0 fs-0" colspan="6">Subtotal:</td>
+                            <td class="text-1100 fw-semi-bold ps-0 fs-0" colspan="7">Subtotal:</td>
                             <td class="text-1100 fw-bold text-end fs-0">{{ number_format($order->grand_total) }}</td>
                         </tr>
                     </tbody>

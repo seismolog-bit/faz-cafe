@@ -260,7 +260,7 @@
                 </li>
                 @endrole
 
-                @hasrole('admin')
+                @hasrole(['admin','cashier'])
                 <li class="nav-item">
                     <!-- label-->
                     <p class="navbar-vertical-label">Pengaturan</p>
@@ -272,7 +272,6 @@
                             aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon">
-                                    {{-- <span data-feather="tables"></span> --}}
                                     <i class="fas fa-table-columns"></i>
                                 </span>
                                 <span class="nav-link-text-wrapper">
@@ -281,6 +280,7 @@
                             </div>
                         </a>
                     </span>
+                    @role('admin')
                     <span class="nav-item-wrapper">
                         <a class="nav-link {{ request()->is('admin/cards*') ? 'active' : '' }} label-1"
                             href="{{ route('admin.cards.index') }}" role="button" data-bs-toggle=""
@@ -296,6 +296,7 @@
                             </div>
                         </a>
                     </span>
+                    @endrole
                 </li>
                 @endrole
 

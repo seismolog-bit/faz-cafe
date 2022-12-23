@@ -32,10 +32,10 @@
                                 <thead>
                                     <tr>
                                         <th class="sort align-middle" scope="col" data-sort="product" style="min-width: 200px;">PRODUK</th>
-                                        <th class="sort align-middle" scope="col" data-sort="category" style="min-width: 100px;">KATEGORI</th>
                                         <th class="sort align-middle text-center" scope="col" data-sort="price" style="min-width: 150px;">HARGA</th>
                                         <th class="sort align-middle text-center" scope="col" data-sort="qty" style="min-width: 50px;"> QTY</th>
                                         <th class="sort align-middle text-center" scope="col" data-sort="total" style="min-width: 150px;"> TOTAL</th>
+                                        <th class="sort align-middle text-end" scope="col" data-sort="category" style="min-width: 100px;">STATUS</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list" id="table-latest-review-body">
@@ -43,9 +43,6 @@
                                     <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                                         <td class="product white-space-nowrap">
                                             {{ $item->product->name }}
-                                        </td>
-                                        <td class="category white-space-nowrap">
-                                            {{ $item->product->category->name }}
                                         </td>
                                         <td class="price align-middle white-space-nowrap text-700 fs--1 ps-4 text-center">
                                             {{ number_format($item->price) }}
@@ -56,6 +53,7 @@
                                         <td class="total white-space-nowrap text-center">
                                             {{ number_format($item->grand_total) }}
                                         </td>
+                                        <td class="price align-middle text-900 fs--1 fw-semi-bold text-end {{ !$item->payment ? 'text-danger' : '' }} ">{{ $item->payment ? 'Lunas' : 'Belum dibayar' }}</td>
 
                                     </tr>
                                     @endforeach
@@ -88,26 +86,30 @@
                 </div>
                 <div class="border-dashed border-bottom mt-4">
                     <div class="d-flex justify-content-between mb-2">
+                        <h5 class="text-900 fw-semi-bold">Petugas: </h5>
+                        <h5 class="text-900 fw-semi-bold">{{ $order->user->name }}</h5>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
                         <h5 class="text-900 fw-semi-bold">Pembeli: </h5>
                         <h5 class="text-900 fw-semi-bold">{{ $order->buyer }}</h5>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <h5 class="text-900 fw-semi-bold">Meja: </h5>
-                        <h5 class="text-900 fw-semi-bold">{{ $order->table->name }} - Lantai {{ $order->table->floor }}
+                        <h5 class="text-900 fw-semi-bold">{{ $order->table->name }} {{ $order->table->is_billiard ? ' Lantai ' . $order->table->floor : '' }}
                         </h5>
                     </div>
-                    <div class="d-flex justify-content-between mb-2">
+                    {{-- <div class="d-flex justify-content-between mb-2">
                         <h5 class="text-900 fw-semi-bold">Metode Pembayaran: </h5>
                         <h5
                             class="text-900 fw-semi-bold ">
                             {{ $order->payment_method }}</h5>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
+                    </div> --}}
+                    {{-- <div class="d-flex justify-content-between mb-2">
                         <h5 class="text-900 fw-semi-bold">Pembayaran: </h5>
                         <h5
                             class="text-900 fw-semi-bold {{ $order->payment_status == 'Belum Bayar' ? 'text-danger' : 'text-primary' }} ">
                             {{ $order->payment_status }}</h5>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="d-flex justify-content-between border-y border-dashed py-3 mb-4">
                     <h4 class="mb-0">Total:</h4>

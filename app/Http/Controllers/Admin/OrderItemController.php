@@ -89,4 +89,58 @@ class OrderItemController extends Controller
 
         $order->save();
     }
+
+    public function change_method_payment($id)
+    {
+        $order_item = OrderItem::findOrFail($id);
+
+        if($order_item->payment_method == 'Cash')
+        {
+            $order_item->payment_method = 'Transfer';
+        }else{
+            $order_item->payment_method = 'Cash';
+        }
+
+        $order_item->save();
+
+        return redirect()->back()->with('toast_success', 'Payment method has been changed');
+    }
+
+    public function payment_method(Request $request, $id)
+    {
+        $request->validate([
+            'payment_method' => ['required']
+        ]);
+
+        $order_item = OrderItem::findOrFail($id);
+
+        $order_item->payment = 1;
+        $order_item->payment_method = $request->payment_method;
+
+        $order_item->save();
+
+        return redirect()->back()->with('toast_success', 'Payment method has been changed');
+    }
+
+    // public function destroy($id)
+    // {
+
+    // }
+
+    public function destroy_item($id)
+    {
+        // dd($id);
+
+        $order_item = OrderItem::findOrFail($id);
+        $order_item->delete();
+
+        $order = Order::findOrFail($order_item->order_id);
+
+        // $order->total = $order->order_item->sum('grand_total');
+        $order->grand_total = $order->order_items->sum('grand_total');
+
+        $order->save();
+
+        return redirect()->back()->with('toast_success', 'Order item has been destroy');
+    }
 }

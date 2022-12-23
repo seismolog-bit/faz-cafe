@@ -42,4 +42,14 @@ class TableController extends Controller
         
         return back()->with('success', '');
     }
+
+    public function change($id)
+    {
+        $table = Table::findOrFail($id);
+
+        $table->is_active = !$table->is_active;
+        $table->save();
+
+        return redirect()->back()->with('toast_success', 'Status tabel berhasil diubah');
+    }
 }

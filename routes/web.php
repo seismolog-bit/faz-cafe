@@ -78,6 +78,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::delete('orders/{order}', [App\Http\Controllers\Admin\OrderController::class, 'destroy'])->name('orders.destroy');
 
         Route::resource('order-items', Admin\OrderItemController::class);
+        Route::get('order-items/{order_items}/change_method_payment', [App\Http\Controllers\Admin\OrderItemController::class, 'change_method_payment'])->name('order-items.change_method_payment');
+        Route::put('order-items/{order_items}/payment_method', [App\Http\Controllers\Admin\OrderItemController::class, 'payment_method'])->name('order-items.payment_method');
+        Route::delete('order-items/{order_items}/destroy_item', [App\Http\Controllers\Admin\OrderItemController::class, 'destroy_item'])->name('order-items.destroy_item');
 
         Route::get('cooks', [App\Http\Controllers\Admin\CookStatus::class, 'index'])->name('cooks.index');
         Route::post('cooks/{cooks}/update', [App\Http\Controllers\Admin\CookStatus::class, 'update'])->name('cooks.update');
@@ -102,6 +105,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         // Settings 
         Route::resource('tables', Admin\TableController::class);
         Route::get('tables/{tables}/lamp', [App\Http\Controllers\Admin\TableController::class, 'lamp'])->name('tables.lamp');
+        Route::get('tables/{tables}/change', [App\Http\Controllers\Admin\TableController::class, 'change'])->name('tables.change');
 
         Route::resource('cards', Admin\CardController::class);
 
