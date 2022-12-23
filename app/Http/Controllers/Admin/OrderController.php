@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Http;
 class OrderController extends Controller
 {
 
-    public function index(Request $request) 
+    public function index(Request $request)
     {
         $orders = Order::orderBy('id', 'DESC')->get();
 
@@ -51,7 +51,8 @@ class OrderController extends Controller
 
     public function checkout(Order $order)
     {
-        return view('admin.orders.checkout', compact('order'));
+        $tables = Table::where('is_active', 0)->get();
+        return view('admin.orders.checkout', compact('order', 'tables'));
     }
 
     public function finish(Order $order, Request $request)
@@ -64,17 +65,17 @@ class OrderController extends Controller
         $order->payment_method = $request->payment_method;
         $order->order_status = 'finish';
         $order->save();
-        
+
         $table = Table::findOrFail($order->table_id);
         $table->is_active = 0;
         $table->save();
 
         $this->_item_finish($order->id);
-        
-        if ($order->is_billiard) {
-            Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id='. $order->table->turn_off);
 
-            if($order->card_id){
+        if ($order->is_billiard) {
+            Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id=' . $order->table->turn_off);
+
+            if ($order->card_id) {
                 $card = Card::where('id', $order->card_id)->first();
                 $card->status = 0;
                 $card->save();
@@ -129,7 +130,7 @@ class OrderController extends Controller
 
         return redirect()->route('admin.orders.index', ['status' => 'active'])->with('toast_success', 'Order berhasil dibuat');
     }
-    
+
     public function create_activate()
     {
         return view('admin.orders.create_activate');
@@ -148,9 +149,8 @@ class OrderController extends Controller
         if ($card == null) {
             return redirect()->back()->with('error', 'QR Code tidak terregistrasi, harap melakukan scan qr yang valid');
         }
-        
-        if($card->status)
-        {
+
+        if ($card->status) {
             return redirect()->back()->with('error', 'Kartu sedang aktif, gunakan kartu yang lain.');
         }
 
@@ -209,4 +209,38 @@ class OrderController extends Controller
 
         $order->save();
     }
+
+    public function update_table(Request $request, $id)
+    {
+        $request->validate([
+            'table_id' => ['required'],
+        ]);
+
+        $order = Order::findOrFail($id);
+        $table = Table::findOrFail($order->table_id);
+        $new_table = Table::findOrFail($request->table_id);
+
+        $table->is_active = 0;
+        if ($table->is_billiard) {
+            Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id=' . $table->turn_off);
+        }
+        $table->save();
+
+        $new_table->is_active = 1;
+        if ($new_table->is_billiard) {
+            Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id=' . $new_table->turn_on);
+        }
+        $new_table->save();
+
+        $order->table_id = $request->table_id;
+        if ($new_table->is_billiard) {
+            $order->is_billiard = 1;
+        } else {
+            $order->is_billiard = 0;
+        }
+        $order->save();
+
+        return redirect()->back()->with('toast_success', 'Table berhasil dipindahkan.');
+    }
+
 }

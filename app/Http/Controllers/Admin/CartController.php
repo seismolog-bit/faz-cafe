@@ -97,9 +97,6 @@ class CartController extends Controller
         // dd($request);
 
         if ($request->code) {
-            // $card_code = explode('/', $request->code)[4];
-
-            
             $card_check = Card::where('code', 'like', $request->code)->first();
             
             if(empty($card_check))
@@ -111,7 +108,6 @@ class CartController extends Controller
             {
                 return redirect()->back()->with('error', 'Kartu sedang aktif, gunakan kartu yang lainnya.');
             }
-            // dd($card_check);
         }
 
         $order = $this->_saveOrder($request);

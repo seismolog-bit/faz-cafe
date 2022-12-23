@@ -6,10 +6,10 @@
         <div class="card-body p-4">
             <div class="row">
                 <div class="col-sm-6">
-                    <h1>{{ $order->table->name }} - Lantai {{ $order->table->floor }}</h1>
+                    <h2>{{ $order->table->name }} - Lantai {{ $order->table->floor }}</h2>
                 </div>
                 <div class="col-sm-6 text-end">
-                    <h1 data-countdown="{{ Carbon\Carbon::parse($order->end_time)}}"></h1>
+                    <h2 data-countdown="{{ Carbon\Carbon::parse($order->end_time)}}"></h2>
                 </div>
             </div>
         </div>

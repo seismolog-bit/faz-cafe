@@ -14,6 +14,43 @@
 <div class="d-flex flex-wrap flex-between-center mb-4">
     <p class="text-800 lh-sm mb-0">Kasir : <span class="fw-bold"> Administrator</span></p>
     <div class="d-flex">
+        <a class="btn pe-3 ps-0 text-900 text-primary" type="button" data-bs-toggle="modal"
+            data-bs-target="#updateTable">
+            <i class="fa-solid fa-arrows-spin"></i> Pindahkan table
+        </a>
+        <div class="modal fade" id="updateTable" tabindex="-1"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('admin.orders.update-table', $order->id) }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="tableShowLabel">Ubah meja
+                            </h5>
+                            <button class="btn p-1" type="button" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span class="fas fa-times fs--1"></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label" for="qtyLabel">Table Baru </label>
+                                <select class="form-select mb-4" aria-label="delivery type" name="table_id" required>
+                                    @foreach ($tables as $table)
+                                    <option value="{{ $table->id }}" >{{ $table->name }} {{ $table->is_billiard ? '- Lantai' . $table->floor : '' }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
+                            <button class="btn btn-outline-primary" type="button"
+                                data-bs-dismiss="modal">Batalkan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         @if ($order->is_billiard)
         <a class="btn pe-3 ps-0 text-900 text-primary" href="{{ route('admin.tables.lamp', $order->table->turn_on) }}">
             <i class="fa-regular fa-lightbulb me-2"></i> Nyalakan lampu

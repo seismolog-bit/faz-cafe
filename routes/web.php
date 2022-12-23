@@ -74,6 +74,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('orders/create/cart', [App\Http\Controllers\Admin\OrderController::class, 'create_cart'])->name('orders.create.create_cart');
         // Route::post('orders/create/confirmation', [App\Http\Controllers\Admin\OrderController::class, 'create_confirmation'])->name('orders.create_confirmation');
         Route::post('orders/create/validation', [App\Http\Controllers\Admin\OrderController::class, 'create_validation'])->name('orders.create.create_validation');
+        Route::post('orders/{order}/update-table', [App\Http\Controllers\Admin\OrderController::class, 'update_table'])->name('orders.update-table');
+        // Route::post('orders/{order}/update-card', [App\Http\Controllers\Admin\OrderController::class, 'update_card'])->name('orders.update-card');
 
         Route::resource('order-items', Admin\OrderItemController::class);
 
@@ -108,5 +110,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('users/{user}/activate/', [App\Http\Controllers\Admin\UserController::class, 'activate'])->name('users.activate');
         Route::resource('roles', Admin\RolesController::class);
         Route::resource('permissions', Admin\PermissionsController::class);
+
+        // Laporan transaksi
+        Route::get('report-orders/index', [App\Http\Controllers\Admin\ReportOrderController::class, 'index'])->name('report-orders.index');
+        Route::get('report-orders/{order}', [App\Http\Controllers\Admin\ReportOrderController::class, 'show'])->name('report-orders.show');
+        Route::get('report-orders/index_order_items', [App\Http\Controllers\Admin\ReportOrderController::class, 'index_order_items'])->name('report-orders.index_order_items');
     });
 });

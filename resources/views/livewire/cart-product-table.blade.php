@@ -69,8 +69,12 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="qtyLabel">Catatan </label>
-                                                        <textarea class="form-control" id="qtyLabel"
-                                                            name="note"> {{ old('note') }} </textarea>
+                                                        {{-- <textarea class="form-control" id="qtyLabel"
+                                                            name="note"> {{ old('note') }} </textarea> --}}
+
+                                                        <input class="form-control" id="qtyLabel"
+                                                            type="text" name="note" value="{{ old('note') }}"
+                                                             />
                                                     </div>
 
                                                     {{-- <div class="mb-3">

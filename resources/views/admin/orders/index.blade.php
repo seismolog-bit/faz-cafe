@@ -11,18 +11,6 @@
     <div class="col-auto">
         <h2 class="mb-0">{{ $status ? 'Transaksi Aktif' : 'Laporan Transaksi' }}</h2>
     </div>
-    {{-- <div class="col-auto">
-        <div class="row g-2 g-sm-3">
-            <div class="col-auto">
-                <a class="btn btn-phoenix-primary" href="{{ route('admin.orders.create.create_activate') }}">
-                    <i class="fa-regular fa-circle-dot"></i> Transaksi Billiard
-                </a>
-                <a class="btn btn-phoenix-primary" href="">
-                    <i class="fa-solid fa-mug-hot"></i> Transaksi Cafe
-                </a>
-            </div>
-        </div>
-    </div> --}}
 </div>
 
 <div id="members"

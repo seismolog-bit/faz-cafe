@@ -91,7 +91,7 @@
 
                 <div class="row g-2">
                     <div class="col-12 col-md-auto flex-md-grow-1">
-                        <a class="btn btn-primary w-100" href="{{ route('admin.orders.checkout', $order) }}">Selesaikan</a>
+                        <a class="btn btn-primary w-100" href="{{ route('admin.orders.checkout', $order) }}">Detail</a>
                     </div>
                     <div class="col-12 col-sm-auto">
                         <a class="btn btn-phoenix-primary w-100" href="{{ route('admin.orders.edit', $order) }}">

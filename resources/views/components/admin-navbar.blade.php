@@ -70,14 +70,14 @@
                                         </div>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" href="{{ route('admin.orders.index') }}" data-bs-toggle=""
                                         aria-expanded="false">
                                         <div class="d-flex align-items-center">
                                             <span class="nav-link-text">Laporan transaksi</span>
                                         </div>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                     </span>
@@ -221,17 +221,38 @@
                             </div>
                         </a>
                     </span>
+                </li>
+                @endrole
 
+                @hasrole(['admin', 'cashier', 'kitchen'])
+                <li class="nav-item">
+                    <!-- label-->
+                    <p class="navbar-vertical-label">Laporan</p>
+                    <hr class="navbar-vertical-line" />
+
+                    <span class="nav-item-wrapper">
+                        <a class="nav-link {{ request()->is('admin/report-orders/*') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.report-orders.index', ['time' => 'today']) }}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <i class="fa-solid fa-chart-simple"></i>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Laporan Transaksi</span>
+                                </span>
+                            </div>
+                        </a>
+                    </span>
                     {{-- <span class="nav-item-wrapper">
-                        <a class="nav-link {{ request()->is('admin/putaways*') ? 'active' : '' }} label-1"
-                            href="{{ route('admin.putaways.index') }}" role="button" data-bs-toggle=""
+                        <a class="nav-link {{ request()->is('admin/report-orders/index_order_items') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.report-orders.index_order_items') }}" role="button" data-bs-toggle=""
                             aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon">
-                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <i class="fa-solid fa-arrow-trend-down"></i>
                                 </span>
                                 <span class="nav-link-text-wrapper">
-                                    <span class="nav-link-text">Pengeluaran Barang</span>
+                                    <span class="nav-link-text">Laporan Pembelian Barang</span>
                                 </span>
                             </div>
                         </a>
