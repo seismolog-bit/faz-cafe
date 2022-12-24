@@ -70,7 +70,7 @@ class OrderController extends Controller
         $table->is_active = 0;
         $table->save();
 
-        $this->_item_finish($order->id);
+        $this->_item_finish($order->id, $request->payment_method);
 
         if ($order->is_billiard) {
             Http::get('https://as-apia.coolkit.cc/v2/smartscene2/webhooks/execute?id=' . $order->table->turn_off);
@@ -90,13 +90,16 @@ class OrderController extends Controller
         return view('admin.orders.receipt', compact('order'));
     }
 
-    private function _item_finish($id)
+    private function _item_finish($id, $payment_method)
     {
         $items = OrderItem::where('order_id', $id)->get();
 
         foreach ($items as $item) {
-            $item->payment = 1;
-            $item->is_delivery = 'finish';
+
+            if (!$item->payment) {
+                $item->payment = 1;
+                $item->payment_method = $payment_method;
+            }
 
             $item->save();
         }

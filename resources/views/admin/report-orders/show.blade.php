@@ -53,7 +53,7 @@
                                         <td class="total white-space-nowrap text-center">
                                             {{ number_format($item->grand_total) }}
                                         </td>
-                                        <td class="price align-middle text-900 fs--1 fw-semi-bold text-end {{ !$item->payment ? 'text-danger' : '' }} ">{{ $item->payment ? 'Lunas' : 'Belum dibayar' }}</td>
+                                        <td class="price align-middle text-900 fs--1 fw-semi-bold text-end {{ !$item->payment ? 'text-danger' : '' }} ">{{ $item->payment ? $item->payment_method : 'Belum dibayar' }}</td>
 
                                     </tr>
                                     @endforeach
