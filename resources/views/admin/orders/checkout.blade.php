@@ -137,6 +137,12 @@
                                             <button class="dropdown-item" type="submit">Hapus</button>
                                         </form> --}}
 
+                                        <hr>
+
+                                        @if ($item->payment)
+                                        <a class="dropdown-item" href="{{ route('admin.order-items.destroy_payment', $item->id) }}">Hapus pembayaran</a>
+                                        @endif
+
                                         {!! Form::open(['method' => 'DELETE','route' => ['admin.order-items.destroy_item', $item->id],'style'=>'display:inline']) !!}
                                         {!! Form::submit('Hapus item', ['class' => 'dropdown-item']) !!}
                                         {!! Form::close() !!}

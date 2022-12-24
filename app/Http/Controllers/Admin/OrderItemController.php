@@ -143,4 +143,14 @@ class OrderItemController extends Controller
 
         return redirect()->back()->with('toast_success', 'Order item has been destroy');
     }
+
+    public function destroy_payment($id)
+    {
+        $order_item = OrderItem::findOrFail($id);
+
+        $order_item->payment = 0;
+        $order_item->save();
+
+        return redirect()->back()->with('toast_success', 'Payment has been changed');
+    }
 }
