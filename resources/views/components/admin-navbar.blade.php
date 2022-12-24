@@ -28,60 +28,91 @@
                     </span>
                 </li>
 
+                @hasrole(['admin', 'cashier', 'waiters'])
                 <li class="nav-item">
                     <!-- label-->
                     <p class="navbar-vertical-label">Transaksi</p>
                     <hr class="navbar-vertical-line" />
 
-                    @hasrole(['admin', 'cashier', 'waiters'])
+
                     <span class="nav-item-wrapper">
-                        <a class="nav-link dropdown-indicator label-1" href="#transaction" role="button"
-                            data-bs-toggle="collapse"
-                            aria-expanded="{{ request()->is('admin/orders*') ? 'true' : 'false' }}"
-                            aria-controls="transaction">
+                        <a class="nav-link {{ request()->is('admin/carts*') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.carts.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
                             <div class="d-flex align-items-center">
-                                <div class="dropdown-indicator-icon">
-                                    <span class="fas fa-caret-right"></span>
-                                </div>
                                 <span class="nav-link-icon">
-                                    <span data-feather="shopping-cart"></span>
+                                    <i class="fa-solid fa-cart-plus"></i>
                                 </span>
-                                <span class="nav-link-text">Transaksi</span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Buat Transaksi</span>
+                                </span>
                             </div>
                         </a>
-                        <div class="parent-wrapper label-1">
-                            <ul class="nav collapse parent {{ request()->is(['admin/orders*', 'admin/carts']) ? 'show' : '' }}"
-                                data-bs-parent="#navbarVerticalCollapse" id="transaction">
-                                <p class="collapsed-nav-item-title d-none">Transaksi</p>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->is('admin/carts') ? 'active' : '' }}"
-                                        href="{{ route('admin.carts.index') }}" data-bs-toggle="" aria-expanded="false">
-                                        <div class="d-flex align-items-center">
-                                            <span class="nav-link-text">Buat transaksi</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->is('admin/orders/active') ? 'active' : '' }}"
-                                        href="{{ route('admin.orders.index_active') }}" data-bs-toggle=""
-                                        aria-expanded="false">
-                                        <div class="d-flex align-items-center">
-                                            <span class="nav-link-text">Transaksi aktif</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.orders.index') }}" data-bs-toggle=""
-                                        aria-expanded="false">
-                                        <div class="d-flex align-items-center">
-                                            <span class="nav-link-text">Laporan transaksi</span>
-                                        </div>
-                                    </a>
-                                </li> --}}
-                            </ul>
-                        </div>
+                    </span>
+
+                    <span class="nav-item-wrapper">
+                        <a class="nav-link {{ request()->is('admin/orders*') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.orders.index_active') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <i class="fa-solid fa-toggle-on"></i>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Transaksi Aktif</span>
+                                </span>
+                            </div>
+                        </a>
+                    </span>
+                </li>
+                @endrole
+
+                @hasrole(['admin', 'waiters', 'kitchen'])
+                <li class="nav-item">
+                    <!-- label-->
+                    <p class="navbar-vertical-label">Pesanan</p>
+                    <hr class="navbar-vertical-line" />
+
+                    @role(['admin', 'kitchen'])
+                    <span class="nav-item-wrapper">
+                        <a class="nav-link {{ request()->is('admin/cooks') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.cooks.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <span><i class="fa-solid fa-utensils"></i></span>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Status pesanan</span>
+                                </span>
+                            </div>
+                        </a>
                     </span>
                     @endrole
+                    @role(['admin', 'waiters'])
+                    <span class="nav-item-wrapper">
+                        <a class="nav-link {{ request()->is('admin/cooks/delivery') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.cooks.delivery') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <span data-feather="truck"></span>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Siap antar</span>
+                                </span>
+                            </div>
+                        </a>
+                    </span>
+                    @endrole
+                </li>
+                @endrole
+
+                @hasrole(['admin', 'cashier'])
+                <li class="nav-item">
+                    <!-- label-->
+                    <p class="navbar-vertical-label">Barang</p>
+                    <hr class="navbar-vertical-line" />
 
                     @hasrole(['admin', 'cashier'])
                     <span class="nav-item-wrapper">
@@ -138,47 +169,7 @@
                     </span>
                     @endrole
 
-                    @hasrole(['admin', 'kitchen'])
-                    <span class="nav-item-wrapper">
-                        <a class="nav-link {{ request()->is('admin/cooks') ? 'active' : '' }} label-1"
-                            href="{{ route('admin.cooks.index') }}" role="button" data-bs-toggle=""
-                            aria-expanded="false">
-                            <div class="d-flex align-items-center">
-                                <span class="nav-link-icon">
-                                    <span><i class="fa-solid fa-utensils"></i></span>
-                                </span>
-                                <span class="nav-link-text-wrapper">
-                                    <span class="nav-link-text">Status pesanan</span>
-                                </span>
-                            </div>
-                        </a>
-                    </span>
-                    @endrole
-
-                    @hasrole(['admin', 'waiters'])
-                    <span class="nav-item-wrapper">
-                        <a class="nav-link {{ request()->is('admin/cooks/delivery') ? 'active' : '' }} label-1"
-                            href="{{ route('admin.cooks.delivery') }}" role="button" data-bs-toggle=""
-                            aria-expanded="false">
-                            <div class="d-flex align-items-center">
-                                <span class="nav-link-icon">
-                                    <span data-feather="truck"></span>
-                                </span>
-                                <span class="nav-link-text-wrapper">
-                                    <span class="nav-link-text">Siap antar</span>
-                                </span>
-                            </div>
-                        </a>
-                    </span>
-                    @endrole
-                </li>
-
-                @hasrole('admin')
-                <li class="nav-item">
-                    <!-- label-->
-                    <p class="navbar-vertical-label">Barang</p>
-                    <hr class="navbar-vertical-line" />
-
+                    @role('admin')
                     <span class="nav-item-wrapper">
                         <a class="nav-link {{ request()->is('admin/receivings*') ? 'active' : '' }} label-1"
                             href="{{ route('admin.receivings.index') }}" role="button" data-bs-toggle=""
@@ -221,10 +212,11 @@
                             </div>
                         </a>
                     </span>
+                    @endrole
                 </li>
                 @endrole
 
-                @hasrole(['admin', 'cashier', 'kitchen'])
+                @hasrole(['admin', 'cashier'])
                 <li class="nav-item">
                     <!-- label-->
                     <p class="navbar-vertical-label">Laporan</p>
