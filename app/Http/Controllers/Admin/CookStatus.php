@@ -24,13 +24,15 @@ class CookStatus extends Controller
 
         if ($request->category == 'minuman') {
             $order_items = OrderItem::with('product')->whereHas('product', function ($query) {
-                $query->where('category_id', 3);
+                $query->where('category_id', 3)->orWhere('category_id', 4);
+                // $query->orWhere('category_id', 4);
                 $query->where([['is_delivery', '!=', 'delivery'], ['is_delivery', '!=', 'finish']]);
             })->get();
         }
         if ($request->category == 'makanan') {
             $order_items = OrderItem::with('product')->whereHas('product', function ($query) {
-                $query->where('category_id', 2);
+                $query->where('category_id', 2)->orWhere('category_id', 4);
+                // $query->orWhere('category_id', 4);
                 $query->where([['is_delivery', '!=', 'delivery'], ['is_delivery', '!=', 'finish']]);
             })->get();
         }
