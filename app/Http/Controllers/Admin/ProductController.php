@@ -153,9 +153,10 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($product->id);
 
-        // $product->archive = !$product->archive;
+        $product->archive = !$product->archive;
+        $product->save();
 
-        $product->delete();
+        // $product->delete();
 
         return redirect()->route('admin.products.index')
             ->withToastSuccess('Produk berhasil dihapus');

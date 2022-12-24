@@ -178,7 +178,7 @@
                                 <div class="dropdown-menu dropdown-menu-end py-2">
                                     {!! Form::open(['method' => 'DELETE','route' => ['admin.products.destroy',
                                     $product],'style'=>'display:inline']) !!}
-                                    {!! Form::submit('Hapus', ['class' => 'dropdown-item text-primary']) !!}
+                                    {!! Form::submit('Arsipkan', ['class' => 'dropdown-item text-primary']) !!}
                                     {!! Form::close() !!}
                                 </div>
                                 @endif
