@@ -48,7 +48,7 @@
                 @csrf
                 <div class="card-body">
                     <h5 class="card-title mb-4">Detail Pesanan</h5>
-                    @role(['cashier'])
+                    @role(['admin', 'cashier'])
                     <div class="mb-4">
                         <h6>Aktifkan Kartu</h6>
                         {{-- <p class="mb-2"><small>*Scan kartu untuk mengaktifkan kartu</small></p> --}}
@@ -68,7 +68,7 @@
                             @endforeach
                         </select>
                     </div>
-                    @role(['cashier'])
+                    @role(['admin', 'cashier'])
                     <div class="mb-4">
                         <h6 class="mb-2">Metode Pembayaran</h6>
                         <select class="form-select" aria-label="delivery type" name="payment_method">

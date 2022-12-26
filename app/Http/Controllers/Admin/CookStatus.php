@@ -23,17 +23,13 @@ class CookStatus extends Controller
         $order_items = OrderItem::where([['is_delivery', '!=', 'delivery'], ['is_delivery', '!=', 'finish']])->get();
 
         if ($request->category == 'minuman') {
-            $order_items = OrderItem::with('product')->whereHas('product', function ($query) {
+            $order_items = OrderItem::where([['is_delivery', '!=', 'delivery'], ['is_delivery', '!=', 'finish']])->whereHas('product', function ($query) {
                 $query->where('category_id', 3)->orWhere('category_id', 4);
-                // $query->orWhere('category_id', 4);
-                $query->where([['is_delivery', '!=', 'delivery'], ['is_delivery', '!=', 'finish']]);
             })->get();
         }
         if ($request->category == 'makanan') {
-            $order_items = OrderItem::with('product')->whereHas('product', function ($query) {
+            $order_items = OrderItem::where([['is_delivery', '!=', 'delivery'], ['is_delivery', '!=', 'finish']])->whereHas('product', function ($query) {
                 $query->where('category_id', 2)->orWhere('category_id', 4);
-                // $query->orWhere('category_id', 4);
-                $query->where([['is_delivery', '!=', 'delivery'], ['is_delivery', '!=', 'finish']]);
             })->get();
         }
 
@@ -99,15 +95,15 @@ class CookStatus extends Controller
             $order_items = OrderItem::with('product')->whereHas('product', function ($query) {
                 $query->where('category_id', 3)->orWhere('category_id', 4);
                 // $query->orWhere('category_id', 4);
-                $query->where('is_delivery', 'finish')->orWhere('is_delivery', 'delivery');
-            })->orderBy('id', 'desc')->get();
+                // $query->where('is_delivery', 'finish')->orWhere('is_delivery', 'delivery');
+            })->where('is_delivery', 'finish')->orderBy('id', 'desc')->get();
         }
         if ($request->category == 'makanan') {
             $order_items = OrderItem::with('product')->whereHas('product', function ($query) {
                 $query->where('category_id', 2)->orWhere('category_id', 4);
                 // $query->orWhere('category_id', 4);
-                $query->where('is_delivery', 'finish')->orWhere('is_delivery', 'delivery');
-            })->orderBy('id', 'desc')->get();
+                // $query->where('is_delivery', 'finish')->orWhere('is_delivery', 'delivery');
+            })->where('is_delivery', 'finish')->orderBy('id', 'desc')->get();
         }
 
         return view('admin.cooks.histories', [
