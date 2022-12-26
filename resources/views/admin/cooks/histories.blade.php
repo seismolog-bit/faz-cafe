@@ -9,7 +9,7 @@
 </nav>
 <div class="row align-items-center justify-content-between g-3 mb-4">
     <div class="col-auto">
-        <h2 class="mb-0">Status Pesanan</h2>
+        <h2 class="mb-0">Riwayat Pesanan</h2>
     </div>
 </div>
 
@@ -28,8 +28,8 @@
         <div class="col-auto">
             <div class="d-flex align-items-center">
                 <div class="flatpickr-input-container">
-                    <a class="btn btn-primary" href="{{ route('admin.cooks.histories', ['category' => $category_data]) }}">
-                        <i class="fa-solid fa-rotate-right me-2"></i>Riwayat Pesanan
+                    <a class="btn btn-phoenix-primary w-100" href="{{ route('admin.cooks.index', ['category' => $category_data]) }}">
+                        Kembali Ke Status Pesanan
                     </a>
                 </div>
             </div>
@@ -42,15 +42,15 @@
                     <tr>
                         <th class="sort align-middle" scope="col" data-sort="item"  style="width:20%;  min-width: 200px;">MENU</th>
                         <th class="sort align-middle" scope="col" data-sort="buyer"  style="width:20%;  min-width: 150px;">PELANGGAN</th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="qty" style="width: 10%; min-width: 50px;"> QTY</th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="note" style="width: 10%; min-width: 50px;"> NOTE</th>
+                        <th class="sort align-middle text-center" scope="col" data-sort="table" style="width: 10%; min-width: 50px;"> QTY</th>
+                        <th class="sort align-middle text-center" scope="col" data-sort="qty" style="width: 10%; min-width: 50px;"> NOTE</th>
                         <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 200px;">AKSI</th>
                     </tr>
                 </thead>
                 <tbody class="list" id="table-latest-review-body">
-                    {{-- @foreach ($order_items as $item)
+                    @foreach ($order_items as $item)
                     <tr class="hover-actions-trigger btn-reveal-trigger position-static">
-                        <td class="buyer white-space-nowrap">
+                        <td class="item white-space-nowrap">
                             {{ $item->product->name }}
                         </td>
                         <td class="buyer white-space-nowrap">
@@ -59,7 +59,7 @@
                         <td class="table white-space-nowrap text-center">
                             {{ $item->qty }}
                         </td>
-                        <td class="table white-space-nowrap text-center">
+                        <td class="qty white-space-nowrap text-center">
                             {{ $item->note ?? '-' }}
                         </td>
                         <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4 text-center">
@@ -81,7 +81,7 @@
                             
                         </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -102,20 +102,4 @@
     </div>
 </div>
 
-@endsection
-
-@section('script')
-<script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.js"></script>
-
-<script>
-    function fetchdata(){
-        $.get("{{ route('admin.cooks.fetch_item_order', ['category' => $category_data]) }}", {}, function(data, status) {
-            $("#table-latest-review-body").html(data);
-        });
-    }
-
-    $(document).ready(function(){
-        setInterval(fetchdata,2000);
-    });
-</script>
 @endsection

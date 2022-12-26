@@ -90,4 +90,29 @@ class CookStatus extends Controller
 
         return redirect()->back()->with('toast_success', 'Pesanan berhasil diselesaikan');
     }
+
+    public function histories(Request $request)
+    {
+        $order_items = OrderItem::where('is_delivery', 'finish')->orWhere('is_delivery', 'delivery')->orderBy('id', 'desc')->get();
+
+        if ($request->category == 'minuman') {
+            $order_items = OrderItem::with('product')->whereHas('product', function ($query) {
+                $query->where('category_id', 3)->orWhere('category_id', 4);
+                // $query->orWhere('category_id', 4);
+                $query->where('is_delivery', 'finish')->orWhere('is_delivery', 'delivery');
+            })->orderBy('id', 'desc')->get();
+        }
+        if ($request->category == 'makanan') {
+            $order_items = OrderItem::with('product')->whereHas('product', function ($query) {
+                $query->where('category_id', 2)->orWhere('category_id', 4);
+                // $query->orWhere('category_id', 4);
+                $query->where('is_delivery', 'finish')->orWhere('is_delivery', 'delivery');
+            })->orderBy('id', 'desc')->get();
+        }
+
+        return view('admin.cooks.histories', [
+            'order_items' => $order_items,
+            'category_data' => $request->category
+        ]);
+    }
 }

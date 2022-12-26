@@ -23,6 +23,7 @@
     "dependencies": {
         "laratime-js": "^1.0.1",
         "laravel-echo": "^1.14.2",
+        "push.js": "^1.0.12",
         "pusher-js": "^7.5.0"
     }
 }

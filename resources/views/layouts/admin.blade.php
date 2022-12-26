@@ -116,6 +116,16 @@
     <script src="{{ asset('vendors/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('vendors/dayjs/dayjs.min.js') }}"></script>
     <script src="{{ asset('assets/js/phoenix.js') }}"></script>
+    <script src="{{ asset('assets/js/push.min.js') }}"></script>
+
+    <script>
+        const iconPath = {{ asset('assets/img/icons/logo.png') }}
+        Push.create('Welcome!', {
+            Body: "Welcome to your dashboard",
+            timeout:5000,
+            icon: iconPath
+        })
+    </script>
 </body>
 
 </html>

@@ -86,7 +86,7 @@ class CartController extends Controller
         $request->validate([
             'table_id' => ['required'],
             'buyer' => ['required'],
-            'payment_method' => ['required']
+            // 'payment_method' => ['required']
         ]);
 
         // if(!$request->code)
@@ -157,7 +157,7 @@ class CartController extends Controller
             'is_billiard' => $table->is_billiard ? 1 : 0,
             'buyer' => $request->buyer,
             'payment_method' => $request->payment_method,
-            'payment_status' => $request->payment_status,
+            'payment_status' => $request->payment_status ?? 'Bayar Nanti',
             'table_id' => $request->table_id,
             'card_id' => $card->id ?? null,
             'price' => \Cart::getTotal(),

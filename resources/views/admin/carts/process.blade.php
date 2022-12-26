@@ -48,12 +48,14 @@
                 @csrf
                 <div class="card-body">
                     <h5 class="card-title mb-4">Detail Pesanan</h5>
+                    @role(['cashier'])
                     <div class="mb-4">
                         <h6>Aktifkan Kartu</h6>
                         {{-- <p class="mb-2"><small>*Scan kartu untuk mengaktifkan kartu</small></p> --}}
                         <div class="mb-2" id="reader" width="320px"></div>
                         <input class="form-control" id="code" type="text" name="code" placeholder="Scan QRCode Kartu" />
                     </div>
+                    @endrole
                     <div class="mb-4">
                         <h6 class="mb-2">Pembeli Atas Nama</h6>
                         <input type="text" class="form-control" name="buyer" placeholder="Masukan nama pembeli" value="{{ old('name') }}" required>
@@ -66,6 +68,7 @@
                             @endforeach
                         </select>
                     </div>
+                    @role(['cashier'])
                     <div class="mb-4">
                         <h6 class="mb-2">Metode Pembayaran</h6>
                         <select class="form-select" aria-label="delivery type" name="payment_method">
@@ -76,10 +79,11 @@
                     <div class="mb-4">
                         <h6 class="mb-2">Status Pembayaran</h6>
                         <select class="form-select" aria-label="delivery type" name="payment_status">
-                            <option value="Lunas">Lunas</option>
                             <option value="Bayar Nanti">Bayar Nanti</option>
+                            <option value="Lunas">Lunas</option>
                         </select>
                     </div>
+                    @endrole
                     <button class="btn btn-primary w-100" type="submit">Simpan Pesanan
                         <i class="fas fa-chevron-right"></i>
                     </button>
