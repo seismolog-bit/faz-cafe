@@ -122,5 +122,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('report-orders/{order}', [App\Http\Controllers\Admin\ReportOrderController::class, 'show'])->name('report-orders.show');
         
         Route::get('report-order-items', [App\Http\Controllers\Admin\ReportOrderItemController::class, 'index'])->name('report-order-items.index');
+
+        Route::resource('reservations', Admin\ReservationController::class);
     });
 });

@@ -101,7 +101,7 @@
                             <a class="btn btn-warning btn-sm" href="{{ route('admin.tables.change', $table->id) }}">
                                 <i class="fa-solid fa-arrow-rotate-right"></i>
                             </a>
-
+                            @role('admin')
                             <button class="btn btn-info btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#tableShow{{ $table->id }}">Detail</button>
                             <div class="modal fade" id="tableShow{{ $table->id }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -181,6 +181,7 @@
                             {!! Form::open(['method' => 'DELETE','route' => ['admin.tables.destroy', $table],'style'=>'display:inline']) !!}
                             {!! Form::submit('Hapus', ['class' => 'btn btn-danger btn-sm']) !!}
                             {!! Form::close() !!}
+                            @endrole
                         </td>
                     </tr>
                     @endforeach

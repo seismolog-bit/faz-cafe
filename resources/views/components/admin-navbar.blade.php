@@ -64,6 +64,22 @@
                             </div>
                         </a>
                     </span>
+                    @role(['admin', 'cashier'])
+                    <span class="nav-item-wrapper">
+                        <a class="nav-link {{ request()->is('admin/reservations*') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.reservations.index', ['date' => Carbon\Carbon::now()->format('d-m-Y')]) }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <i class="fa-solid fa-ticket"></i>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Booking</span>
+                                </span>
+                            </div>
+                        </a>
+                    </span>
+                    @endrole
                 </li>
                 @endrole
 
