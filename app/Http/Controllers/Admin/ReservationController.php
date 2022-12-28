@@ -74,6 +74,14 @@ class ReservationController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        return view('admin.reservations.show', [
+            'reservation' => Reservation::findOrFail($id),
+            'tables' => Table::where('is_billiard', 1)->get()
+        ]);
+    }
+
     public function destroy($id)
     {
         $reservation = Reservation::findOrFail($id);

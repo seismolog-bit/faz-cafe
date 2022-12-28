@@ -10,7 +10,6 @@
     <div class="col-auto">
         <div class="row">
             <div class="col-md-6 col-auto">
-
                 <form action="{{ route('admin.reservations.index') }}" class="row gy-2 gx-3 align-items-center">
                     <div class="col-md-6 p-0 col-auto">
                         <input class="form-control datetimepicker" id="datepicker" type="text" name="date" placeholder="dd-mm-yyyy"
@@ -80,6 +79,7 @@
                                                 <span class="fas fa-ellipsis-h fs--2"></span>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-end py-2">
+                                                <a class="dropdown-item" href="{{ route('admin.reservations.show', $reservation->id) }}">View</a>
                                                 <a class="dropdown-item" href="{{ route('admin.reservations.edit', $reservation->id) }}">Edit</a>
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::open(['method' => 'DELETE','route' => ['admin.reservations.destroy', $reservation->id],'style'=>'display:inline']) !!}

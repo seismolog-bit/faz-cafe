@@ -36,7 +36,7 @@ class OrderItemController extends Controller
             'note' => $request->note ?? '-'
         ]);
 
-        if($product->category_id == 1){
+        if($product->duration != 0){
             $order->end_time = Carbon::parse($order->end_time)->addMinutes($product->duration * $request->qty);
 
             $order->save();
@@ -70,12 +70,11 @@ class OrderItemController extends Controller
         $item = OrderItem::findOrFail($id);
         $product = Product::findOrFail($item->product_id);
         $order = Order::findOrFail($item->order_id);
-
-        // $order->end_time = $order->end_time - 
-
-        $item->delete();
-
+        
         $this->_update_price($item->order_id);
+        $this->_update_duration($item);
+        
+        $item->delete();
 
         return redirect()->back()->with('toast_success', 'Item berhasil dihapus');
     }
@@ -87,6 +86,15 @@ class OrderItemController extends Controller
         $order->price = $order->order_items->sum('grand_total');
         $order->grand_total = $order->order_items->sum('grand_total');
 
+        $order->save();
+    }
+
+    private function _update_duration($item)
+    {
+        $order = Order::findOrFail($item->order_id);
+        $item = OrderItem::findOrFail($item->id);
+
+        $order->duration = Carbon::parse($order->updated_at)->subMinutes($item->duration);
         $order->save();
     }
 
