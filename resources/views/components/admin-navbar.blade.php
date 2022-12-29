@@ -216,6 +216,8 @@
                             </div>
                         </a>
                     </span>
+                    @endrole
+                    @role(['admin', 'cashier'])
                     <span class="nav-item-wrapper">
                         <a class="nav-link {{ request()->is('admin/items*') ? 'active' : '' }} label-1"
                             href="{{ route('admin.items.index') }}" role="button" data-bs-toggle=""
@@ -290,7 +292,7 @@
                             </div>
                         </a>
                     </span>
-                    @role('admin')
+                    @role(['admin', 'cashier'])
                     <span class="nav-item-wrapper">
                         <a class="nav-link {{ request()->is('admin/cards*') ? 'active' : '' }} label-1"
                             href="{{ route('admin.cards.index') }}" role="button" data-bs-toggle=""

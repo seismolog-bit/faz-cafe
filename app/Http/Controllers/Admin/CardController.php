@@ -34,4 +34,14 @@ class CardController extends Controller
 
         return redirect()->route('admin.cards.index')->with('success', 'Kartu berhasil diregistrasi.');
     }
+
+    public function edit($id)
+    {
+        $card = Card::findOrFail($id);
+
+        $card->status = !$card->status;
+        $card->save();
+
+        return redirect()->back()->with('toast_success', 'Status kartu berhasill diubah');
+    }
 }

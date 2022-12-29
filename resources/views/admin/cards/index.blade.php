@@ -26,23 +26,36 @@
     @foreach ($cards as $card)
     <div class="col-6 col-md-3 col-lg-6 col-xl-4">
         <div class="card h-100 overflow-hidden">
-          <div class="bg-holder" style="background-image:url(../../../assets/img/bg/8.png);background-position:left bottom;background-size:auto;"></div>
-          <!--/.bg-holder-->
-          <div class="card-body d-flex flex-column justify-content-between position-relative z-index-2">
-            <div class="d-flex justify-content-between">
-              <div class="mb-5 mb-md-0 mb-lg-5">
-                <div class="d-sm-flex align-items-center mb-3">
-                  <h3 class="mb-0">{{ $card->code }}</h3>
-                </div>
-                <div class="d-flex align-items-end mb-md-5 mb-lg-0">
-                  <h5 class="fs--1 fw-normal text-700 ms-1"><span class="{{ $card->status ? 'text-primary' : 'text-secondary' }}">• {{ $card->status ? 'Aktif' : 'Tidak aktif' }}</span> | Registered: {{ $card->created_at->format('d m Y') }}</h5>
-                </div>
-              </div>
+            <div class="bg-holder"
+                style="background-image:url(../../../assets/img/bg/8.png);background-position:left bottom;background-size:auto;">
             </div>
-            <a class="stretched-link" href="{{ route('card.show', $card->code) }}"></a>
-          </div>
+            <!--/.bg-holder-->
+            <div class="card-body d-flex flex-column justify-content-between position-relative z-index-2">
+                <div class="d-flex justify-content-between">
+                    <div class="mb-5 mb-md-0 mb-lg-5">
+                        <div class="d-sm-flex align-items-center mb-3">
+                            <h3 class="mb-0">{{ $card->code }}</h3>
+                        </div>
+                        <div class="d-flex align-items-end mb-md-5 mb-lg-0">
+                            <h5 class="fs--1 fw-normal text-700 ms-1"><span
+                                    class="{{ $card->status ? 'text-primary' : 'text-secondary' }}">• {{ $card->status ?
+                                    'Aktif' : 'Tidak aktif' }}</span> | Registered: {{ $card->created_at->format('d m
+                                Y') }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-grid d-sm-flex">
+                    @if ($card->status)
+                    <a href="{{ route('card.show', $card->code) }}"
+                        class="btn btn-sm btn-primary d-sm-flex align-items-center mb-3 mb-sm-0 me-sm-3 px-sm-8">Detail
+                    </a>
+                    @endif
+                    <a href="{{ route('admin.cards.edit', $card->id) }}" class="btn btn-sm btn-outline-primary px-sm-7">Ubah status</a>
+                </div>
+                {{-- <a class="stretched-link" href="{{ route('card.show', $card->code) }}"></a> --}}
+            </div>
         </div>
-      </div>
+    </div>
     @endforeach
 </div>
 
