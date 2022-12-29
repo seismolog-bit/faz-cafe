@@ -69,7 +69,7 @@
 </div>
 
 <div id="members"
-    data-list='{"valueNames":["invoice","buyer","table","total","status","date"],"page":15,"pagination":true}'>
+    data-list='{"valueNames":["invoice","buyer","table","card","total","status","date"],"page":15,"pagination":true}'>
     <div class="row align-items-center justify-content-between g-3 mb-3">
         <div class="col col-auto">
             <div class="search-box">
@@ -99,6 +99,8 @@
                             style="width:20%;  min-width: 200px;">PELANGGAN</th>
                         <th class="sort align-middle text-center" scope="col" data-sort="table"
                             style="width: 10%; min-width: 100px;">MEJA</th>
+                            <th class="sort align-middle text-center" scope="col" data-sort="card"
+                                style="width: 10%; min-width: 100px;">KARTU</th>
                         <th class="sort align-middle text-center" scope="col" data-sort="total"
                             style="width: 10%; min-width: 200px;"> TOTAL</th>
                         <th class="sort align-middle text-center" scope="col" data-sort="status"
@@ -118,6 +120,9 @@
                         </td>
                         <td class="table white-space-nowrap text-center">
                             {{ $order->table->name }}
+                        </td>
+                        <td class="table white-space-nowrap text-center">
+                            {{ $order->card->code ?? '-' }}
                         </td>
                         <td class="total align-middle white-space-nowrap text-700 fs--1 ps-4 text-end">
                             {{ number_format($order->grand_total) }}
