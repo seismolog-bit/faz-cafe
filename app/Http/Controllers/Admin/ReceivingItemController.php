@@ -24,7 +24,7 @@ class ReceivingItemController extends Controller
             'item_id' => $request->item_id,
             'qty' => $request->qty,
             'price' => $request->price,
-            'total' => $request->price * $request->qty,
+            'total' => $request->price,
         ]);
 
         $this->_increase_stock($receiving);

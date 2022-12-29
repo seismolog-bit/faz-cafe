@@ -41,12 +41,12 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="qtyLabel">Jumlah </label>
+                                <label class="form-label" for="qtyLabel">Jumlah Pcs/Satuan</label>
                                 <input class="form-control" id="qtyLabel" type="number" name="qty"
                                     value="{{ old('qty') }}" required />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="priceLabel">Harga </label>
+                                <label class="form-label" for="priceLabel">Total Harga </label>
                                 <input class="form-control" id="priceLabel" type="number" name="price"
                                     value="{{ old('price') }}" required />
                             </div>
@@ -95,11 +95,11 @@
                         <tr>
                             <th class="sort white-space-nowrap align-middle" scope="col" style="min-width:400px;"
                                 data-sort="products">BARANG</th>
-                            <th class="sort align-middle ps-4" scope="col" data-sort="color" style="width:150px;">HARGA
-                            </th>
+                            {{-- <th class="sort align-middle ps-4" scope="col" data-sort="color" style="width:150px;">HARGA
+                            </th> --}}
                             <th class="sort align-middle ps-4 text-center" scope="col" data-sort="size" style="width:300px;">QTY
                             </th>
-                            <th class="sort align-middle text-end ps-4" scope="col" data-sort="price" style="width:150px;">TOTAL</th>
+                            <th class="sort align-middle text-end ps-4" scope="col" data-sort="price" style="width:150px;">TOTAL HARGA</th>
                             <th class="sort align-middle text-end ps-4" scope="col" data-sort="price" style="width:150px;">AKSI</th>
                         </tr>
                     </thead>
@@ -107,8 +107,8 @@
                         @forelse ($receiving->receiving_items as $item)
                         <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                             <td>{{ $item->item->name }}</td>
-                            <td class="text-end">{{ number_format($item->price) }}</td>
-                            <td class="text-center">{{ $item->qty }}</td>
+                            {{-- <td class="text-end">{{ number_format($item->price) }}</td> --}}
+                            <td class="text-center">{{ $item->qty }} {{ $item->item->unit }}</td>
                             <td class="text-end">{{ number_format($item->total) }}</td>
                             <td class="d-flex justify-content-end">
                                 <form action="{{ route('admin.reveicing-items.destroy', $item->id) }}" method="post" onsubmit="return confirm('Anda yakin ingin menghapus barang ini?')">
@@ -118,7 +118,6 @@
                                         <i class="fas fa-trash-can text-danger"></i>
                                     </button>
                                 </form>
-
                             </td>
                             <div class="modal fade" id="tableEdit{{ $item->id }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -156,7 +155,7 @@
                         </tr>
                         @empty
                             <tr class="hover-actions-trigger btn-reveal-trigger position-static">
-                                <td class="color align-middle white-space-nowrap text-900 py-0 ps-4" colspan="4">Barang belum ditambahkan</td>
+                                <td class="color align-middle white-space-nowrap text-900 py-0 ps-4" colspan="5">Barang belum ditambahkan</td>
                             </tr>
                         @endforelse
                     </tbody>
