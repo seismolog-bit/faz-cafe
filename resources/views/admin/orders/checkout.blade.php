@@ -14,7 +14,10 @@
 <div class="d-flex flex-wrap flex-between-center mb-4">
     <p class="text-800 lh-sm mb-0">Kasir : <span class="fw-bold"> Administrator</span></p>
     <div class="d-flex">
-        <a class="btn pe-3 ps-0 text-900 text-primary" type="button" data-bs-toggle="modal"
+        <a class="btn btn-phoenix-primary me-2" href="{{ route('admin.orders.edit', $order) }}">
+            <i class="fas fa-plus"></i> Tambah Pesanan</a>
+        </a>
+        <a class="btn btn-phoenix-warning me-2" type="button" data-bs-toggle="modal"
             data-bs-target="#updateTable">
             <i class="fa-solid fa-arrows-spin"></i> Pindahkan table
         </a>
@@ -52,6 +55,7 @@
             </div>
         </div>
         @if ($order->is_billiard)
+        <div class="border-start me-3"></div>
         <a class="btn pe-3 ps-0 text-900 text-primary" href="{{ route('admin.tables.lamp', $order->table->turn_on) }}">
             <i class="fa-regular fa-lightbulb me-2"></i> Nyalakan lampu
         </a>
@@ -73,9 +77,9 @@
                             <th class="sort white-space-nowrap align-middle fs--2 asc" scope="col"></th>
                             <th class="sort white-space-nowrap align-middle asc" scope="col" style="min-width:250px;">
                                 PRODUCTS</th>
-                            <th class="sort align-middle asc" scope="col" style="width:80px;">KATEGORI</th>
-                            <th class="sort align-middle text-end asc" scope="col" style="width:150px;">HARGA</th>
-                            <th class="sort align-middle text-center asc" scope="col" style="width:300px;">QTY</th>
+                            <th class="sort align-middle asc" scope="col" style="width:80px;">HARGA</th>
+                            {{-- <th class="sort align-middle text-end asc" scope="col" style="width:150px;">HARGA</th> --}}
+                            {{-- <th class="sort align-middle text-center asc" scope="col" style="width:300px;">QTY</th> --}}
                             {{-- <th class="sort align-middle ps-5 asc" scope="col" style="width:200px;">QUANTITY</th>
                             --}}
                             <th class="sort align-middle text-end asc" scope="col" style="width:250px;">TOTAL</th>
@@ -94,13 +98,15 @@
                                 </div>
                             </td>
                             <td class="products align-middle">
-                                <div class="fw-semi-bold mb-0 line-clamp-2">{{ $item->product->name }}</div>
+                                <div class="fw-semi-bold mb-0 line-clamp-2">
+                                    {{ $item->product->name }}
+                                    <br>{{ $item->product->category->name }}
+                                </div>
                             </td>
-                            <td class="color align-middle white-space-nowrap fs--1 text-900">{{
-                                $item->product->category->name }}</td>
-                            <td class="size align-middle white-space-nowrap text-700 fs--1 fw-semi-bold text-end">{{
+                            <td class="color align-middle white-space-nowrap fs--1 text-900">{{ number_format($item->price) . 'x' . $item->qty }}</td>
+                            {{-- <td class="size align-middle white-space-nowrap text-700 fs--1 fw-semi-bold text-end">{{
                                 number_format($item->price) }}</td>
-                            <td class="price align-middle text-900 fs--1 fw-semi-bold text-center">{{ $item->qty }}</td>
+                            <td class="price align-middle text-900 fs--1 fw-semi-bold text-center">{{ $item->qty }}</td> --}}
                             <td class="price align-middle text-900 fs--1 fw-semi-bold text-end">{{number_format($item->total) }}</td>
                             <td class="price align-middle text-900 fs--1 fw-semi-bold text-end {{ !$item->payment ? 'text-danger' : '' }} ">{{ $item->payment ? $item->payment_method : 'Belum dibayar' }}
                             </td>
@@ -137,22 +143,26 @@
                                             <button class="dropdown-item" type="submit">Hapus</button>
                                         </form> --}}
 
+                                        @if ($item->payment || !$item->product->category_id == 2 || !$item->product->category_id == 3)
                                         <hr>
+                                        @endif
 
                                         @if ($item->payment)
                                         <a class="dropdown-item" href="{{ route('admin.order-items.destroy_payment', $item->id) }}">Hapus pembayaran</a>
                                         @endif
 
-                                        {!! Form::open(['method' => 'DELETE','route' => ['admin.order-items.destroy_item', $item->id],'style'=>'display:inline']) !!}
-                                        {!! Form::submit('Hapus item', ['class' => 'dropdown-item']) !!}
-                                        {!! Form::close() !!}
+                                        @if ($item->product->category_id == 2 || $item->product->category_id == 3)
+                                            {!! Form::open(['method' => 'DELETE','route' => ['admin.order-items.destroy_item', $item->id],'style'=>'display:inline']) !!}
+                                            {!! Form::submit('Hapus item', ['class' => 'dropdown-item']) !!}
+                                            {!! Form::close() !!}
+                                        @endif
                                     </div>
                                 </div> 
                             </td>
                         </tr>
                         @endforeach
                         <tr class="cart-table-row btn-reveal-trigger">
-                            <td class="text-1100 fw-semi-bold ps-0 fs-0" colspan="7">Subtotal:</td>
+                            <td class="text-1100 fw-semi-bold ps-0 fs-0" colspan="5">Subtotal:</td>
                             <td class="text-1100 fw-bold text-end fs-0">{{ number_format($order->grand_total) }}</td>
                         </tr>
                     </tbody>
