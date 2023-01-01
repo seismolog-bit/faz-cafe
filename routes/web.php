@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\Public\PublicController::class, 'index'])->name('index');
 Route::get('/table-time', [App\Http\Controllers\Public\PublicController::class, 'table_time'])->name('table-time');
 Route::get('/fetch_order',[App\Http\Controllers\Public\PublicController::class,'fetch_order'])->name('fetch_order');
+
+// product 
+
+Route::get('/products',[App\Http\Controllers\Public\ProductController::class,'index'])->name('products.index');
+Route::get('/products/{product}',[App\Http\Controllers\Public\ProductController::class,'show'])->name('products.show');
 
 Route::get('/o/{card}', [App\Http\Controllers\Public\CardController::class, 'show'])->name('card.show');
 

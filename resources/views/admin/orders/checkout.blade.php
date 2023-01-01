@@ -69,7 +69,7 @@
 <div class="row g-5">
     <div class="col-12 col-md-8 mb-2">
         <div id="cartTable"
-            data-list="{&quot;valueNames&quot;:[&quot;products&quot;,&quot;color&quot;,&quot;size&quot;,&quot;price&quot;,&quot;quantity&quot;,&quot;total&quot;],&quot;page&quot;:10}">
+            data-list="{&quot;valueNames&quot;:[&quot;products&quot;,&quot;color&quot;,&quot;size&quot;,&quot;price&quot;,&quot;quantity&quot;,&quot;total&quot;],&quot;page&quot;:25}">
             <div class="table-responsive scrollbar mx-n1 px-1">
                 <table class="table fs--1 mb-0 border-top border-200">
                     <thead>

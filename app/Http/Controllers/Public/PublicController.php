@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderRealtime;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Database;
 
@@ -21,9 +22,12 @@ class PublicController extends Controller
     
     public function index()
     {
-        $products = Product::all();
+        $products = Product::where('archive', 0)->get();
 
-        return view('welcome', compact('products'));
+        return view('welcome', [
+            'products' => $products,
+            'categories' => ProductCategory::all()
+        ]);
     }
 
     public function table_time()
