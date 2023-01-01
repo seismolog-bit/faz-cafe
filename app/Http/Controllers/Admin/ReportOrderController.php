@@ -15,14 +15,14 @@ class ReportOrderController extends Controller
         // dd(Carbon::yesterday());
         $orders = Order::orderBy('id', 'desc')->get();
         $order_items = OrderItem::get();
-        $payment_cash = OrderItem::where('payment_method', 'Cash')->sum('grand_total');
-        $payment_transfer = OrderItem::where('payment_method', 'Transfer')->sum('grand_total');
+        $payment_cash = OrderItem::where('payment_method', 'Cash')->where('payment', 1)->sum('grand_total');
+        $payment_transfer = OrderItem::where('payment_method', 'Transfer')->where('payment', 1)->sum('grand_total');
 
         if ($request->time == 'today') {
             $orders = Order::orderBy('id', 'desc')->whereDate('created_at', Carbon::today())->get();
             $order_items = OrderItem::whereDate('created_at', Carbon::today())->get();
-            $payment_cash = OrderItem::where('payment_method', 'Cash')->whereDate('created_at', Carbon::today())->sum('grand_total');
-            $payment_transfer = OrderItem::where('payment_method', 'Transfer')->whereDate('created_at', Carbon::today())->sum('grand_total');
+            $payment_cash = OrderItem::where('payment_method', 'Cash')->where('payment', 1)->whereDate('created_at', Carbon::today())->sum('grand_total');
+            $payment_transfer = OrderItem::where('payment_method', 'Transfer')->where('payment', 1)->whereDate('created_at', Carbon::today())->sum('grand_total');
         }
 
         if ($request->time == 'yesterday') {
@@ -30,8 +30,8 @@ class ReportOrderController extends Controller
             
             $orders = Order::orderBy('id', 'desc')->whereDate('created_at', Carbon::yesterday())->get();
             $order_items = OrderItem::whereDate('created_at', Carbon::yesterday())->get();
-            $payment_cash = OrderItem::where('payment_method', 'Cash')->whereDate('created_at', Carbon::yesterday())->sum('grand_total');
-            $payment_transfer = OrderItem::where('payment_method', 'Transfer')->whereDate('created_at', Carbon::yesterday())->sum('grand_total');
+            $payment_cash = OrderItem::where('payment_method', 'Cash')->where('payment', 1)->whereDate('created_at', Carbon::yesterday())->sum('grand_total');
+            $payment_transfer = OrderItem::where('payment_method', 'Transfer')->where('payment', 1)->whereDate('created_at', Carbon::yesterday())->sum('grand_total');
         }
 
         if ($request->time == 'week') {
@@ -40,15 +40,15 @@ class ReportOrderController extends Controller
 
             $orders = Order::orderBy('id', 'desc')->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
             $order_items = OrderItem::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-            $payment_cash = OrderItem::where('payment_method', 'cash')->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('grand_total');
-            $payment_transfer = OrderItem::where('payment_method', 'transfer')->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('grand_total');
+            $payment_cash = OrderItem::where('payment_method', 'cash')->where('payment', 1)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('grand_total');
+            $payment_transfer = OrderItem::where('payment_method', 'transfer')->where('payment', 1)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('grand_total');
         }
         
         if ($request->time == 'month') {
             $orders = Order::orderBy('id', 'desc')->whereMonth('created_at', Carbon::now()->month)->get();
             $order_items = OrderItem::whereMonth('created_at', Carbon::now()->month)->get();
-            $payment_cash = OrderItem::where('payment_method', 'cash')->whereMonth('created_at', Carbon::now()->month)->sum('grand_total');
-            $payment_transfer = OrderItem::where('payment_method', 'transfer')->whereMonth('created_at', Carbon::now()->month)->sum('grand_total');
+            $payment_cash = OrderItem::where('payment_method', 'cash')->where('payment', 1)->whereMonth('created_at', Carbon::now()->month)->sum('grand_total');
+            $payment_transfer = OrderItem::where('payment_method', 'transfer')->where('payment', 1)->whereMonth('created_at', Carbon::now()->month)->sum('grand_total');
         }
 
         // dd($order_items->where('order_id', 141)->where('payment_method', 'Cash')->sum('grand_total'));
