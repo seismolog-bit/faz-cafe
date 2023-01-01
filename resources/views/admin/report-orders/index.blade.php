@@ -9,12 +9,21 @@
     <div class="col-auto">
         <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
             {{-- <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">All </a></li> --}}
-            <li class="nav-item"><a class="nav-link {{ Route::is('admin.report-orders.index', ['time' => 'today']) ? 'active' : '' }}" href="{{ route('admin.report-orders.index', ['time' => 'today']) }}">Hari ini </span></a></li>
-            <li class="nav-item"><a class="nav-link {{ Route::is('admin.report-orders.index', ['time' => 'yesterday']) ? 'active' : '' }}" href="{{ route('admin.report-orders.index', ['time' => 'yesterday']) }}">Kemarin </span></a></li>
-            <li class="nav-item"><a class="nav-link {{ Route::is('admin.report-orders.index', ['time' => 'week']) ? 'active' : '' }}" href="{{ route('admin.report-orders.index', ['time' => 'week']) }}">Minggu ini</span></a></li>
-            <li class="nav-item"><a class="nav-link {{ Route::is('admin.report-orders.index', ['time' => 'month']) ? 'active' : '' }}" href="{{ route('admin.report-orders.index', ['time' => 'month']) }}">Bulan ini</span></a></li>
-            <li class="nav-item"><a class="nav-link {{ Route::is('admin.report-orders.index') ? 'active' : '' }}" href="{{ route('admin.report-orders.index') }}">Semua transaksi </span></a></li>
-          </ul>
+            <li class="nav-item"><a
+                    class="nav-link {{ Route::is('admin.report-orders.index', ['time' => 'today']) ? 'active' : '' }}"
+                    href="{{ route('admin.report-orders.index', ['time' => 'today']) }}">Hari ini </span></a></li>
+            <li class="nav-item"><a
+                    class="nav-link {{ Route::is('admin.report-orders.index', ['time' => 'yesterday']) ? 'active' : '' }}"
+                    href="{{ route('admin.report-orders.index', ['time' => 'yesterday']) }}">Kemarin </span></a></li>
+            <li class="nav-item"><a
+                    class="nav-link {{ Route::is('admin.report-orders.index', ['time' => 'week']) ? 'active' : '' }}"
+                    href="{{ route('admin.report-orders.index', ['time' => 'week']) }}">Minggu ini</span></a></li>
+            <li class="nav-item"><a
+                    class="nav-link {{ Route::is('admin.report-orders.index', ['time' => 'month']) ? 'active' : '' }}"
+                    href="{{ route('admin.report-orders.index', ['time' => 'month']) }}">Bulan ini</span></a></li>
+            <li class="nav-item"><a class="nav-link {{ Route::is('admin.report-orders.index') ? 'active' : '' }}"
+                    href="{{ route('admin.report-orders.index') }}">Semua transaksi </span></a></li>
+        </ul>
     </div>
 </div>
 
@@ -32,19 +41,17 @@
             </a>
         </div>
         <div class="col-12 col-sm-6 col-md-3">
-            <a href="#"
-                class="d-flex align-items-center text-decoration-none">
+            <a href="#" class="d-flex align-items-center text-decoration-none">
                 <span class="fs-4 lh-1 uil uil-rocket text-success-500"></span>
                 <div class="ms-2">
-                    <h2 class="mb-0">{{ $orders->where('order_status', 'active')->count() }}
-                        <span class="fs-1 fw-semi-bold text-900 ms-2">Transaksi Aktif</span>
+                    <h2 class="mb-0">{{ number_format($payment_cash + $payment_transfer) }}
+                        <span class="fs-1 fw-semi-bold text-900 ms-2">Total</span>
                     </h2>
                 </div>
             </a>
         </div>
         <div class="col-12 col-sm-6 col-md-3">
-            <a href="#"
-                class="d-flex align-items-center text-decoration-none">
+            <a href="#" class="d-flex align-items-center text-decoration-none">
                 {{-- <span class="fs-4 lh-1 uil uil-cash text-warning-500"></span> --}}
                 <i class="fs-4 lh-1 fa-solid fa-money-bill text-warning-500"></i>
                 <div class="ms-2">
@@ -55,8 +62,7 @@
             </a>
         </div>
         <div class="col-12 col-sm-6 col-md-3">
-            <a href="#"
-                class="d-flex align-items-center text-decoration-none">
+            <a href="#" class="d-flex align-items-center text-decoration-none">
                 <span class="fs-4 lh-1 uil uil-wallet text-danger-500"></span>
                 <div class="ms-2">
                     <h2 class="mb-0">{{ number_format($payment_transfer) }}
@@ -99,36 +105,39 @@
                             style="width:20%;  min-width: 200px;">PELANGGAN</th>
                         <th class="sort align-middle text-center" scope="col" data-sort="table"
                             style="width: 10%; min-width: 100px;">MEJA</th>
-                            <th class="sort align-middle text-center" scope="col" data-sort="card"
-                                style="width: 10%; min-width: 100px;">KARTU</th>
+                        <th class="sort align-middle text-center" scope="col" data-sort="card"
+                            style="width: 10%; min-width: 100px;">CASH</th>
+                        <th class="sort align-middle text-center" scope="col" data-sort="status"
+                            style="width: 10%; min-width: 150px;"> TRANSFER</th>
                         <th class="sort align-middle text-center" scope="col" data-sort="total"
                             style="width: 10%; min-width: 200px;"> TOTAL</th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="status"
-                            style="width: 10%; min-width: 150px;"> STATUS</th>
-                        <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 15%;">TANGGAL</th>
-                        <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 15%;">AKSI</th>
+                        <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 15%;">
+                            TANGGAL</th>
+                        <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 15%;">
+                            AKSI</th>
                     </tr>
                 </thead>
                 <tbody class="list" id="table-latest-review-body">
                     @foreach ($orders as $order)
                     <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                         <td class="invoice white-space-nowrap">
-                            <a class="fw-semi-bold" href="{{ route('admin.report-orders.show', $order) }}">#{{ $order->invoice }}</a>
+                            <a class="fw-semi-bold" href="{{ route('admin.report-orders.show', $order) }}">#{{
+                                $order->invoice }}</a>
                         </td>
                         <td class="buyer white-space-nowrap">
                             {{ $order->buyer }}
                         </td>
-                        <td class="table white-space-nowrap text-center">
-                            {{ $order->table->name }}
+                        <td class="table white-space-nowrap">
+                            {{ $order->table->name }} | Kartu {{ $order->card->code ?? '-' }}
                         </td>
-                        <td class="table white-space-nowrap text-center">
-                            {{ $order->card->code ?? '-' }}
+                        <td class="table white-space-nowrap text-end">
+                            {{ number_format($order_items->where('order_id', $order->id)->where('payment_method', 'Cash')->sum('grand_total')) }}
                         </td>
                         <td class="total align-middle white-space-nowrap text-700 fs--1 ps-4 text-end">
-                            {{ number_format($order->grand_total) }}
+                            {{ number_format($order_items->where('order_id', $order->id)->where('payment_method', 'Transfer')->sum('grand_total')) }}
                         </td>
-                        <td class="status white-space-nowrap text-center">
-                            {{ $order->order_status }}
+                        <td class="status white-space-nowrap text-end">
+                            {{ number_format($order->grand_total) }}
                         </td>
                         <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4 text-end">
                             {{ $order->created_at->format("d-m-Y H:i") }}
@@ -142,8 +151,10 @@
                                     <i class="fas fa-ellipsis"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end py-2" style="">
-                                    {{-- <a class="dropdown-item" href="{{ route('admin.orders.destroy', $order) }}">Batalkan Transaksi</a> --}}
-                                    {!! Form::open(['method' => 'DELETE','route' => ['admin.orders.destroy', $order->id],'style'=>'display:inline']) !!}
+                                    {{-- <a class="dropdown-item"
+                                        href="{{ route('admin.orders.destroy', $order) }}">Batalkan Transaksi</a> --}}
+                                    {!! Form::open(['method' => 'DELETE','route' => ['admin.orders.destroy',
+                                    $order->id],'style'=>'display:inline']) !!}
                                     {!! Form::submit('Batalkan transaksi', ['class' => 'dropdown-item']) !!}
                                     {!! Form::close() !!}
                                 </div>

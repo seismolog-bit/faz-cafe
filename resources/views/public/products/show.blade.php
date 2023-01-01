@@ -19,13 +19,13 @@
             </div> --}}
         </div>
     </div>
-    <!-- Flash Sale Panel-->
+    @if ($product->category_id == 4)
     <div class="flash-sale-panel bg-white mb-3 py-3">
         <div class="container">
             <!-- Sales Offer Content-->
             <div class="sales-offer-content d-flex align-items-end justify-content-between">
                 <!-- Sales End-->
-                @if ($product->category_id == 4)
+                
                 <div class="sales-end">
                     <p class="mb-1 font-weight-bold">
                         <i class="fa-solid fa-bolt-lightning lni-flashing-effect text-danger"></i> Promo berakhir pada
@@ -38,11 +38,12 @@
                         <li><span class="seconds">0</span>s</li>
                     </ul>
                 </div>
-                @endif
+                
                 
             </div>
         </div>
     </div>
+    @endif
     <!-- Selection Panel-->
     <div class="selection-panel bg-white mb-3 py-3">
         <div class="container d-flex align-items-center justify-content-between">

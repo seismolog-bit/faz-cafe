@@ -31,18 +31,18 @@
                             <table class="table table-sm fs--1 mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="sort align-middle" scope="col" data-sort="product" style="min-width: 200px;">PRODUK</th>
-                                        <th class="sort align-middle text-center" scope="col" data-sort="price" style="min-width: 150px;">HARGA</th>
+                                        <th class="sort align-middle" scope="col" data-sort="product" style="min-width: 150px;">PRODUK</th>
+                                        <th class="sort align-middle text-center" scope="col" data-sort="price" style="min-width: 100px;">HARGA</th>
                                         <th class="sort align-middle text-center" scope="col" data-sort="qty" style="min-width: 50px;"> QTY</th>
-                                        <th class="sort align-middle text-center" scope="col" data-sort="total" style="min-width: 150px;"> TOTAL</th>
-                                        <th class="sort align-middle text-end" scope="col" data-sort="category" style="min-width: 100px;">STATUS</th>
+                                        <th class="sort align-middle text-center" scope="col" data-sort="total" style="min-width: 100px;"> TOTAL</th>
+                                        <th class="sort align-middle text-end" scope="col" data-sort="category" style="min-width: 70px;">STATUS</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list" id="table-latest-review-body">
                                     @foreach ($order->order_items as $item)
                                     <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                                         <td class="product white-space-nowrap">
-                                            {{ $item->product->name }}
+                                            {{ \Illuminate\Support\Str::limit($item->product->name, 45, $end='...') }}
                                         </td>
                                         <td class="price align-middle white-space-nowrap text-700 fs--1 ps-4 text-center">
                                             {{ number_format($item->price) }}
