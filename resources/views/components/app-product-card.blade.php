@@ -1,15 +1,17 @@
 <div class="col-4">
-    <div class="card featured-product-card">
-        <div class="card-body p-0">
-            <div class="product-thumbnail-side m-0">
-                <a class="product-thumbnail d-block" href="single-product.html">
-                    <img class="rounded" src="{{ asset($product->image) }}" alt="">
-                </a>
-            </div>
-            <div class="product-description p-2">
-                <a class="product-title d-block" href="single-product.html" style="font-size: 12px !important;">{{ $product->name }}</a>
-                <p class="sale-price" style="font-size: 14px !important;">{{ number_format($product->price) }}</p>
-            </div>
+    <a class="card blog-card" href="{{ route('products.show', $product->id) }}">
+        <div class="post-img">
+            <img src="{{ asset($product->image) }}" alt="">
         </div>
-    </div>
+        <div class="post-content">
+            <div class="bg-shapes">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="post-catagory d-block">{{ number_format($product->price) }}</div>
+            <div class="post-title" href="blog-details.html">{{ $product->name }}</div>
+        </div>
+    </a>
 </div>

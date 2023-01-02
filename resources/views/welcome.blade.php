@@ -15,10 +15,11 @@
                     <div class="slide-content h-100 d-flex align-items-center">
                         <div class="slide-text">
                             <h4 class="text-white mb-0" data-animation="fadeInUp" data-delay="100ms"
-                                data-duration="1000ms">Amazon Echo</h4>
+                                data-duration="1000ms">Faz Cafe & Balls</h4>
                             <p class="text-white" data-animation="fadeInUp" data-delay="400ms" data-duration="1000ms">
-                                3rd Generation, Charcoal</p><a class="btn btn-primary" href="#"
-                                data-animation="fadeInUp" data-delay="800ms" data-duration="1000ms">Buy Now</a>
+                                Play and chill</p>
+                            {{-- <a class="btn btn-primary" href="#" data-animation="fadeInUp" data-delay="800ms"
+                                data-duration="1000ms">Buy Now</a> --}}
                         </div>
                     </div>
                 </div>
@@ -27,10 +28,9 @@
                     <div class="slide-content h-100 d-flex align-items-center">
                         <div class="slide-text">
                             <h4 class="text-white mb-0" data-animation="fadeInUp" data-delay="100ms"
-                                data-duration="1000ms">Light Candle</h4>
+                                data-duration="1000ms">Enjoy playing balls</h4>
                             <p class="text-white" data-animation="fadeInUp" data-delay="400ms" data-duration="1000ms">
-                                Now only $22</p><a class="btn btn-success" href="#" data-animation="fadeInUp"
-                                data-delay="500ms" data-duration="1000ms">Buy Now</a>
+                                With music & karaoke</p>
                         </div>
                     </div>
                 </div>
@@ -39,10 +39,11 @@
                     <div class="slide-content h-100 d-flex align-items-center">
                         <div class="slide-text">
                             <h4 class="text-white mb-0" data-animation="fadeInUp" data-delay="100ms"
-                                data-duration="1000ms">Best Furniture</h4>
-                            <p class="text-white" data-animation="fadeInUp" data-delay="400ms" data-duration="1000ms">3
-                                years warranty</p><a class="btn btn-danger" href="#" data-animation="fadeInUp"
-                                data-delay="800ms" data-duration="1000ms">Buy Now</a>
+                                data-duration="1000ms">Food & Drink</h4>
+                            {{-- <p class="text-white" data-animation="fadeInUp" data-delay="400ms"
+                                data-duration="1000ms">3
+                                years warranty</p> --}}
+
                         </div>
                     </div>
                 </div>
@@ -58,8 +59,8 @@
             <div class="col-3">
                 <div class="card catagory-card">
                     <div class="card-body px-2">
-                        <a href="catagory.html">
-                            <img src="{{ asset($category->image) }}" alt="">
+                        <a href="{{ route('products.index', ['category' => $category->id, 'order_by' => 'name']) }}">
+                            <img src="{{ asset($category->image) }}" alt="" class="rounded">
                             <span>{{ $category->name }}</span>
                         </a>
                     </div>
@@ -75,7 +76,6 @@
         <div class="section-heading d-flex align-items-center justify-content-between rtl-flex-d-row-r">
             <h6 class="d-flex align-items-center rtl-flex-d-row-r"><i
                     class="fa-solid fa-bolt-lightning me-1 text-danger lni-flashing-effect"></i>Promo</h6>
-            <!-- Please use event time this format: YYYY/MM/DD hh:mm:ss -->
             <ul class="sales-end-timer ps-0 d-flex align-items-center rtl-flex-d-row-r"
                 data-countdown="2023/01/31 00:00:00">
                 <li><span class="days">0</span>d</li>
@@ -90,7 +90,7 @@
             @foreach ($products->where('category_id', 4) as $product)
             <div class="card flash-sale-card">
                 <div class="card-body">
-                    <a href="single-product.html">
+                    <a href="{{ route('products.show', $product->id) }}">
                         <img src="{{ asset($product->image) }}" alt="">
                         <span class="product-title">{{ $product->name }}</span>
                         <p class="sale-price">{{ number_format($product->price) }}</p>
@@ -107,9 +107,10 @@
     <div class="cta-text dir-rtl p-4 p-lg-5">
         <div class="row">
             <div class="col-9">
-                <h4 class="text-white mb-1">20% discount on women's care items</h4>
-                <p class="text-white mb-2 opacity-75">Offer will continue till this Friday.</p><a
-                    class="btn btn-warning" href="#">Grab this offer</a>
+                <h4 class="text-white mb-1">Up to 30% discount</h4>
+                <p class="text-white mb-2 opacity-75">Waktu lebih banyak, bayar lebih sedikit</p><a
+                    class="btn btn-warning"
+                    href="{{ route('products.index', ['category' => 4, 'order_by' => 'name']) }}">Selengkapnya</a>
             </div>
         </div><img src="img/bg-img/make-up.png" alt="">
     </div>
@@ -118,12 +119,13 @@
 <div class="top-products-area py-3">
     <div class="container">
         <div class="section-heading d-flex align-items-center justify-content-between dir-rtl">
-            <h6>Billiard & Karaoke</h6><a class="btn p-0" href="{{ route('products.index', ['category' => 1, 'order_by' => 'name']) }}">Lebih banyak<i
+            <h6>Billiard & Karaoke</h6><a class="btn p-0"
+                href="{{ route('products.index', ['category' => 1, 'order_by' => 'name']) }}">Lebih banyak<i
                     class="ms-1 fa-solid fa-arrow-right-long"></i></a>
         </div>
         <div class="row g-2">
             @foreach ($products->where('category_id', 1) as $product)
-                @include('components.app-product-card', ['product' => $product])
+            @include('components.app-product-card', ['product' => $product])
             @endforeach
         </div>
     </div>
@@ -133,29 +135,30 @@
     <div class="cta-text dir-rtl p-4 p-lg-5">
         <div class="row">
             <div class="col-9">
-                <h4 class="text-white mb-1">20% discount on women's care items</h4>
-                <p class="text-white mb-2 opacity-75">Offer will continue till this Friday.</p><a
-                    class="btn btn-warning" href="#">Grab this offer</a>
+                <h4 class="text-white mb-1">Live table time</h4>
+                <p class="text-white mb-2 opacity-75">Get what you want.</p>
+                <a class="btn btn-warning" href="{{ route('live-table') }}">Cek sekarang</a>
             </div>
-        </div><img src="img/bg-img/make-up.png" alt="">
+        </div><img src="img/bg-img/make-up-2.png" alt="">
     </div>
 </div>
 <!-- Weekly Best Sellers-->
 <div class="weekly-best-seller-area py-3">
     <div class="container">
         <div class="section-heading d-flex align-items-center justify-content-between dir-rtl">
-            <h6>Minuman</h6><a class="btn p-0" href="{{ route('products.index', ['category' => 3, 'order_by' => 'name']) }}"> Lebih banyak
+            <h6>Minuman</h6><a class="btn p-0"
+                href="{{ route('products.index', ['category' => 3, 'order_by' => 'name']) }}"> Lebih banyak
                 <i class="ms-1 fa-solid fa-arrow-right-long"></i></a>
         </div>
         <div class="row g-2">
             @foreach ($products->where('category_id', 3)->take(9) as $product)
-                @include('components.app-product-card', ['product' => $product])
+            @include('components.app-product-card', ['product' => $product])
             @endforeach
         </div>
     </div>
 </div>
 <!-- Discount Coupon Card-->
-<div class="container">
+{{-- <div class="container">
     <div class="discount-coupon-card p-4 p-lg-5 dir-rtl">
         <div class="d-flex align-items-center">
             <div class="discountIcon"><img class="w-100" src="img/core-img/discount.png" alt=""></div>
@@ -166,17 +169,18 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- Featured Products Wrapper-->
 <div class="featured-products-wrapper py-3">
     <div class="container">
         <div class="section-heading d-flex align-items-center justify-content-between dir-rtl">
-            <h6>Makanan</h6><a class="btn p-0" href="{{ route('products.index', ['category' => 2, 'order_by' => 'name']) }}">Lebih banyak<i
+            <h6>Makanan</h6><a class="btn p-0"
+                href="{{ route('products.index', ['category' => 2, 'order_by' => 'name']) }}">Lebih banyak<i
                     class="ms-1 fa-solid fa-arrow-right-long"></i></a>
         </div>
         <div class="row g-2">
             @foreach ($products->where('category_id', 2)->take(9) as $product)
-                @include('components.app-product-card', ['product' => $product])
+            @include('components.app-product-card', ['product' => $product])
             @endforeach
         </div>
     </div>
@@ -191,7 +195,7 @@
             <div class="card collection-card"><a href="single-product.html"><img src="img/product/17.jpg" alt=""></a>
                 <div class="collection-title"><span>Women</span><span class="badge bg-danger">9</span></div>
             </div>
-            
+
         </div>
     </div>
 </div> --}}

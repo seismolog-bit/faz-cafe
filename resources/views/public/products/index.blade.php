@@ -40,28 +40,10 @@
         <div class="mb-3"></div>
         <div class="row g-2 rtl-flex-d-row-r">
             @foreach ($products as $product)
-            <div class="col-6 col-md-4">
-                <div class="card product-card">
-                    <div class="card-body">
-                        <a class="product-thumbnail d-block" href="{{ route('products.show', $product->id) }}">
-                            <img class="mb-2" src="{{ asset($product->image) }}" alt="">
-                            <!-- Offer Countdown Timer: Please use event time this format: YYYY/MM/DD hh:mm:ss -->
-                            {{-- <ul class="offer-countdown-timer d-flex align-items-center shadow-sm"
-                                data-countdown="2023/12/31 23:59:59">
-                                <li><span class="days">364</span>d</li>
-                                <li><span class="hours">05</span>h</li>
-                                <li><span class="minutes">30</span>m</li>
-                                <li><span class="seconds">58</span>s</li>
-                            </ul> --}}
-                        </a>
-                        <div class="product-title">{{ $product->name }}</div>
-
-                        <p class="sale-price">{{ number_format($product->price) }}</p>
-                    </div>
-                </div>
-            </div>
+            @include('components.app-product-card', ['product' => $product])
             @endforeach
         </div>
+        {{-- {{ $products->links() }} --}}
     </div>
 </div>
 

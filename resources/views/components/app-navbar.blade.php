@@ -8,15 +8,15 @@
 
             @auth
             <div class="user-profile-icon ms-2">
-                <a href="profile.html">
+                <a href="{{ route('profil') }}">
                     <img src="{{ asset(Auth::user()->avatar) }}" alt=""></a>
             </div>
             @endauth
 
-            <div class="suha-navbar-toggler ms-2" data-bs-toggle="offcanvas" data-bs-target="#suhaOffcanvas"
+            {{-- <div class="suha-navbar-toggler ms-2" data-bs-toggle="offcanvas" data-bs-target="#suhaOffcanvas"
                 aria-controls="suhaOffcanvas">
                 <div><span></span><span></span><span></span></div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

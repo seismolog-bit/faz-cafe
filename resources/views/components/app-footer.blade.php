@@ -7,19 +7,27 @@
                 </a>
             </li>
             <li>
-                <a href="message.html">
+                <a href="{{ route('live-table') }}">
                     <i class="fa-solid fa-clock"></i> Live Table
                 </a>
             </li>
             <li>
-                <a href="cart.html">
+                <a href="{{ route('bookings') }}">
                     <i class="fa-solid fa-ticket"></i> Booking 
                 </a>
             </li>
             <li>
-                <a href="pages.html">
+                @auth
+                <a href="{{ route('profil') }}">
                     <i class="fa-solid fa-user"></i> Profil
                 </a>
+                
+                @else
+
+                <a href="{{ route('login') }}">
+                    <i class="fa-solid fa-user"></i> Login
+                </a>
+                @endauth    
             </li>
         </ul>
     </div>

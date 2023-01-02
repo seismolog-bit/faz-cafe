@@ -19,8 +19,11 @@ Route::get('/', [App\Http\Controllers\Public\PublicController::class, 'index'])-
 Route::get('/table-time', [App\Http\Controllers\Public\PublicController::class, 'table_time'])->name('table-time');
 Route::get('/fetch_order',[App\Http\Controllers\Public\PublicController::class,'fetch_order'])->name('fetch_order');
 
-// product 
+Route::get('/live-table', [App\Http\Controllers\Public\PublicController::class, 'live_table'])->name('live-table');
+Route::get('/bookings', [App\Http\Controllers\Public\PublicController::class, 'bookings_index'])->name('bookings');
+Route::get('/profil', [App\Http\Controllers\Public\PublicController::class, 'profil'])->name('profil');
 
+// product 
 Route::get('/products',[App\Http\Controllers\Public\ProductController::class,'index'])->name('products.index');
 Route::get('/products/{product}',[App\Http\Controllers\Public\ProductController::class,'show'])->name('products.show');
 
@@ -47,15 +50,10 @@ Route::get('delivery-test', function () {
 
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
-
-    Route::group(['middleware' => ['auth']], function() 
-    {
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    });
-
     // Route::middleware(['auth', 'permission'])->name('admin.')->prefix('admin')->group(function()
-    Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function()
+    Route::middleware(['auth', 'permission'])->name('admin.')->prefix('admin')->group(function()
     {   
+        Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
         // Cart 
         Route::get('carts', [App\Http\Controllers\Admin\CartController::class, 'index'])->name('carts.index');
         Route::get('carts/process', [App\Http\Controllers\Admin\CartController::class, 'process'])->name('carts.process');

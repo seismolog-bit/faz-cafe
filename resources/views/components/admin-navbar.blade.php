@@ -14,8 +14,8 @@
             <ul class="navbar-nav flex-column" id="navbarVerticalNav">
                 <li class="nav-item">
                     <span class="nav-item-wrapper">
-                        <a class="nav-link {{ request()->is('home') ? 'active' : '' }} label-1"
-                            href="{{ route('home') }}" role="button" data-bs-toggle="" aria-expanded="false">
+                        <a class="nav-link {{ request()->is('admin') ? 'active' : '' }} label-1"
+                            href="{{ route('admin.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon">
                                     <span data-feather="compass"></span>
@@ -382,7 +382,7 @@
                     <span class="toggle-line"></span>
                 </span>
             </button>
-            <a class="navbar-brand me-1 me-sm-3" href="{{ route('home') }}">
+            <a class="navbar-brand me-1 me-sm-3" href="{{ route('admin.index') }}">
                 <div class="d-flex align-items-center">
                     <div class="d-flex align-items-center"><img src="{{ asset('assets/img/icons/logo-menu.png') }}"
                             alt="phoenix" height="28" />
@@ -552,7 +552,7 @@
                                         </span>Profile</a>
                                 </li> --}}
                                 <li class="nav-item">
-                                    <a class="nav-link px-3" href="{{ route('home') }}">
+                                    <a class="nav-link px-3" href="{{ route('admin.index') }}">
                                         <span class="me-2 text-900" data-feather="pie-chart"></span>Dashboard</a>
                                 </li>
                                 {{-- <li class="nav-item">
