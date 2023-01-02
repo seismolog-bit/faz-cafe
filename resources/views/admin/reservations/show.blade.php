@@ -3,7 +3,7 @@
 @section('content')
 <nav class="mb-2" aria-label="breadcrumb">
     <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ route('admin.reservations.index', ['date' => Carbon\Carbon::now()->format('d-m-Y')]) }}">Booking</a></li>
         <li class="breadcrumb-item active">Detail booking</li>
     </ol>
