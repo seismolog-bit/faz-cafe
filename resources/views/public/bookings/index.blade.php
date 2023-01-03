@@ -8,9 +8,9 @@
 
 <div class="py-3">
     <div class="edit-profile-btn mb-3 px-3">
-        <a class="btn btn-primary w-100" href="https://wa.me/6287776112690?text=Hai%20kak.%20Saya%20ingin%20booking%20table:%0AAtas%20Nama:%20....%0ARuangan:%20Non%20Smoking/Smoking%0AJam:%20....%20-%20....%0ADurasi:%20...%20Jam%0A%0A%0AContoh:%0AAtas%20Nama:%20Fulan%0ARuangan:%20Smoking%0AJam:%2010.00%20-%2012.00%0ADurasi:%202%20Jam
+        <a class="btn btn-primary btn-lg w-100" href="https://wa.me/6287776112690?text=Hai%20kak.%20Saya%20ingin%20booking%20table:%0AAtas%20Nama:%20....%0ARuangan:%20Non%20Smoking/Smoking%0AJam:%20....%20-%20....%0ADurasi:%20...%20Jam%0A%0A%0AContoh:%0AAtas%20Nama:%20Fulan%0ARuangan:%20Smoking%0AJam:%2010.00%20-%2012.00%0ADurasi:%202%20Jam
         ">
-            <i class="fa-solid fa-plus me-2"></i>Booking Tabel
+            Booking
         </a>
     </div>
 

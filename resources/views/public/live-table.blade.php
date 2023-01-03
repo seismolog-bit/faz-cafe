@@ -9,7 +9,8 @@
         <div class="credit-card-info-wrapper"><img class="d-block mb-4" src="img/bg-img/table-lamp.png" alt="">
             <div class="cod-info text-center mb-3">
                 <p>Table sedang kosong, segera lakukan pemesanan table atau booking melalui kontak</p>
-            </div><a class="btn btn-primary btn-lg w-100" href="{{ route('bookings') }}">Booking</a>
+            </div><a class="btn btn-primary btn-lg w-100" href="https://wa.me/6287776112690?text=Hai%20kak.%20Saya%20ingin%20booking%20table:%0AAtas%20Nama:%20....%0ARuangan:%20Non%20Smoking/Smoking%0AJam:%20....%20-%20....%0ADurasi:%20...%20Jam%0A%0A%0AContoh:%0AAtas%20Nama:%20Fulan%0ARuangan:%20Smoking%0AJam:%2010.00%20-%2012.00%0ADurasi:%202%20Jam
+            ">Booking</a>
         </div>
     </div>
 </div>

@@ -67,6 +67,8 @@
 @endsection
 
 @section('script')
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $('[name="all_permission"]').on('click', function() {

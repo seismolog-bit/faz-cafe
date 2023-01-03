@@ -11,7 +11,7 @@
                 <div class="circle4"></div>
             </div>
             <div class="post-catagory d-block">{{ number_format($product->price) }}</div>
-            <div class="post-title" href="blog-details.html">{{ $product->name }}</div>
+            <div class="post-title" href="blog-details.html">{{ \Illuminate\Support\Str::limit($product->name, 18, $end='...') }}</div>
         </div>
     </a>
 </div>

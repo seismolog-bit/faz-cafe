@@ -4,7 +4,7 @@
 <div class="row gy-3 mb-6 justify-content-between">
     <div class="col-md-9 col-auto">
         <h2 class="mb-2 text-1100">Laporan Transaksi</h2>
-        <h5 class="text-700 fw-semi-bold">Laporan transaksi penjualan</h5>
+        <h5 class="text-700 fw-semi-bold">Jumlah laporan keuangan dihitung dari transaksi yang sudah terbayar</h5>
     </div>
     <div class="col-auto">
         <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
@@ -35,8 +35,9 @@
                 <i class="fs-4 lh-1 fa-solid fa-cart-shopping text-primary-500"></i>
                 <div class="ms-2">
                     <h2 class="mb-0">{{ $orders->count() }}
-                        <span class="fs-1 fw-semi-bold text-900 ms-2">Transaksi</span>
+                        {{-- <span class="fs-1 fw-semi-bold text-900 ms-2">Transaksi</span> --}}
                     </h2>
+                    <p class="text-800 fs--1 mb-0">Transaksi</p>
                 </div>
             </a>
         </div>
@@ -45,8 +46,9 @@
                 <span class="fs-4 lh-1 uil uil-rocket text-success-500"></span>
                 <div class="ms-2">
                     <h2 class="mb-0">{{ number_format($payment_cash + $payment_transfer) }}
-                        <span class="fs-1 fw-semi-bold text-900 ms-2">Total</span>
+                        {{-- <span class="fs-1 fw-semi-bold text-900 ms-2">Total</span> --}}
                     </h2>
+                    <p class="text-800 fs--1 mb-0">Total Pembayaran</p>
                 </div>
             </a>
         </div>
@@ -56,8 +58,9 @@
                 <i class="fs-4 lh-1 fa-solid fa-money-bill text-warning-500"></i>
                 <div class="ms-2">
                     <h2 class="mb-0"> {{ number_format($payment_cash) }}
-                        <span class="fs-1 fw-semi-bold text-900 ms-2">Cash</span>
+                        {{-- <span class="fs-1 fw-semi-bold text-900 ms-2">Cash</span> --}}
                     </h2>
+                    <p class="text-800 fs--1 mb-0">Pembayaran Cash</p>
                 </div>
             </a>
         </div>
@@ -66,8 +69,9 @@
                 <span class="fs-4 lh-1 uil uil-wallet text-danger-500"></span>
                 <div class="ms-2">
                     <h2 class="mb-0">{{ number_format($payment_transfer) }}
-                        <span class="fs-1 fw-semi-bold text-900 ms-2">Transfer</span>
+                        {{-- <span class="fs-1 fw-semi-bold text-900 ms-2">Transfer</span> --}}
                     </h2>
+                    <p class="text-800 fs--1 mb-0">Pembayaran Transfer</p>
                 </div>
             </a>
         </div>
@@ -101,17 +105,17 @@
                     <tr>
                         <th class="sort align-middle" scope="col" data-sort="invoice"
                             style="width:20%;  min-width: 150px;">INVOICE</th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="buyer"
+                        <th class="sort align-middle " scope="col" data-sort="buyer"
                             style="width:20%;  min-width: 200px;">PELANGGAN</th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="table"
+                        <th class="sort align-middle " scope="col" data-sort="table"
                             style="width: 10%; min-width: 100px;">MEJA</th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="card"
+                        <th class="sort align-middle text-end" scope="col" data-sort="card"
                             style="width: 10%; min-width: 100px;">CASH</th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="status"
+                        <th class="sort align-middle text-end" scope="col" data-sort="status"
                             style="width: 10%; min-width: 150px;"> TRANSFER</th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="total"
+                        <th class="sort align-middle text-end" scope="col" data-sort="total"
                             style="width: 10%; min-width: 200px;"> TOTAL</th>
-                        <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 15%;">
+                        <th class="sort align-middle pe-0" scope="col" data-sort="date" style="width: 15%;">
                             TANGGAL</th>
                         <th class="sort align-middle text-end pe-0" scope="col" data-sort="date" style="width: 15%;">
                             AKSI</th>
@@ -137,9 +141,9 @@
                             {{ number_format($order_items->where('order_id', $order->id)->where('payment_method', 'Transfer')->sum('grand_total')) }}
                         </td>
                         <td class="status white-space-nowrap text-end">
-                            {{ number_format($order->grand_total) }}
+                            {{ number_format($order_items->where('payment', 1)->sum('grand_total')) }}
                         </td>
-                        <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4 text-end">
+                        <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4">
                             {{ $order->created_at->format("d-m-Y H:i") }}
                         </td>
                         <td class="align-middle text-end white-space-nowrap pe-0 action">
