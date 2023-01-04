@@ -7,26 +7,28 @@
         <h2 class="mb-2 text-1100">Booking Meja</h2>
         <h5 class="text-700 fw-semi-bold">Daftar booking tanggal {{ $date }}</h5>
     </div>
-    <div class="col-auto">
+    <div class="col-md-6">
         <div class="row">
             <div class="col-md-6 col-auto">
                 <form action="{{ route('admin.reservations.index') }}" class="row gy-2 gx-3 align-items-center">
-                    <div class="col-md-6 p-0 col-auto">
+                    <div class="col-md-6 p-0">
                         <input class="form-control datetimepicker" id="datepicker" type="text" name="date" placeholder="dd-mm-yyyy"
                             data-options='{"disableMobile":true,"dateFormat":"d-m-Y"}' value="{{ $date }}" />
                     </div>
-                    <div class="col-auto">
+                    <div class="col-md-6">
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form>
             </div>
-            <div class="col-auto">
+            @hasrole(['admin', 'cashier'])
+            <div class="col-md-6">
                 <div class="flatpickr-input-container">
                     <a class="btn btn-primary" href="{{ route('admin.reservations.create') }}">
                         <span class="fas fa-plus me-2"></span>Tambah booking
                     </a>
                 </div>
             </div>
+            @endhasrole
         </div>
     </div>
 </div>
@@ -80,11 +82,13 @@
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-end py-2">
                                                 <a class="dropdown-item" href="{{ route('admin.reservations.show', $reservation->id) }}">View</a>
+                                                @hasrole(['admin', 'cashier'])
                                                 <a class="dropdown-item" href="{{ route('admin.reservations.edit', $reservation->id) }}">Edit</a>
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::open(['method' => 'DELETE','route' => ['admin.reservations.destroy', $reservation->id],'style'=>'display:inline']) !!}
                                                 {!! Form::submit('Hapus', ['class' => 'dropdown-item text-danger']) !!}
                                                 {!! Form::close() !!}
+                                                @endrole
                                             </div>
                                         </div>
                                     </td>

@@ -64,7 +64,7 @@
                             </div>
                         </a>
                     </span>
-                    @role(['admin', 'cashier'])
+                    @role(['admin', 'cashier', 'waiters'])
                     <span class="nav-item-wrapper">
                         <a class="nav-link {{ request()->is('admin/reservations*') ? 'active' : '' }} label-1"
                             href="{{ route('admin.reservations.index', ['date' => Carbon\Carbon::now()->format('d-m-Y')]) }}" role="button" data-bs-toggle=""
