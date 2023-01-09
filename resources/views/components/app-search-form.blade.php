@@ -1,7 +1,8 @@
 <div class="container">
     <div class="pt-3 rtl-flex-d-row-r">
-        <form action="#" method="">
-            <input class="form-control" type="search" placeholder="Cari menu">
+        <form action="{{ route('products.search') }}">
+            {{-- @csrf --}}
+            <input class="form-control" type="search" name="search" placeholder="Cari menu">
         </form>
         <!-- Alternative Search Options -->
         {{-- <div class="alternative-search-options">

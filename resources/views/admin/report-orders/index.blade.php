@@ -45,9 +45,7 @@
             <a href="#" class="d-flex align-items-center text-decoration-none">
                 <span class="fs-4 lh-1 uil uil-rocket text-success-500"></span>
                 <div class="ms-2">
-                    <h2 class="mb-0">{{ number_format($payment_cash + $payment_transfer) }}
-                        {{-- <span class="fs-1 fw-semi-bold text-900 ms-2">Total</span> --}}
-                    </h2>
+                    <h2 class="mb-0"> {{ number_format($order_items->where('payment', 1)->sum('grand_total')) }}</h2>
                     <p class="text-800 fs--1 mb-0">Total Pembayaran</p>
                 </div>
             </a>
@@ -57,9 +55,7 @@
                 {{-- <span class="fs-4 lh-1 uil uil-cash text-warning-500"></span> --}}
                 <i class="fs-4 lh-1 fa-solid fa-money-bill text-warning-500"></i>
                 <div class="ms-2">
-                    <h2 class="mb-0"> {{ number_format($payment_cash) }}
-                        {{-- <span class="fs-1 fw-semi-bold text-900 ms-2">Cash</span> --}}
-                    </h2>
+                    <h2 class="mb-0"> {{ number_format($order_items->where('payment', 1)->where('payment_method', 'Cash')->sum('grand_total')) }}</h2>
                     <p class="text-800 fs--1 mb-0">Pembayaran Cash</p>
                 </div>
             </a>
@@ -68,9 +64,7 @@
             <a href="#" class="d-flex align-items-center text-decoration-none">
                 <span class="fs-4 lh-1 uil uil-wallet text-danger-500"></span>
                 <div class="ms-2">
-                    <h2 class="mb-0">{{ number_format($payment_transfer) }}
-                        {{-- <span class="fs-1 fw-semi-bold text-900 ms-2">Transfer</span> --}}
-                    </h2>
+                    <h2 class="mb-0">{{ number_format($order_items->where('payment', 1)->where('payment_method', 'Transfer')->sum('grand_total')) }}</h2>
                     <p class="text-800 fs--1 mb-0">Pembayaran Transfer</p>
                 </div>
             </a>
@@ -135,13 +129,14 @@
                             {{ $order->table->name }} | Kartu {{ $order->card->code ?? '-' }}
                         </td>
                         <td class="table white-space-nowrap text-end">
+                            {{-- {{ number_format($order_items->where('order_id', $order->id)->where('payment_method', 'Cash')->sum('grand_total')) }} --}}
                             {{ number_format($order_items->where('order_id', $order->id)->where('payment_method', 'Cash')->sum('grand_total')) }}
                         </td>
                         <td class="total align-middle white-space-nowrap text-700 fs--1 ps-4 text-end">
                             {{ number_format($order_items->where('order_id', $order->id)->where('payment_method', 'Transfer')->sum('grand_total')) }}
                         </td>
                         <td class="status white-space-nowrap text-end">
-                            {{ number_format($order_items->where('payment', 1)->sum('grand_total')) }}
+                            {{ number_format($order_items->where('order_id', $order->id)->where('payment', 1)->sum('grand_total')) }}
                         </td>
                         <td class="date align-middle white-space-nowrap text-700 fs--1 ps-4">
                             {{ $order->created_at->format("d-m-Y H:i") }}

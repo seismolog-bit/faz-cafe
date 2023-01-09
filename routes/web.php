@@ -26,6 +26,7 @@ Route::get('/profil', [App\Http\Controllers\Public\PublicController::class, 'pro
 // product 
 Route::get('/products',[App\Http\Controllers\Public\ProductController::class,'index'])->name('products.index');
 Route::get('/products/{product}',[App\Http\Controllers\Public\ProductController::class,'show'])->name('products.show');
+Route::get('/search',[App\Http\Controllers\Public\ProductController::class,'search'])->name('products.search');
 
 Route::get('/o/{card}', [App\Http\Controllers\Public\CardController::class, 'show'])->name('card.show');
 

@@ -49,4 +49,13 @@ class ProductController extends Controller
             'relates' => $relates
         ]);
     }
+
+    public function search(Request $request)
+    {
+        return view('public.products.search', [
+            'products' => Product::where('archive', 0)
+                ->where('name', 'like', "%".$request->search."%")
+                ->get()
+        ]);
+    }
 }
